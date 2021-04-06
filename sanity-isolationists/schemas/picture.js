@@ -1,4 +1,3 @@
-import client from 'part:@sanity/base/client';
 import { AiOutlinePicture as icon } from 'react-icons/ai';
 
 export default {
@@ -7,7 +6,7 @@ export default {
   //  visible name
   title: 'Picture',
   icon,
-  type: 'document',
+  type: 'object',
   fields: [
     {
       name: 'image',
@@ -16,28 +15,28 @@ export default {
       options: {
         hotspot: true,
       },
-      validation: (Rule) => Rule.required(),
+      validation: Rule => Rule.required(),
     },
     {
       name: 'artist',
       title: 'Artist',
       type: 'reference',
       to: [{ type: 'artist' }],
-      validation: (Rule) => Rule.required(),
+      validation: Rule => Rule.required(),
     },
     {
       name: 'subject',
       title: 'Subject',
       type: 'reference',
       to: [{ type: 'subject' }],
-      validation: (Rule) => Rule.required(),
+      validation: Rule => Rule.required(),
     },
     {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
       options: {
-        source: async (doc) => {
+        source: async doc => {
           if (!doc.subject) {
             return doc.title;
           }
@@ -49,26 +48,19 @@ export default {
       },
     },
     {
-      name: 'width',
-      title: 'Width',
-      type: 'number',
-    },
-    {
-      name: 'height',
-      title: 'Height',
-      type: 'number',
+      name: 'dimensions',
+      title: 'Image dimensions',
+      type: 'dimensions',
     },
   ],
   preview: {
     select: {
       artist: 'artist.name',
-      subject: 'subject.name',
-      week: 'subject.week',
       media: 'image',
     },
-    prepare({ artist, subject, week, media }) {
+    prepare({ artist, media }) {
       return {
-        title: `${week}. ${artist} - ${subject}`,
+        title: artist,
         media,
       };
     },

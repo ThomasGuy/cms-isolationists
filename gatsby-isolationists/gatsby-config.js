@@ -1,16 +1,38 @@
-export default {
+const dotenv = require('dotenv');
+
+dotenv.config({
+  path: `.env.${process.env.NODE_ENV || 'development'}`,
+});
+
+// eslint-disable-next-line import/first
+const clientConfig = require('./client-config');
+
+const token = process.env.SANITY_READ_TOKEN;
+const isProd = process.env.NODE_ENV === 'production';
+
+module.exports = {
   siteMetadata: {
     title: `Wednesday Isolationists`,
     description: `A collective of UK Artists had no name before the Covid Lockdown, but with this new way of working from home they became the "Wednesday Isolationists"`,
     author: `TWGuy <twguy.weddev@gmail.com>`,
-    siteUrl: `https://gatsby.isolationists`,
+    siteUrl: `https://wednesday-isolationists.co.uk`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
     'gatsby-plugin-robots-txt',
-    `gatsby-transformer-sharp`,
+    'gatsby-plugin-image',
     `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    {
+      resolve: `gatsby-source-sanity`,
+      options: {
+        ...clientConfig.sanity,
+        token,
+        watchMode: !isProd,
+        overlayDrafts: !isProd && token,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -21,32 +43,16 @@ export default {
     {
       resolve: `gatsby-plugin-typography`,
       options: {
-        pathToConfigModule: `src/utils/typography`,
+        pathToConfigModule: `${__dirname}/src/utils/typography`,
       },
     },
     {
-      resolve: `gatsby-source-sanity`,
+      resolve: 'gatsby-plugin-react-svg',
       options: {
-        projectId: 'acjl8xx7',
-        dataset: 'production',
-        watchMode: true,
-        token: process.env.SANITY_TOKEN,
+        rule: {
+          include: /svg/,
+        },
       },
     },
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `gatsby-isolatioists`,
-        short_name: `wednesday-isolationists`,
-        start_url: `/`,
-        // background_color: `#663399`,
-        // theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`,
-      },
-    },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
   ],
 };

@@ -1,65 +1,32 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-
-  html {
-    ${'' /* font-size: 10px; */}
+  :root {
+    --title: #b88f83;
+    --background: #282c34;
+    --buttonf: #b22cb2;
+    --bg: #242526;
+    --bg-accent: #484a4d;
+    --text-color: #dadce1;
+    --nav-size: 60px;
+    --border: 1px solid #474a4d;
+    --border-radius: 8px;
+    --speed: 500ms;
   }
 
   body {
-    color: white;
-    background-color: #282c34;
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+    color: var(--text-color);
+    background-color: var(--background);
   }
 
-  main {
-    max-width: 1280px;
-
-
-
-
-
-
-
-    margin: 0 auto;
-    padding: 0 1.4rem;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
-  footer {
-    margin-top: auto;
-    margin-bottom: 0.4rem;
-    font-size: 0.7rem;
-    text-align: center;
-
-    & > a {
-      color: #27a0f1;
-      text-decoration: none;
-    }
-  }
-
-  .sticky {
-    position: stuckUpSticky;
-    top: 0;
-    ${'' /* z-index: 100; */}
-  }
-
-  .sticky-wrapper {
-    position: relative;
-    height: 3rem; /* We need to change this value */
-
-    @media screen and (min-width: 768px) {
-      height: 4rem;
-    }
-  }
-
-  .sticky .sticky-inner {
-    padding: 5px 0;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
+  a {
+    color: var(--text-color);
+    text-decoration: none;
   }
 `;

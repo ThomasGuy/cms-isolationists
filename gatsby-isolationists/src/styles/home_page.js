@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const PageTitle = styled.div`
-  color: #b88f83;
+  color: var(--title);
   text-align: center;
-  margin: 2rem 0;
-  font-size: 1.1rem;
+  margin: 1.5rem 0;
+  font-size: 1.2rem;
   font-weight: bold;
 
   @media screen and (min-width: 368px) {
@@ -28,32 +28,41 @@ export const PageTitle = styled.div`
 export const FrontPage = styled.article`
   margin: 1rem 0;
 
-  ul {
-    list-style-type: none;
+  .artistLink {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
 
-    a {
-      text-decoration: none;
-      color: white;
+  /* .linkItem {
+    font-size: 1.3rem;
+
+    &:nth-child(2) {
+      margin-left: 1rem;
     }
+  } */
 
-    li {
-      padding: 8px;
-      margin-bottom: 7px;
-      color: #ffffff;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  ul > li {
+    padding: 8px;
+    margin-bottom: 7px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 
-      &:hover {
-        background-color: #242424;
-      }
+    &:hover {
+      background-color: #242424;
     }
   }
 
   h3 {
     color: inherit;
+    opacity: 0.85;
+    font-weight: 400;
   }
 
   span {
-    font-size: 1.3rem;
-    color: #b88f83;
+    font-size: 1.4rem;
+    text-align: center;
+    color: var(--title);
   }
 `;

@@ -1,11 +1,11 @@
 {
   "root": true,
+  "api": {
+    "projectId": "ukbaygfd",
+    "dataset": "production"
+  },
   "project": {
     "name": "isolationists"
-  },
-  "api": {
-    "projectId": "acjl8xx7",
-    "dataset": "production"
   },
   "plugins": [
     "@sanity/base",
