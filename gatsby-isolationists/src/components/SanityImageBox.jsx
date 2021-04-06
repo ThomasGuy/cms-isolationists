@@ -5,6 +5,8 @@ import styled from 'styled-components';
 const Box = styled.div`
   width: 100%;
   height: auto;
+  display: flex;
+  flex-direction: column;
 
   p {
     text-align: center;
@@ -22,17 +24,17 @@ const Box = styled.div`
   }
 `;
 
-const SanityImageBox = ({ image, name, alt, idx, show = false, dimensions = {} }) => (
+const SanityImageBox = ({ image, title, alt, idx, show = false, dimensions = {} }) => (
   <Box>
     <GatsbyImage
-      image={image.asset.gatsbyImageData}
+      image={image}
       alt={alt}
       idx={idx}
       loading="eager"
       imgStyle={show && { border: '25px solid rgb(237, 237, 237)' }}
     />
     <p>
-      {name}
+      {title}
       {'  '}
       <span className="dim">
         {dimensions ? `  ${dimensions.height}x${dimensions.width}cm` : ``}

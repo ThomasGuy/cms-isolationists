@@ -1,4 +1,5 @@
 import { AiOutlinePicture as icon } from 'react-icons/ai';
+// import client from 'part:@sanity/base/client';
 
 export default {
   // Computer name
@@ -31,22 +32,22 @@ export default {
       to: [{ type: 'subject' }],
       validation: Rule => Rule.required(),
     },
-    {
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: async doc => {
-          if (!doc.subject) {
-            return doc.title;
-          }
-          const subject = await client.getDocument(doc.subject._ref);
-          const artist = await client.getDocument(doc.artist._ref);
-          return `${subject.name}-by-${artist.name}`;
-        },
-        maxLength: 150,
-      },
-    },
+    // {
+    //   name: 'slug',
+    //   title: 'Slug',
+    //   type: 'slug',
+    //   options: {
+    //     source: async doc => {
+    //       if (!doc.subject) {
+    //         return doc.title;
+    //       }
+    //       const subject = await client.getDocument(doc.subject._ref);
+    //       const artist = await client.getDocument(doc.artist._ref);
+    //       return `${subject.name}-by-${artist.name}`;
+    //     },
+    //     maxLength: 150,
+    //   },
+    // },
     {
       name: 'dimensions',
       title: 'Image dimensions',

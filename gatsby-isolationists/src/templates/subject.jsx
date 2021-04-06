@@ -1,28 +1,31 @@
 import React, { useRef } from 'react';
 import { getGatsbyImageData } from 'gatsby-source-sanity';
-import { GatsbyImage } from 'gatsby-plugin-image';
+import SanityImageBox from '../components/SanityImageBox';
 import sanityConfig from '../../client-config';
 
 import { GalleryLayout } from '../styles';
 
 const subjectPage = ({ pageContext }) => {
   const layout = useRef(null);
-  console.log({ pageContext });
   return (
     <GalleryLayout ref={layout}>
-      {pageContext.subject.Pictures.map(node => {
-        const { image, artist, _key } = node;
+      {pageContext.subject.Pictures.map((node, idx) => {
+        const { image, artist, dimensions } = node;
         const imageData = getGatsbyImageData(
-          image.asset.url,
+          image.asset.id,
           { maxWidth: 350 },
           sanityConfig.sanity,
         );
-        console.log(imageData);
+
         return (
-          <>
-            <GatsbyImage image={imageData} loading="eager" alt={artist.name} key={_key} />
-            <h3>{artist.name}</h3>
-          </>
+          <SanityImageBox
+            image={imageData}
+            alt={artist.name}
+            title={artist.name}
+            key={image.asset.id}
+            idx={idx}
+            dimensions={dimensions}
+          />
         );
       })}
     </GalleryLayout>

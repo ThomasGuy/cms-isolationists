@@ -1,13 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useRef } from 'react';
-import { useStaticQuery, graphql, Link } from 'gatsby';
-import { StaticImage, GatsbyImage } from 'gatsby-plugin-image';
+import { graphql, Link } from 'gatsby';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import { getGatsbyImageData } from 'gatsby-source-sanity';
 import sanityConfig from '../../client-config';
 import { FrontPage } from '../styles';
 // import SanityImageBox from '../components/SanityImageBox';
 
-const STUDIO_QUERY = graphql`
+export const STUDIO_QUERY = graphql`
   query {
     allSanityArtist {
       edges {
@@ -20,36 +20,40 @@ const STUDIO_QUERY = graphql`
           mug {
             asset {
               url
+              id
             }
           }
         }
+      }
+    }
+    file(relativePath: { regex: "/studio/" }) {
+      childImageSharp {
+        gatsbyImageData(layout: FULL_WIDTH, width: 1000, placeholder: TRACED_SVG)
       }
     }
   }
 `;
 
 function ArtistLink({ artist }) {
-  const imageData = getGatsbyImageData(artist.mug.asset.url, { maxWidth: 20 }, sanityConfig.sanity);
+  const imageData = getGatsbyImageData(artist.mug.asset.id, { maxWidth: 20 }, sanityConfig.sanity);
   return (
     <li>
       <Link className="artistLink" to={`/biography/${artist.slug.current}`}>
-        <GatsbyImage image={imageData} alt={artist.name} />
+        <GatsbyImage image={imageData} alt={artist.name} maxWwidth={20} />
         <h3>{artist.name}</h3>
       </Link>
     </li>
   );
 }
 
-export default function Home() {
+export default function Home({ data }) {
   const layout = useRef(null);
-  const { allSanityArtist } = useStaticQuery(STUDIO_QUERY);
-  const width = 500;
+  // const { allSanityArtist, file } = useStaticQuery(STUDIO_QUERY);
 
   return (
     <div ref={layout}>
-      <StaticImage
-        src="../images/studio.jpg"
-        width={width}
+      <GatsbyImage
+        image={data.file.childImageSharp.gatsbyImageData}
         title="Sally Scott Studio"
         alt="Sally Scott Studio"
       />
@@ -69,9 +73,11 @@ export default function Home() {
           <span>Wednesday Isolationists</span>
         </p>
         <ul>
-          {allSanityArtist.edges.map(({ node }) => (
+          {data.allSanityArtist.edges.map(({ node }) => (
             <ArtistLink key={node.id} artist={node} />
           ))}
         </ul>
       </FrontPage>
-    </}
+    </div>
+  );
+}
