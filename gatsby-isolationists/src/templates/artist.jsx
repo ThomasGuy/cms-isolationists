@@ -4,18 +4,18 @@ import SanityImageBox from '../components/SanityImageBox';
 
 import { GalleryLayout } from '../styles';
 
-const subjectPage = ({ data }) => {
+const artistPage = ({ data }) => {
   const layout = useRef(null);
   return (
     <GalleryLayout ref={layout}>
       {data.pics.edges.map(({ node }, idx) => {
-        const { image, artist, dimensions, id } = node;
+        const { image, subject, dimensions, id } = node;
 
         return (
           <SanityImageBox
             image={image.asset.gatsbyImageData}
-            alt={artist.name}
-            title={artist.name}
+            alt={subject.name}
+            title={subject.name}
             key={id}
             idx={idx}
             dimensions={dimensions}
@@ -26,17 +26,17 @@ const subjectPage = ({ data }) => {
   );
 };
 
-export default subjectPage;
+export default artistPage;
 
-export const SUBJECT_QUERY = graphql`
-  query SUBJECT_QUERY($slug: String!) {
+export const ARTIST_QUERY = graphql`
+  query ARTIST_QUERY($slug: String!) {
     pics: allSanityPicture(
-      filter: { subject: { slug: { current: { eq: $slug } } } }
-      sort: { fields: image___asset___fluid___aspectRatio }
+      filter: { artist: { slug: { current: { eq: $slug } } } }
+      sort: { fields: image___asset___fluid___aspectRatio, order: DESC }
     ) {
       edges {
         node {
-          artist {
+          subject {
             name
           }
           id

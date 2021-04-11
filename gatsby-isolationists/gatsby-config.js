@@ -20,10 +20,10 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
-    'gatsby-plugin-robots-txt',
     'gatsby-plugin-image',
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
+    'gatsby-plugin-react-svg',
     {
       resolve: `gatsby-source-sanity`,
       options: {
@@ -32,6 +32,7 @@ module.exports = {
         watchMode: !isProd,
         useCdn: isProd,
         overlayDrafts: !isProd && token,
+        apiVersion: '2021-04-01',
       },
     },
     {
@@ -45,14 +46,6 @@ module.exports = {
       resolve: `gatsby-plugin-typography`,
       options: {
         pathToConfigModule: `${__dirname}/src/utils/typography`,
-      },
-    },
-    {
-      resolve: 'gatsby-plugin-react-svg',
-      options: {
-        rule: {
-          include: /svg/,
-        },
       },
     },
   ],

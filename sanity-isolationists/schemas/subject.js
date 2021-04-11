@@ -38,18 +38,23 @@ export default {
       type: 'number',
       hidden: true,
     },
-    {
-      name: 'Pictures',
-      title: 'Pictures',
-      type: 'array',
-      of: [{ type: 'picture' }],
-    },
+    // {
+    //   name: 'Pictures',
+    //   title: 'Pictures',
+    //   type: 'array',
+    //   of: [{ type: 'reference', to: [{ type: 'picture' }] }],
+    // },
   ],
   orderings: [
     {
-      title: 'Week',
+      title: 'Week newest',
       name: 'week',
       by: [{ field: 'week', direction: 'desc' }],
+    },
+    {
+      title: 'Week oldest',
+      name: 'week',
+      by: [{ field: 'week', direction: 'asc' }],
     },
   ],
   preview: {
@@ -64,3 +69,5 @@ export default {
     },
   },
 };
+
+// of: [{ type: 'reference', to: [{ type: 'picture' }] }]

@@ -2,7 +2,8 @@
   "root": true,
   "api": {
     "projectId": "ukbaygfd",
-    "dataset": "production"
+    "dataset": "production",
+    "apiVersion": "2021-04-01"
   },
   "project": {
     "name": "isolationists"
@@ -16,9 +17,7 @@
   ],
   "env": {
     "development": {
-      "plugins": [
-        "@sanity/vision"
-      ]
+      "plugins": ["@sanity/vision"]
     }
   },
   "parts": [

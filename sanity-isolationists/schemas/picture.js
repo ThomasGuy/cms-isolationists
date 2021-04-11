@@ -1,5 +1,10 @@
 import { AiOutlinePicture as icon } from 'react-icons/ai';
-// import client from 'part:@sanity/base/client';
+// eslint-disable-next-line import/no-unresolved
+import sanityClient from 'part:@sanity/base/client';
+
+const client = sanityClient.withConfig({
+  apiVersion: '2021-04-01',
+});
 
 export default {
   // Computer name
@@ -7,7 +12,7 @@ export default {
   //  visible name
   title: 'Picture',
   icon,
-  type: 'object',
+  type: 'document',
   fields: [
     {
       name: 'image',
@@ -32,26 +37,33 @@ export default {
       to: [{ type: 'subject' }],
       validation: Rule => Rule.required(),
     },
-    // {
-    //   name: 'slug',
-    //   title: 'Slug',
-    //   type: 'slug',
-    //   options: {
-    //     source: async doc => {
-    //       if (!doc.subject) {
-    //         return doc.title;
-    //       }
-    //       const subject = await client.getDocument(doc.subject._ref);
-    //       const artist = await client.getDocument(doc.artist._ref);
-    //       return `${subject.name}-by-${artist.name}`;
-    //     },
-    //     maxLength: 150,
-    //   },
-    // },
+    {
+      name: 'sold',
+      title: 'Sold',
+      type: 'boolean',
+      options: {
+        layout: 'checkbox',
+      },
+      description: 'Mark this picture as sold',
+    },
+    {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: async doc => {
+          const subject = await client.getDocument(doc.subject._ref);
+          const artist = await client.getDocument(doc.artist._ref);
+          return `${subject.name}-by-${artist.name}`;
+        },
+        maxLength: 150,
+      },
+    },
     {
       name: 'dimensions',
       title: 'Image dimensions',
       type: 'dimensions',
+      description: 'Image dimensions',
     },
   ],
   preview: {

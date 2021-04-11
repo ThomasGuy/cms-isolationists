@@ -8,28 +8,11 @@ const subjectPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
   const result = await graphql(`
     query {
-      allSanitySubject {
+      subjects: allSanitySubject {
         edges {
           node {
-            name
             slug {
               current
-            }
-            week
-            Pictures {
-              artist {
-                name
-              }
-              dimensions {
-                height
-                width
-              }
-              image {
-                asset {
-                  url
-                  id
-                }
-              }
             }
           }
         }
@@ -45,9 +28,8 @@ const subjectPages = async ({ graphql, actions, reporter }) => {
 
   // Create pages for each markdown file.
   const subjectTemplate = path.resolve(`src/templates/subject.jsx`);
-  result.data.allSanitySubject.edges.forEach(({ node }) => {
+  result.data.subjects.edges.forEach(({ node }) => {
     const slug = node.slug.current;
-    const title = node.name;
     // eslint-disable-next-line no-shadow
     const path = `/gallery/subject/${slug}`;
     createPage({
@@ -56,14 +38,54 @@ const subjectPages = async ({ graphql, actions, reporter }) => {
       // In your blog post template's graphql query, you can use pagePath
       // as a GraphQL variable to query for data from the markdown file.
       context: {
-        title,
         pagePath: path,
-        subject: node,
+        slug,
+      },
+    });
+  });
+};
+
+const artistPages = async ({ graphql, actions, reporter }) => {
+  const { createPage } = actions;
+  const result = await graphql(`
+    query {
+      artists: allSanityArtist {
+        edges {
+          node {
+            slug {
+              current
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  // Handle errors
+  if (result.errors) {
+    reporter.panicOnBuild(`Error while running GraphQL query.`);
+    return;
+  }
+
+  // Create pages for each markdown file.
+  const artistTemplate = path.resolve(`src/templates/artist.jsx`);
+  result.data.artists.edges.forEach(({ node }) => {
+    const slug = node.slug.current;
+    // eslint-disable-next-line no-shadow
+    const path = `/gallery/artist/${slug}`;
+    createPage({
+      path,
+      component: artistTemplate,
+      // In your blog post template's graphql query, you can use pagePath
+      // as a GraphQL variable to query for data from the markdown file.
+      context: {
+        pagePath: path,
+        slug,
       },
     });
   });
 };
 
 exports.createPages = async params => {
-  await Promise.all([subjectPages(params)]);
+  await Promise.all([subjectPages(params), artistPages(params)]);
 };
