@@ -12,7 +12,7 @@ export default {
       name: 'name',
       title: 'Artists name',
       type: 'string',
-      description: 'Artist full name',
+      description: 'Artist name',
       validation: Rule => Rule.required(),
     },
     {
@@ -35,7 +35,6 @@ export default {
       name: 'email',
       title: 'email',
       type: 'string',
-      validation: Rule => Rule.required(),
     },
     {
       name: 'mug',
@@ -72,6 +71,19 @@ export default {
       title: 'Social Media',
       name: 'social',
       type: 'social',
+    },
+    {
+      name: 'order',
+      title: 'Order',
+      type: 'number',
+      hidden: true,
+    },
+  ],
+  orderings: [
+    {
+      title: 'Artist Name',
+      name: 'artist',
+      by: [{ field: 'name', direction: 'asc' }],
     },
   ],
 };

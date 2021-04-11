@@ -14,10 +14,20 @@ export const GlobalStyle = createGlobalStyle`
     --speed: 500ms;
   }
 
+  html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+    margin: 0;
+    padding: 0;
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
   body {
     color: var(--text-color);
     background-color: var(--background);
-    font-size: 10px;
   }
 
   ul {

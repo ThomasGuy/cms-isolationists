@@ -7,9 +7,7 @@ const client = sanityClient.withConfig({
 });
 
 export default {
-  // Computer name
   name: 'picture',
-  //  visible name
   title: 'Picture',
   icon,
   type: 'document',
@@ -58,6 +56,7 @@ export default {
         },
         maxLength: 150,
       },
+      validation: Rule => Rule.required(),
     },
     {
       name: 'dimensions',
@@ -65,15 +64,40 @@ export default {
       type: 'dimensions',
       description: 'Image dimensions',
     },
+    {
+      name: 'order',
+      title: 'Order',
+      type: 'number',
+      hidden: true,
+    },
+  ],
+  orderings: [
+    {
+      title: 'Artist name',
+      name: 'artist',
+      by: [{ field: 'artist.name', direction: 'asc' }],
+    },
+    {
+      title: 'Subject week desc',
+      name: 'subject',
+      by: [{ field: 'subject.week', direction: 'desc' }],
+    },
+    {
+      title: 'Subject name desc',
+      name: 'subject',
+      by: [{ field: 'subject.name', direction: 'desc' }],
+    },
   ],
   preview: {
     select: {
       artist: 'artist.name',
+      subject: 'subject.name',
+      week: 'subject.week',
       media: 'image',
     },
-    prepare({ artist, media }) {
+    prepare({ artist, subject, week, media }) {
       return {
-        title: artist,
+        title: `${artist} - ${week}. ${subject}`,
         media,
       };
     },

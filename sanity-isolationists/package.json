@@ -24,7 +24,8 @@
     "prop-types": "^15.6",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-icons": "^3.11.0"
+    "react-icons": "^3.11.0",
+    "sanity-plugin-order-documents": "^0.0.14"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
