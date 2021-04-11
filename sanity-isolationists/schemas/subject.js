@@ -42,7 +42,7 @@ export default {
     //   name: 'Pictures',
     //   title: 'Pictures',
     //   type: 'array',
-    //   of: [{ type: 'reference', to: [{ type: 'picture' }] }],
+    // of: [{ type: 'reference', to: [{ type: 'picture' }] }],
     // },
   ],
   orderings: [
@@ -69,5 +69,3 @@ export default {
     },
   },
 };
-
-// of: [{ type: 'reference', to: [{ type: 'picture' }] }]
