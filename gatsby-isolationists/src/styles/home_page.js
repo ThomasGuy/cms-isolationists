@@ -26,7 +26,10 @@ export const PageTitle = styled.div`
 `;
 
 export const FrontPage = styled.article`
-  margin: 1rem 0;
+  margin: 1rem;
+  max-width: 100rem;
+  font-size: 1.8rem;
+  line-height: 1.6;
 
   .artistLink {
     display: flex;
@@ -52,16 +55,17 @@ export const FrontPage = styled.article`
     &:hover {
       background-color: #242424;
     }
-  }
 
-  h3 {
-    color: inherit;
-    opacity: 0.85;
-    font-weight: 400;
+    h3 {
+      color: inherit;
+      opacity: 0.85;
+      font-weight: 400;
+      font-size: 2.2.rem;
+    }
   }
 
   span {
-    font-size: 1.4rem;
+    font-size: 2.4rem;
     text-align: center;
     color: var(--title);
   }

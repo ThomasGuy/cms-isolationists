@@ -17,7 +17,7 @@ export const STUDIO_QUERY = graphql`
           }
           mug {
             asset {
-              gatsbyImageData(layout: FIXED, width: 25, height: 30)
+              gatsbyImageData(layout: FIXED, width: 30, height: 30)
             }
           }
         }

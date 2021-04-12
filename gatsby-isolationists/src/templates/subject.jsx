@@ -13,9 +13,9 @@ const subjectPage = ({ data }) => {
 
         return (
           <SanityImageBox
-            image={image.asset.gatsbyImageData}
+            image={image}
             alt={artist.name}
-            title={artist.name}
+            name={artist.name}
             key={id}
             idx={idx}
             dimensions={dimensions}
@@ -32,7 +32,7 @@ export const SUBJECT_QUERY = graphql`
   query SUBJECT_QUERY($slug: String!) {
     pics: allSanityPicture(
       filter: { subject: { slug: { current: { eq: $slug } } } }
-      sort: { fields: image___asset___fluid___aspectRatio }
+      sort: { fields: image___asset___fluid___aspectRatio, order: DESC }
     ) {
       edges {
         node {
@@ -42,7 +42,7 @@ export const SUBJECT_QUERY = graphql`
           id
           image {
             asset {
-              gatsbyImageData(layout: CONSTRAINED, width: 350, placeholder: BLURRED)
+              gatsbyImageData(layout: CONSTRAINED, width: 450, placeholder: BLURRED)
             }
           }
           dimensions {
