@@ -74,7 +74,6 @@ export const Col = styled.div`
     }
   }
 
-  }
   a {
     text-decoration: none;
     color: white;

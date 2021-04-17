@@ -15,11 +15,14 @@
     "@sanity/default-login",
     "@sanity/desk-tool",
     "order-documents",
-    "@sanity/dashboard"
+    "@sanity/dashboard",
+    "dashboard-widget-gatsby"
   ],
   "env": {
     "development": {
-      "plugins": ["@sanity/vision"]
+      "plugins": [
+        "@sanity/vision"
+      ]
     }
   },
   "parts": [
