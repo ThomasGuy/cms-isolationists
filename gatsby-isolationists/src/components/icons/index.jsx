@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListIcon, HamburgerIcon, CaretIcon } from './icons';
+import { ListIcon, HamburgerIcon, CaretIcon, XIcon } from './icons';
 
 function Icon(props) {
   switch (props.symbol) {
@@ -9,6 +9,8 @@ function Icon(props) {
       return <ListIcon />;
     case 'caret':
       return <CaretIcon />;
+    case 'x':
+      return <XIcon />;
     default:
       return <span>Unknown icon: {props.symbol}</span>;
   }

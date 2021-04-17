@@ -1,67 +1,42 @@
+/* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
 
-function SEO({ description, lang, meta, title }) {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-          }
+function SEO({ children, location, description, title, imageSrc }) {
+  const { site } = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+          siteURL
+          description
         }
       }
-    `,
-  );
-
-  const metaDescription = description || site.siteMetadata.description;
-  const defaultTitle = site.siteMetadata?.title;
+    }
+  `);
 
   return (
-    <Helmet
-      htmlAttributes={{
-        lang,
-      }}
-      title={title}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: site.siteMetadata?.author || ``,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-      ].concat(meta)}
-    />
+    <Helmet titleTemplate={`%s - ${site.siteMetadata.title}`}>
+      <html lang="en" />
+      <title>{title}</title>
+      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      <link rel="alternate icon" href="/favicon.ico" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta charSet="utf-8" />
+      <meta name="description" content={site.siteMetadata.description} />
+      {location && <meta property="og:url" content={location.href} />}
+      <meta property="og:image" content={imageSrc || '/bell.svg'} />
+      <meta property="og:title" content={title} key="ogtitle" />
+      <meta property="og:site_name" content={site.siteMetadata.title} key="ogsitename" />
+      <meta
+        property="og:description"
+        content={description || site.siteMetadata.description}
+        key="ogdescription"
+      />
+      {children}
+    </Helmet>
   );
 }
 
