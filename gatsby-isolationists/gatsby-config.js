@@ -15,7 +15,7 @@ module.exports = {
     title: `Wednesday Isolationists`,
     description: `A collective of UK Artists had no name before the Covid Lockdown, but with this new way of working from home they became the "Wednesday Isolationists"`,
     author: `TWGuy <twguy.weddev@gmail.com>`,
-    siteUrl: `https://wednesday-isolationists.co.uk`,
+    siteURL: `https://wednesday-isolationists.co.uk`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

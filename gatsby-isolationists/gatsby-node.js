@@ -93,31 +93,33 @@ const bioPages = async ({ graphql, actions, reporter }) => {
         edges {
           node {
             id
+            biography
+            education
+            email
             name
-            slug {
-              current
-            }
-            social {
-              twitter
-              instagram
-              facebook
-            }
             links {
               href
               name
             }
-            email
-            education
-            biography
+            social {
+              instagram
+              facebook
+              twitter
+            }
             mainImage {
               asset {
+                url
                 gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED)
               }
             }
             mug {
               asset {
-                gatsbyImageData(layout: FIXED, width: 200)
+                url
+                gatsbyImageData(layout: CONSTRAINED, width: 200, placeholder: BLURRED)
               }
+            }
+            slug {
+              current
             }
           }
         }
@@ -132,7 +134,9 @@ const bioPages = async ({ graphql, actions, reporter }) => {
   }
 
   const bioTemplate = path.resolve(`src/templates/biography.jsx`);
-  result.data.bio.edges.forEach(({ node }) => {
+  const biographies = (result.data.bio || {}).edges || [];
+
+  biographies.forEach(({ node }) => {
     const slug = node.slug.current;
     const path = `/biography/${slug}`;
     createPage({
@@ -143,6 +147,7 @@ const bioPages = async ({ graphql, actions, reporter }) => {
       context: {
         pagePath: path,
         node,
+        slug,
       },
     });
   });
