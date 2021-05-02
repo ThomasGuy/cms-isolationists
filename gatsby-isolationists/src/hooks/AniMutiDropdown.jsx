@@ -2,9 +2,7 @@ import { AnimatePresence } from 'framer-motion';
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import { Dropdown, MenuItemStyled, Menu } from '../styles';
-import CogIcon from '../images/svg/cog.svg';
-import ChevronIcon from '../images/svg/chevron.svg';
-import ArrowIcon from '../images/svg/arrow.svg';
+import Icon from '../components/icons';
 
 function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
   const [activeMenu, setActiveMenu] = useState('main');
@@ -40,15 +38,15 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             key="main">
             <DropdownItem key="title">Gallery</DropdownItem>
             <DropdownItem
-              leftIcon={<CogIcon />}
-              rightIcon={<ChevronIcon />}
+              leftIcon={<Icon symbol="cog" />}
+              rightIcon={<Icon symbol="chevron" />}
               goToMenu="Artists"
               key="artist">
               Artists
             </DropdownItem>
             <DropdownItem
-              leftIcon={<CogIcon />}
-              rightIcon={<ChevronIcon />}
+              leftIcon={<Icon symbol="cog" />}
+              rightIcon={<Icon symbol="chevron" />}
               goToMenu="Subjects"
               key="subject">
               Subjects
@@ -62,7 +60,7 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             key="artist">
-            <DropdownItem leftIcon={<ArrowIcon />} goToMenu="main" key="title">
+            <DropdownItem leftIcon={<Icon symbol="arrow" />} goToMenu="main" key="title">
               Artists
             </DropdownItem>
             {artists.nodes.map(artist => (
@@ -77,7 +75,7 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             animate={{ height: 'auto', opacity: 1, x: '0%' }}
             exit={{ height: 0, opacity: 0, x: '110%' }}
             key="subject">
-            <DropdownItem leftIcon={<ArrowIcon />} goToMenu="main" key="title">
+            <DropdownItem leftIcon={<Icon symbol="arrow" />} goToMenu="main" key="title">
               Subjects
             </DropdownItem>
             {subjects.nodes.map((subject, idx) => (
