@@ -31,14 +31,14 @@ const subjectPages = async ({ graphql, actions, reporter }) => {
   const subjectTemplate = path.resolve(`src/templates/subject.jsx`);
   result.data.subjects.edges.forEach(({ node }) => {
     const slug = node.slug.current;
-    const path = `/gallery/subject/${slug}`;
+    const pagePath = `/gallery/subject/${slug}`;
     createPage({
-      path,
+      path: pagePath,
       component: subjectTemplate,
       // In your blog post template's graphql query, you can use pagePath
       // as a GraphQL variable to query for data from the markdown file.
       context: {
-        pagePath: path,
+        pagePath,
         slug,
       },
     });
@@ -71,14 +71,14 @@ const artistPages = async ({ graphql, actions, reporter }) => {
   const artistTemplate = path.resolve(`src/templates/artist.jsx`);
   result.data.artists.edges.forEach(({ node }) => {
     const slug = node.slug.current;
-    const path = `/gallery/artist/${slug}`;
+    const pagePath = `/gallery/artist/${slug}`;
     createPage({
-      path,
+      path: pagePath,
       component: artistTemplate,
       // In your blog post template's graphql query, you can use pagePath
       // as a GraphQL variable to query for data from the markdown file.
       context: {
-        pagePath: path,
+        pagePath,
         slug,
       },
     });
@@ -138,14 +138,14 @@ const bioPages = async ({ graphql, actions, reporter }) => {
 
   biographies.forEach(({ node }) => {
     const slug = node.slug.current;
-    const path = `/biography/${slug}`;
+    const pagePath = `/biography/${slug}`;
     createPage({
-      path,
+      path: pagePath,
       component: bioTemplate,
       // In your blog post template's graphql query, you can use pagePath
       // as a GraphQL variable to query for data from the markdown file.
       context: {
-        pagePath: path,
+        pagePath,
         node,
         slug,
       },
@@ -153,6 +153,76 @@ const bioPages = async ({ graphql, actions, reporter }) => {
   });
 };
 
+const homePage = async ({ graphql, actions, reporter }) => {
+  const { createPage } = actions;
+  const result = await graphql(`
+    query {
+      mugs: allSanityArtist {
+        edges {
+          node {
+            id
+            name
+            slug {
+              current
+            }
+            mug {
+              asset {
+                url
+                gatsbyImageData(
+                  layout: FIXED
+                  placeholder: NONE
+                  width: 50
+                  aspectRatio: 1
+                  fit: CROP
+                )
+              }
+            }
+          }
+        }
+      }
+      studio: file(relativePath: { regex: "/studio/" }) {
+        childImageSharp {
+          gatsbyImageData(
+            layout: FULL_WIDTH
+            placeholder: TRACED_SVG
+            tracedSVGOptions: { alphaMax: 1.8 }
+          )
+        }
+      }
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `);
+
+  // Handle errors
+  if (result.errors) {
+    reporter.panicOnBuild(`Error while running homepage GraphQL query.`);
+    return;
+  }
+
+  const homepageTemplate = path.resolve(`src/templates/Homepage.jsx`);
+  const { mugs, studio, site } = result.data;
+  const pagePath = '/home/';
+  createPage({
+    path: pagePath,
+    component: homepageTemplate,
+    context: {
+      pagePath,
+      mugs: mugs.edges,
+      studio,
+      title: site.siteMetadata.title,
+    },
+  });
+};
+
 exports.createPages = async params => {
-  await Promise.all([subjectPages(params), artistPages(params), bioPages(params)]);
+  await Promise.all([
+    subjectPages(params),
+    artistPages(params),
+    bioPages(params),
+    homePage(params),
+  ]);
 };

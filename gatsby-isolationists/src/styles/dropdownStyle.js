@@ -1,10 +1,10 @@
-import { motion } from 'framer-motion';
+import { animated } from 'react-spring';
 import styled from 'styled-components';
 
 // Dropdown styles
 export const Dropdown = styled.div`
   position: absolute;
-  top: calc(var(--nav-size) * 0.95);
+  top: calc(var(--navHeight) * 0.95);
   right: 0.4rem;
   width: 300px;
   background-color: var(--bg);
@@ -40,6 +40,6 @@ export const MenuItemStyled = styled.div`
   }
 `;
 
-export const Menu = styled(motion.div)`
+export const Menu = styled(animated.div)`
   width: 100%;
 `;

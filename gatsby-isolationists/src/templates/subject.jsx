@@ -1,11 +1,18 @@
 import { graphql } from 'gatsby';
-import React, { useRef } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { TitleContext } from '../components/Layout';
 import SanityImageBox from '../components/SanityImageBox';
 
 import { GalleryLayout } from '../styles';
 
 const subjectPage = ({ data }) => {
-  const layout = useRef(null);
+  const { setTitle } = useContext(TitleContext);
+  const { name } = data.title;
+
+  useEffect(() => {
+    setTitle(name);
+  }, [name]);
+
   const propsArray = data.pics.edges.map(({ node }, idx) => {
     const { image, artist, dimensions, id, sold } = node;
 
@@ -20,12 +27,13 @@ const subjectPage = ({ data }) => {
       dimensions,
     };
   });
+  // eslint-disable-next-line func-names
   const sorted = propsArray.sort(function (p1, p2) {
     return p2.aspectRatio - p1.aspectRatio;
   });
 
   return (
-    <GalleryLayout ref={layout}>
+    <GalleryLayout>
       {sorted.map(props => {
         const { dimensions, ...others } = props;
         return <SanityImageBox dimensions={dimensions} {...others} />;
@@ -68,6 +76,9 @@ export const SUBJECT_QUERY = graphql`
           }
         }
       }
+    }
+    title: sanitySubject(slug: { current: { eq: $slug } }) {
+      name
     }
   }
 `;

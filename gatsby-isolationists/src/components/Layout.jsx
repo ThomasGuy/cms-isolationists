@@ -11,7 +11,7 @@ import { BreakpointProvider } from '../hooks/useBreakpoint';
 
 const ContentStyles = styled.div`
   display: grid;
-  place-content: center center;
+  justify-content: center;
   gap: 2rem;
   max-width: 1280px;
   min-height: 100vh;

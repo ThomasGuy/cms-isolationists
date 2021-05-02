@@ -48,5 +48,6 @@ module.exports = {
         pathToConfigModule: `${__dirname}/src/utils/typography`,
       },
     },
+    'gatsby-plugin-gatsby-cloud',
   ],
 };

@@ -2,16 +2,17 @@ import { AnimatePresence } from 'framer-motion';
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import { Dropdown, MenuItemStyled, Menu } from '../styles';
-import CogIcon from '../svg/cog.svg';
-import ChevronIcon from '../svg/chevron.svg';
-import ArrowIcon from '../svg/arrow.svg';
+import CogIcon from '../images/svg/cog.svg';
+import ChevronIcon from '../images/svg/chevron.svg';
+import ArrowIcon from '../images/svg/arrow.svg';
 
 function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
   const [activeMenu, setActiveMenu] = useState('main');
 
   function DropdownItem({ goToMenu, leftIcon, rightIcon, children }) {
+    const clickHandler = () => goToMenu && setActiveMenu(goToMenu);
     return (
-      <MenuItemStyled onClick={() => goToMenu && setActiveMenu(goToMenu)}>
+      <MenuItemStyled onClick={clickHandler}>
         <span className="icon-button">{leftIcon}</span>
         {children}
         <span className="icon-right">{rightIcon}</span>

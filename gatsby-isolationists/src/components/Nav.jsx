@@ -4,7 +4,6 @@ import React, { useRef } from 'react';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 
-import ChevronIcon from '../svg/chevron.svg';
 import Icon from './icons';
 import useDetectOutsideClick from '../hooks/useDetectOutsideClick';
 import MultiDropdownMenu from '../hooks/AniMutiDropdown';
@@ -12,6 +11,8 @@ import MultiDropdownMenu from '../hooks/AniMutiDropdown';
 const NavbarNavItem = styled.div`
   position: relative;
   margin-bottom: 0;
+  /* display: grid;
+  place-items: center center; */
 
   /* Icon Button */
   .icon-button {
@@ -24,6 +25,7 @@ const NavbarNavItem = styled.div`
     margin: 2px;
     display: grid;
     place-items: center center;
+    justify-content: center;
     transition: filter 300ms;
   }
 
@@ -89,6 +91,7 @@ export default function Nav({ title }) {
         nodes {
           id
           name
+          week
           slug {
             current
           }
@@ -109,8 +112,8 @@ export default function Nav({ title }) {
   return (
     <Header>
       <h2 className="title">{title}</h2>
-      <NavLink icon={<ChevronIcon />} key="Home" />
-      <NavItem icon={<Icon symbol="hamburger" />} key="Caret" open={open} setOpen={setOpen}>
+      <NavLink icon={<Icon symbol="home" />} key="Home" />
+      <NavItem icon={<Icon symbol="list" />} key="Caret" open={open} setOpen={setOpen}>
         <MultiDropdownMenu artists={artists} subjects={subjects} dropdownRef={dropdownRef} />
       </NavItem>
     </Header>

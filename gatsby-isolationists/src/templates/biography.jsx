@@ -1,15 +1,19 @@
 /* eslint-disable consistent-return */
-import React, { useRef } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { FaEnvelope } from 'react-icons/fa';
+import { TitleContext } from '../components/Layout';
 import SanityImageBox from '../components/SanityImageBox';
 import SEO from '../components/seo';
 import { Image, Grid, Row, Col, Title, Bio } from '../styles';
 
 const BioPage = ({ pageContext }) => {
-  const layout = useRef(null);
-
   const { id, name, social, links, email, education, biography, mug, mainImage } = pageContext.node;
+  const { setTitle } = useContext(TitleContext);
+
+  useEffect(() => {
+    setTitle(name);
+  }, [name]);
 
   function makeId(slug, idx) {
     return `${slug}-${idx}`;
@@ -18,7 +22,7 @@ const BioPage = ({ pageContext }) => {
 
   return (
     <>
-      <Grid ref={layout}>
+      <Grid>
         <Row>
           <SEO title={name} imageSrc={mainImage.asset.url} />
           <SanityImageBox name="" key={id} image={mainImage} alt={name} />

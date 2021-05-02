@@ -1,8 +1,10 @@
 import React from 'react';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
+import { SoldTag } from '../styles';
 
 const Box = styled.div`
+  position: relative;
   margin: 0 auto;
   p {
     text-align: center;
@@ -26,7 +28,15 @@ const Box = styled.div`
   }
 `;
 
-const SanityImageBox = ({ image, name, alt, idx, show = false, dimensions = null }) => {
+const SanityImageBox = ({
+  image,
+  name,
+  alt,
+  idx,
+  show = false,
+  dimensions = null,
+  sold = false,
+}) => {
   return (
     <Box>
       <GatsbyImage
@@ -46,6 +56,7 @@ const SanityImageBox = ({ image, name, alt, idx, show = false, dimensions = null
           </span>
         </p>
       )}
+      {sold && <SoldTag>SOLD</SoldTag>}
     </Box>
   );
 };
