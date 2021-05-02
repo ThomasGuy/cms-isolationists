@@ -2,7 +2,10 @@ import { AnimatePresence } from 'framer-motion';
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import { Dropdown, MenuItemStyled, Menu } from '../styles';
-import Icon from '../components/icons';
+
+import CogIcon from '../components/icons/svg/cog.svg';
+import ChevronIcon from '../components/icons/svg/chevron.svg';
+import ArrowIcon from '../components/icons/svg/arrow.svg';
 
 function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
   const [activeMenu, setActiveMenu] = useState('main');
@@ -38,15 +41,15 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             key="main">
             <DropdownItem key="title">Gallery</DropdownItem>
             <DropdownItem
-              leftIcon={<Icon symbol="cog" />}
-              rightIcon={<Icon symbol="chevron" />}
+              leftIcon={<CogIcon />}
+              rightIcon={<ChevronIcon />}
               goToMenu="Artists"
               key="artist">
               Artists
             </DropdownItem>
             <DropdownItem
-              leftIcon={<Icon symbol="cog" />}
-              rightIcon={<Icon symbol="chevron" />}
+              leftIcon={<CogIcon />}
+              rightIcon={<ChevronIcon />}
               goToMenu="Subjects"
               key="subject">
               Subjects
@@ -60,7 +63,7 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             key="artist">
-            <DropdownItem leftIcon={<Icon symbol="arrow" />} goToMenu="main" key="title">
+            <DropdownItem leftIcon={<ArrowIcon />} goToMenu="main" key="title">
               Artists
             </DropdownItem>
             {artists.nodes.map(artist => (
@@ -75,14 +78,17 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             animate={{ height: 'auto', opacity: 1, x: '0%' }}
             exit={{ height: 0, opacity: 0, x: '110%' }}
             key="subject">
-            <DropdownItem leftIcon={<Icon symbol="arrow" />} goToMenu="main" key="title">
+            <DropdownItem leftIcon={<ArrowIcon />} goToMenu="main" key="title">
               Subjects
             </DropdownItem>
-            {subjects.nodes.map((subject, idx) => (
-              <DropdownLink data={subject} midSlug="subject" key={subject.id}>
-                {`${idx + 1}. ${subject.name}`}
-              </DropdownLink>
-            ))}
+            {subjects.nodes.map(subject => {
+              const { name, week, id } = subject;
+              return (
+                <DropdownLink data={subject} midSlug="subject" key={id}>
+                  {`${week}. ${name}`}
+                </DropdownLink>
+              );
+            })}
           </Menu>
         )}
       </AnimatePresence>

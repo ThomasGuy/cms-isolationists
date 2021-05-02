@@ -22,6 +22,7 @@ const NavbarNavItem = styled.div`
     background-color: var(--button);
     border-radius: 50%;
     padding: 5px;
+    padding-left: 3px;
     margin: 2px;
     display: grid;
     place-items: center center;
@@ -87,7 +88,7 @@ export default function Nav({ title }) {
   const [open, setOpen] = useDetectOutsideClick(dropdownRef, false);
   const { artists, subjects } = useStaticQuery(graphql`
     query HeaderQuery2 {
-      subjects: allSanitySubject(sort: { fields: week, order: ASC }) {
+      subjects: allSanitySubject(sort: { fields: week, order: DESC }) {
         nodes {
           id
           name

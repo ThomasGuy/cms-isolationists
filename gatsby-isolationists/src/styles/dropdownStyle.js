@@ -16,6 +16,7 @@ export const Dropdown = styled.div`
 `;
 
 export const MenuItemStyled = styled.div`
+  font-size: 1.8rem;
   height: 50px;
   display: flex;
   align-items: center;
