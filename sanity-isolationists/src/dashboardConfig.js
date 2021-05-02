@@ -3,7 +3,7 @@ export default {
     {
       name: 'gatsby',
       options: {
-        sites: [{ siteUrl: 'https://cmsisolationists.gatsbyjs.io/' }],
+        sites: [{ siteUrl: '' }],
       },
     },
   ],

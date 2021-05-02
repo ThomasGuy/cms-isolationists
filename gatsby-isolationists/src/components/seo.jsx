@@ -2,37 +2,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { useStaticQuery, graphql } from 'gatsby';
+import useSiteMetadata from '../hooks/useSiteMetadata';
 
 function SEO({ children, location, description, title, imageSrc }) {
-  const { site } = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          title
-          siteURL
-          description
-        }
-      }
-    }
-  `);
+  const { siteTitle, siteDescription, siteURL } = useSiteMetadata();
 
   return (
-    <Helmet titleTemplate={`%s - ${site.siteMetadata.title}`}>
+    <Helmet titleTemplate={`%s - ${siteTitle}`}>
       <html lang="en" />
-      <title>{title}</title>
+      <title>{title || siteTitle}</title>
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <link rel="alternate icon" href="/favicon.ico" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta charSet="utf-8" />
-      <meta name="description" content={site.siteMetadata.description} />
-      {location && <meta property="og:url" content={location.href} />}
+      <meta name="description" content={siteDescription} />
+      {location ? (
+        <meta property="og:url" content={location.href} />
+      ) : (
+        <meta property="og:url" content={siteURL} />
+      )}
       <meta property="og:image" content={imageSrc || '/bell.svg'} />
       <meta property="og:title" content={title} key="ogtitle" />
-      <meta property="og:site_name" content={site.siteMetadata.title} key="ogsitename" />
+      <meta property="og:site_name" content={siteTitle} key="ogsitename" />
       <meta
         property="og:description"
-        content={description || site.siteMetadata.description}
+        content={description || siteDescription}
         key="ogdescription"
       />
       {children}

@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { graphql, Link } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import { FrontPage } from '../styles';
-// import SanityImageBox from '../components/SanityImageBox';
+import { TitleContext } from '../components/Layout';
 
 export const STUDIO_QUERY = graphql`
   query {
@@ -48,7 +48,11 @@ function ArtistLink({ artist }) {
 
 export default function Home({ data: { artists, file } }) {
   const layout = useRef(null);
-  // const { allSanityArtist, file } = useStaticQuery(STUDIO_QUERY);
+  const { setTitle } = useContext(TitleContext);
+
+  useEffect(() => {
+    setTitle('Home Page');
+  }, []);
 
   return (
     <div ref={layout}>

@@ -8,6 +8,7 @@
     "dotenv": "^8.2.0",
     "framer-motion": "^4.1.4",
     "gatsby": "^3.3.0",
+    "gatsby-link": "^3.4.0",
     "gatsby-plugin-image": "^1.3.0",
     "gatsby-plugin-react-helmet": "^4.3.0",
     "gatsby-plugin-react-svg": "^3.0.1",
@@ -54,6 +55,7 @@
     "develop": "NODE_ENV=development gatsby develop --graphql-tracing --inspect",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",
+    "inspect": "npm run develop --inspect",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "lint": "eslint ./src --fix"

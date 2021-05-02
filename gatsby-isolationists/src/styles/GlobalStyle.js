@@ -4,14 +4,12 @@ export const GlobalStyle = createGlobalStyle`
   :root {
     --title: #b88f83;
     --background: #282c34;
-    --buttonf: #b22cb2;
+    --button: #b22cb2cc;
     --bg: #242526;
     --bg-accent: #484a4d;
     --text-color: #dadce1;
-    --nav-size: 60px;
     --border: 1px solid #474a4d;
     --border-radius: 8px;
-    --speed: 500ms;
   }
 
   html {
@@ -26,6 +24,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    --navHeight: 6rem;
     color: var(--text-color);
     background-color: var(--background);
   }
