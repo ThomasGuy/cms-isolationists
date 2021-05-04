@@ -74,7 +74,7 @@ export default function Homepage({ pageContext }) {
 
   return (
     <>
-      <section>
+      <section style={{ paddingTop: '3rem' }}>
         <GatsbyImage
           image={studio.childImageSharp.gatsbyImageData}
           title="Sally Scott Studio"

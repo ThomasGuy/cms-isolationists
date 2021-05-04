@@ -10,10 +10,7 @@ import SEO from './seo';
 import { BreakpointProvider } from '../hooks/useBreakpoint';
 
 const ContentStyles = styled.div`
-  display: grid;
-  justify-content: center;
-  gap: 2rem;
-  max-width: 1280px;
+  max-width: var(--maxWidth);
   min-height: 100vh;
   margin: 0 auto;
   padding: 0 1.2rem;

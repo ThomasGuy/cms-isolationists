@@ -8,7 +8,7 @@ import Icon from './icons';
 import useDetectOutsideClick from '../hooks/useDetectOutsideClick';
 import MultiDropdownMenu from '../hooks/AniMutiDropdown';
 
-const NavbarNavItem = styled.div`
+const NavbarItem = styled.div`
   position: relative;
   margin-bottom: 0;
   /* display: grid;
@@ -42,7 +42,14 @@ const NavbarNavItem = styled.div`
 `;
 
 const Container = styled.nav`
+  position: fixed;
+  z-index: 10;
   display: grid;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: var(--maxWidth);
+  margin: 0 auto;
   grid-template-columns: 1fr auto auto;
   place-items: center center;
   background: var(--bg);
@@ -52,7 +59,7 @@ const Container = styled.nav`
 
   .title {
     font-size: 3.2rem;
-    color: var(--title);
+    color: var(--offWhite);
     line-height: 3.2rem;
   }
 `;
@@ -61,25 +68,25 @@ function Header({ children }) {
   return <Container>{children}</Container>;
 }
 
-function NavItem({ open, setOpen, children, icon }) {
+function NavButton({ open, setOpen, children, icon }) {
   const clicked = () => setOpen(state => !state);
   return (
-    <NavbarNavItem>
+    <NavbarItem>
       <div className="icon-button" onClick={clicked}>
         {icon}
       </div>
       {open && children}
-    </NavbarNavItem>
+    </NavbarItem>
   );
 }
 
 function NavLink({ icon }) {
   return (
-    <NavbarNavItem>
+    <NavbarItem>
       <Link className="icon-button" to="/">
         {icon}
       </Link>
-    </NavbarNavItem>
+    </NavbarItem>
   );
 }
 
@@ -87,7 +94,7 @@ export default function Nav({ title }) {
   const dropdownRef = useRef(null);
   const [open, setOpen] = useDetectOutsideClick(dropdownRef, false);
   const { artists, subjects } = useStaticQuery(graphql`
-    query HeaderQuery2 {
+    query {
       subjects: allSanitySubject(sort: { fields: week, order: DESC }) {
         nodes {
           id
@@ -114,9 +121,9 @@ export default function Nav({ title }) {
     <Header>
       <h2 className="title">{title}</h2>
       <NavLink icon={<Icon symbol="home" />} key="Home" />
-      <NavItem icon={<Icon symbol="list" />} key="Caret" open={open} setOpen={setOpen}>
+      <NavButton icon={<Icon symbol="list" />} key="Caret" open={open} setOpen={setOpen}>
         <MultiDropdownMenu artists={artists} subjects={subjects} dropdownRef={dropdownRef} />
-      </NavItem>
+      </NavButton>
     </Header>
   );
 }
