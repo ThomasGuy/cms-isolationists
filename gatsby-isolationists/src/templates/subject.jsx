@@ -1,9 +1,16 @@
+import { animated } from 'react-spring';
 import { graphql } from 'gatsby';
 import React, { useContext, useEffect } from 'react';
+import { GatsbyImage } from 'gatsby-plugin-image';
+import styled from 'styled-components';
 import { TitleContext } from '../components/Layout';
-import SanityImageBox from '../components/SanityImageBox';
 
-import { GalleryLayout } from '../styles';
+import { GalleryLayout, SoldTag } from '../styles';
+import SEO from '../components/seo';
+
+const PictureBox = styled(animated.div)`
+  position: relative;
+`;
 
 const subjectPage = ({ data }) => {
   const { setTitle } = useContext(TitleContext);
@@ -25,18 +32,31 @@ const subjectPage = ({ data }) => {
       sold,
       aspectRatio: image.asset.metadata.dimensions.aspectRatio,
       dimensions,
+      loading: 'eager',
+      imgStyle: { objectFit: 'cover', width: '100%', height: '100%' },
     };
   });
   // eslint-disable-next-line func-names
-  const sorted = propsArray.sort(function (p1, p2) {
-    return p2.aspectRatio - p1.aspectRatio;
-  });
+  // const sorted = propsArray.sort(function (p1, p2) {
+  //   return p2.aspectRatio - p1.aspectRatio;
+  // });
 
   return (
     <GalleryLayout>
-      {sorted.map(props => {
-        const { dimensions, ...others } = props;
-        return <SanityImageBox dimensions={dimensions} {...others} />;
+      {propsArray.map(props => {
+        const { image, title, imgStyle, sold, ...others } = props;
+        return (
+          <PictureBox>
+            <SEO title={title} imageSrc={image.asset.url} />
+            <GatsbyImage
+              image={image.asset.gatsbyImageData}
+              title={title}
+              imgStyle={imgStyle}
+              {...others}
+            />
+            {sold && <SoldTag>SOLD</SoldTag>}
+          </PictureBox>
+        );
       })}
     </GalleryLayout>
   );

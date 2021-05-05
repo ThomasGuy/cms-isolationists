@@ -9,25 +9,24 @@ import { SoldTag } from '../styles';
 import SEO from '../components/seo';
 
 const PictureBox = styled(animated.div)`
-  max-width: 65rem;
+  position: relative;
+  /* max-width: 65rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; */
 `;
 
 const Container = styled.div`
   padding: 2rem;
   display: grid;
   /* justify-content: center; */
-  align-items: center;
+  /* align-items: center; */
   gap: 1rem;
   grid-template-columns: ${({ width }) => `repeat(auto-fit, minmax(${width}rem, 1fr))`};
-  grid-template-rows: ${({ width }) => `repeat(auto, ${width}rem)`};
-  /* grid-auto-rows: auto; */
+  grid-auto-rows: auto;
   grid-auto-flow: dense;
 
   .tall2 {
-    grid-row: span 2;
-  }
-
-  .tall3 {
     grid-row: span 2;
   }
 
@@ -46,7 +45,7 @@ const Container = styled.div`
 
 function addClass(ratio) {
   switch (true) {
-    case ratio < 0.67:
+    case ratio < 0.65:
       return 'tall2';
     case ratio > 1.5 && ratio <= 2.45:
       return 'wide2';
@@ -65,9 +64,8 @@ const artistPage = ({ data }) => {
     setTitle(name);
   }, [name]);
 
-  const propsArray = data.pics.edges.map(({ node }, idx) => {
+  const imageProps = data.pics.edges.map(({ node }, idx) => {
     const { image, subject, dimensions, id, sold } = node;
-
     return {
       image,
       alt: subject.name,
@@ -78,23 +76,29 @@ const artistPage = ({ data }) => {
       dimensions,
       ratio: image.asset.metadata.dimensions.aspectRatio,
       loading: 'eager',
+      imgStyle: { objectFit: 'cover', width: '100%', height: '100%' },
     };
   });
 
-  const trail = useTrail(propsArray.length, {
-    opacity: 1,
-    scale: 1,
-    from: { opacity: 0, scale: 0.3 },
-  });
+  // const trail = useTrail(imageProps.length, {
+  //   opacity: 1,
+  //   scale: 1,
+  //   from: { opacity: 0, scale: 0.3 },
+  // });
 
   return (
     <Container width={15} span={3}>
-      {trail.map(({ opacity, scale, ...rest }, index) => {
-        const { image, key, ratio, sold, title, ...others } = propsArray[index];
+      {imageProps.map(props => {
+        const { image, key, ratio, sold, title, imgStyle, ...others } = props;
         return (
-          <PictureBox key={key} className={addClass(ratio)} style={{ opacity, scale, ...rest }}>
+          <PictureBox className={addClass(ratio)}>
             <SEO title={title} imageSrc={image.asset.url} />
-            <GatsbyImage image={image.asset.gatsbyImageData} title={title} {...others} />
+            <GatsbyImage
+              image={image.asset.gatsbyImageData}
+              title={title}
+              imgStyle={imgStyle}
+              {...others}
+            />
             {sold && <SoldTag>SOLD</SoldTag>}
           </PictureBox>
         );
@@ -123,13 +127,7 @@ export const ARTIST_QUERY = graphql`
                   aspectRatio
                 }
               }
-              gatsbyImageData(
-                layout: CONSTRAINED
-                fit: CLIP
-                placeholder: BLURRED
-                width: 670
-                sizes: "670"
-              )
+              gatsbyImageData(layout: CONSTRAINED, placeholder: BLURRED, width: 660)
             }
           }
           dimensions {
