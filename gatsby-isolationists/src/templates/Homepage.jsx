@@ -8,7 +8,8 @@ import SEO from '../components/seo';
 
 const FrontPage = styled.article`
   margin: 1rem;
-  max-width: 100rem;
+  max-width: var(--pageWidth);
+  margin: 0 auto;
   font-size: 1.8rem;
   line-height: 1.6;
 
@@ -73,7 +74,7 @@ export default function Homepage({ pageContext }) {
   }, [title]);
 
   return (
-    <>
+    <FrontPage>
       <section style={{ paddingTop: '3rem' }}>
         <GatsbyImage
           image={studio.childImageSharp.gatsbyImageData}
@@ -81,28 +82,25 @@ export default function Homepage({ pageContext }) {
           alt="Sally Scott Studio"
         />
       </section>
-      <FrontPage>
-        <p>
-          Prior to the Lockdown of 2020 a small group of friends in Putney met regularly on
-          Wednesdays in each other//&aposs houses, or weather permitting in Richmond Park or on the
-          Thames tow path to paint, and subsequently go for a pub lunch. This had been working fine
-          for years.
-        </p>
-        <p>Lockdown put a stop to this.</p>
-        <p>
-          They decided the way to continue was for one member to choose a subject each week and they
-          all should post their results on Wednesdays. They had no collective name before Lockdown,
-          but with this new way of working from home they became the...
-          <br />
-          <span>Wednesday Isolationists</span>
-        </p>
+      <p>
+        Prior to the Lockdown of 2020 a small group of friends in Putney met regularly on Wednesdays
+        in each other//&aposs houses, or weather permitting in Richmond Park or on the Thames tow
+        path to paint, and subsequently go for a pub lunch. This had been working fine for years.
+      </p>
+      <p>Lockdown put a stop to this.</p>
+      <p>
+        They decided the way to continue was for one member to choose a subject each week and they
+        all should post their results on Wednesdays. They had no collective name before Lockdown,
+        but with this new way of working from home they became the...
+        <br />
+        <span>Wednesday Isolationists</span>
+      </p>
 
-        <ul>
-          {mugs.map(({ node }) => (
-            <ArtistLink key={node.id} artist={node} />
-          ))}
-        </ul>
-      </FrontPage>
-    </>
+      <ul>
+        {mugs.map(({ node }) => (
+          <ArtistLink key={node.id} artist={node} />
+        ))}
+      </ul>
+    </FrontPage>
   );
 }

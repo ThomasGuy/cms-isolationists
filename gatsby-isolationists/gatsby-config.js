@@ -32,7 +32,13 @@ module.exports = {
         watchMode: !isProd,
         useCdn: isProd,
         overlayDrafts: !isProd && token,
-        apiVersion: '2021-05-01',
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-sanity-image',
+      options: {
+        ...clientConfig.sanity,
+        token,
       },
     },
     {
@@ -50,4 +56,7 @@ module.exports = {
     },
     'gatsby-plugin-gatsby-cloud',
   ],
+  flags: {
+    FAST_DEV: true,
+  },
 };

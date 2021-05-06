@@ -20,6 +20,7 @@ export const GlobalStyle = createGlobalStyle`
     --border-radius: 8px;
     --speed: 500ms;
     --maxWidth: 1880px;
+    --pageWidth: 1280px;
   }
 
   html {

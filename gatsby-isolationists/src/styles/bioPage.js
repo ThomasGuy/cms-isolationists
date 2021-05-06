@@ -3,7 +3,9 @@ import styled from 'styled-components';
 export const Grid = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 2rem;
+  max-width: var(--pageWidth);
+  margin: 0 auto;
+  padding: 2rem;
 `;
 
 export const Title = styled.div`
