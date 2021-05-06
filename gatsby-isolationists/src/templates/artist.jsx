@@ -1,9 +1,11 @@
 import { graphql } from 'gatsby';
 import React, { useContext, useEffect } from 'react';
+import Image from 'gatsby-plugin-sanity-image';
+import { useTrail } from 'react-spring';
 import { TitleContext } from '../components/Layout';
-import SanityImageBox from '../components/SanityImageBox';
 
-import { GalleryLayout } from '../styles';
+import { Container, PictureBox, addClass, SoldTag } from '../styles';
+import SEO from '../components/seo';
 
 const artistPage = ({ data }) => {
   const { setTitle } = useContext(TitleContext);
@@ -13,32 +15,42 @@ const artistPage = ({ data }) => {
     setTitle(name);
   }, [name]);
 
-  const propsArray = data.pics.edges.map(({ node }, idx) => {
+  const imageProps = data.pics.edges.map(({ node }, idx) => {
     const { image, subject, dimensions, id, sold } = node;
 
     return {
       image,
       alt: subject.name,
-      name: subject.name,
+      title: subject.name,
       key: id,
       idx,
       sold,
-      aspectRatio: image.asset.metadata.dimensions.aspectRatio,
+      ratio: image.asset.metadata.dimensions.aspectRatio,
       dimensions,
+      imgStyle: { width: '100%', height: '100%', objectFit: 'cover', marginBottom: '0' },
     };
   });
-  // eslint-disable-next-line func-names
-  const sorted = propsArray.sort(function (p1, p2) {
-    return p2.aspectRatio - p1.aspectRatio;
+  const config = { mass: 5, tension: 2000, friction: 200 };
+  const trail = useTrail(imageProps.length, {
+    config,
+    opacity: 1,
+    scale: 1,
+    from: { opacity: 0, scale: 0.3 },
   });
 
   return (
-    <GalleryLayout>
-      {sorted.map(props => {
-        const { dimensions, ...others } = props;
-        return <SanityImageBox dimensions={dimensions} {...others} />;
+    <Container>
+      {trail.map((props, idx) => {
+        const { image, ratio, title, key, sold, imgStyle, ...others } = imageProps[idx];
+        return (
+          <PictureBox className={addClass(ratio)} key={key} style={{ ...props }}>
+            <SEO title={title} imageSrc={image.asset.url} />
+            <Image {...image} width={500} height={500} title={title} style={imgStyle} {...others} />
+            {sold && <SoldTag>SOLD</SoldTag>}
+          </PictureBox>
+        );
       })}
-    </GalleryLayout>
+    </Container>
   );
 };
 
@@ -60,9 +72,9 @@ export const ARTIST_QUERY = graphql`
             order
           }
           image {
+            ...ImageWithPreview
             asset {
               url
-              gatsbyImageData(placeholder: BLURRED, layout: CONSTRAINED, width: 450)
               metadata {
                 dimensions {
                   aspectRatio

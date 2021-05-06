@@ -32,7 +32,15 @@ module.exports = {
         watchMode: !isProd,
         useCdn: isProd,
         overlayDrafts: !isProd && token,
-        apiVersion: '2021-04-01',
+        apiVersion: '2021-05-01',
+      },
+    },
+    {
+      resolve: `gatsby-plugin-sanity-image`,
+      options: {
+        ...clientConfig.sanity,
+        token,
+        apiVersion: '2021-05-01',
       },
     },
     {
