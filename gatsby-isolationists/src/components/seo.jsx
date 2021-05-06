@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import useSiteMetadata from '../hooks/useSiteMetadata';
 
 function SEO({ children, location, description, title, imageSrc }) {
-  const { siteTitle, siteDescription, siteURL } = useSiteMetadata();
+  const { siteTitle, siteDescription, siteUrl } = useSiteMetadata();
 
   return (
     <Helmet titleTemplate={`%s - ${siteTitle}`}>
@@ -19,7 +19,7 @@ function SEO({ children, location, description, title, imageSrc }) {
       {location ? (
         <meta property="og:url" content={location.href} />
       ) : (
-        <meta property="og:url" content={siteURL} />
+        <meta property="og:url" content={siteUrl} />
       )}
       <meta property="og:image" content={imageSrc || '/bell.svg'} />
       <meta property="og:title" content={title} key="ogtitle" />
