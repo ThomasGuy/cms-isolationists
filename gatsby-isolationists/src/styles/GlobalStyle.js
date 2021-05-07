@@ -28,7 +28,7 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
     margin: 0;
     padding: 0;
-    --navHeight: 6rem;
+    --navHeight: 8rem;
   }
 
   *, *:before, *:after {

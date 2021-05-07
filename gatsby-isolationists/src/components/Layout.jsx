@@ -13,18 +13,18 @@ const ContentStyles = styled.div`
   max-width: var(--maxWidth);
   min-height: 100vh;
   margin: 0 auto;
-  padding: 0 1.2rem;
+  padding: 0;
 `;
 
 // these should maybe be synced up with mediaQueries
 const queries = {
-  or: '(orientation: portrait)', // we can check orientation also
-  navChange: '(max-width: 780px)',
+  // or: '(orientation: portrait)', // we can check orientation also
+  // navChange: '(max-width: 780px)',
 
-  md: '(max-width: 668px)',
-  galleryMd: '(min-width: 468px)',
+  // md: '(max-width: 668px)',
+  galleryMd: '(min-width: 588px)',
   galleryLg: '(min-width: 910px)',
-  span: '(min-width: 580px)',
+  span: '(min-width: 600px)',
 };
 
 export const TitleContext = createContext({

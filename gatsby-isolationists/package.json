@@ -54,10 +54,10 @@
   "license": "0BSD",
   "scripts": {
     "build": "NODE_ENV=production gatsby build",
-    "develop": "NODE_ENV=development gatsby develop --graphql-tracing --inspect",
+    "develop": "NODE_ENV=development gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",
-    "inspect": "npm run develop --inspect",
+    "inspect": "npm run develop --inspect --graphql-tracing",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "lint": "eslint ./src --fix"

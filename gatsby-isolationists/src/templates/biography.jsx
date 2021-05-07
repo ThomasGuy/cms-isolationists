@@ -67,12 +67,12 @@ const BioPage = ({ pageContext }) => {
             {links && links.length > 0 && (
               <>
                 <p className="comment">
-                  {`${firstName}s' paintings & other work can be found on the following websites and social media`}
+                  {`${firstName}'s paintings & other work can be found on the following websites and social media`}
                 </p>
                 <ul>
                   {links.map((link, idx) => (
                     <li key={makeId('link', idx)}>
-                      <a href={`${link.url}`}>{link.name}</a>
+                      <a href={`${link.href}`}>{link.name}</a>
                     </li>
                   ))}
                 </ul>

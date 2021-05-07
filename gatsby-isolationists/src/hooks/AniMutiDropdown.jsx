@@ -65,10 +65,8 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             {artists.nodes.map(artist => {
               const { slug, id, name } = artist;
               return (
-                <MenuItemStyled>
-                  <Link to={`/gallery/artist/${slug.current}`} key={id}>
-                    {name}
-                  </Link>
+                <MenuItemStyled key={id}>
+                  <Link to={`/gallery/artist/${slug.current}`}>{name}</Link>
                   <Link className="icon-right" to={`/biography/${slug.current}`}>
                     About
                   </Link>
@@ -90,10 +88,8 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             {subjects.nodes.map(subject => {
               const { name, week, id, slug } = subject;
               return (
-                <MenuItemStyled>
-                  <Link to={`/gallery/subject/${slug.current}`} key={id}>
-                    {`${week}. ${name}`}
-                  </Link>
+                <MenuItemStyled key={id}>
+                  <Link to={`/gallery/subject/${slug.current}`}>{`${week}. ${name}`}</Link>
                 </MenuItemStyled>
               );
             })}

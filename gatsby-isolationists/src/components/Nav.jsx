@@ -7,25 +7,24 @@ import styled from 'styled-components';
 import Icon from './icons';
 import useDetectOutsideClick from '../hooks/useDetectOutsideClick';
 import MultiDropdownMenu from '../hooks/AniMutiDropdown';
+import { mediaQuery } from '../styles/mediaQuery';
 
 const NavbarItem = styled.div`
   position: relative;
   margin-bottom: 0;
-  /* display: grid;
-  place-items: center center; */
 
   /* Icon Button */
   .icon-button {
-    --button-size: calc(var(--navHeight) * 0.6);
+    --button-size: calc(var(--navHeight) * 0.5);
     width: var(--button-size);
     height: var(--button-size);
     background-color: var(--button);
     border-radius: 50%;
     padding: 5px;
-    padding-left: 3px;
+    padding-left: 2px;
     margin: 2px;
     display: grid;
-    place-items: center center;
+    align-items: center;
     justify-content: center;
     transition: filter 300ms;
   }
@@ -41,7 +40,7 @@ const NavbarItem = styled.div`
   }
 `;
 
-const Container = styled.nav`
+const Navbar = styled.nav`
   position: fixed;
   z-index: 10;
   display: grid;
@@ -58,14 +57,31 @@ const Container = styled.nav`
   padding-right: 2rem;
 
   .title {
-    font-size: 3.2rem;
     color: var(--offWhite);
-    line-height: 3.2rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0 1rem;
+
+    ${mediaQuery('xs')`
+      font-size: 2.4rem;
+      `};
+
+    ${mediaQuery('sm')`
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+      line-height: 1.2;
+    `};
+
+    ${mediaQuery('md')`
+      font-size: 3.2rem;
+    `};
   }
 `;
 
 function Header({ children }) {
-  return <Container>{children}</Container>;
+  return <Navbar>{children}</Navbar>;
 }
 
 function NavButton({ open, setOpen, children, icon }) {

@@ -9,17 +9,19 @@ import { mediaQuery } from '../styles/mediaQuery';
 import { SoldTag } from '../styles';
 import SEO from '../components/seo';
 import { useBreakpoint } from '../hooks/useBreakpoint';
+import { addClass } from '../utils/helpers';
 
 const PictureBox = styled(animated.div)`
   position: relative;
 `;
 
 const Container = styled.div`
-  padding: 2rem;
+  padding: 2rem 0.7rem;
   display: grid;
   gap: 1rem;
   grid-template-columns: ${({ width }) => `repeat(auto-fit, minmax(${width}rem, 1fr))`};
   grid-auto-flow: dense;
+  align-items: flex-start;
 
   .tall2 {
     grid-row: span 2;
@@ -33,33 +35,29 @@ const Container = styled.div`
     grid-column: ${({ span }) => `span ${span}`};
   }
 
+  ${mediaQuery('xs')`
+    gap: 1.4rem;
+    padding: 2rem 1rem;
+  `};
+
   ${mediaQuery('sm')`
     gap: 2rem;
+    padding: 2rem;
  `};
 `;
 
-function addClass(ratio) {
-  switch (true) {
-    case ratio < 0.65:
-      return 'tall2';
-    case ratio > 1.5 && ratio <= 2.4:
-      return 'wide2';
-    case ratio > 2.4:
-      return 'wide3';
-    default:
-      return '';
-  }
-}
+let span = 2;
+let width = 13;
 
-const artistPage = ({ data }) => {
-  const breakpoints = useBreakpoint();
+const ArtistPage = ({ data }) => {
+  const breakpoint = useBreakpoint();
   const { setTitle } = useContext(TitleContext);
   const { name } = data.title;
 
-  let span = 2;
-  let width = 14;
-  breakpoints.span ? (span = 3) : (span = 2);
-  breakpoints.galleryMd ? (width = 20) : (width = 14);
+  if (breakpoint.galleryMd) {
+    breakpoint.span ? (span = 3) : (span = 2);
+    breakpoint.galleryLg ? (width = 18) : (width = 16);
+  } else width = 13;
 
   useEffect(() => {
     setTitle(name);
@@ -94,7 +92,13 @@ const artistPage = ({ data }) => {
         return (
           <PictureBox className={addClass(ratio)} style={{ ...props }} key={key}>
             <SEO title={title} imageSrc={image.asset.url} />
-            <Image {...image} width={500} title={title} style={imgStyle} {...others} />
+            <Image
+              {...image}
+              width={width * span * 10}
+              title={title}
+              style={imgStyle}
+              {...others}
+            />
             {sold && <SoldTag>SOLD</SoldTag>}
           </PictureBox>
         );
@@ -103,7 +107,7 @@ const artistPage = ({ data }) => {
   );
 };
 
-export default artistPage;
+export default ArtistPage;
 
 export const ARTIST_QUERY = graphql`
   query ARTIST_QUERY($slug: String!) {
