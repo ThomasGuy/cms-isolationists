@@ -24,7 +24,7 @@ const queries = {
   // md: '(max-width: 668px)',
   galleryMd: '(min-width: 588px)',
   galleryLg: '(min-width: 910px)',
-  span: '(min-width: 600px)',
+  span: '(min-width: 700px)',
 };
 
 export const TitleContext = createContext({

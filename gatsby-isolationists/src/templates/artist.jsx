@@ -13,10 +13,17 @@ import { addClass } from '../utils/helpers';
 
 const PictureBox = styled(animated.div)`
   position: relative;
+  p {
+    margin-top: 0rem;
+    text-align: center;
+    font-size: 1.6rem;
+  }
 `;
 
 const Container = styled.div`
   padding: 2rem 0.7rem;
+  /* max-width: var(--pageWidth);
+  margin: 0 auto; */
   display: grid;
   gap: 1rem;
   grid-template-columns: ${({ width }) => `repeat(auto-fit, minmax(${width}rem, 1fr))`};
@@ -44,6 +51,17 @@ const Container = styled.div`
     gap: 2rem;
     padding: 2rem;
  `};
+
+  ${mediaQuery('md')`
+    gap: 3rem;
+    padding: 3rem;
+ `};
+
+  ${mediaQuery('lg')`
+    gap: 4rem;
+    row-gap: 6rem;
+    padding: 6rem;
+ `};
 `;
 
 let span = 2;
@@ -52,23 +70,27 @@ let width = 13;
 const ArtistPage = ({ data }) => {
   const breakpoint = useBreakpoint();
   const { setTitle } = useContext(TitleContext);
-  const { name } = data.title;
+  const { artist } = data.title;
 
   if (breakpoint.galleryMd) {
     breakpoint.span ? (span = 3) : (span = 2);
-    breakpoint.galleryLg ? (width = 18) : (width = 16);
+    breakpoint.galleryLg ? (width = 23) : (width = 18);
   } else width = 13;
 
   useEffect(() => {
-    setTitle(name);
-  }, [name]);
+    setTitle(artist);
+  }, [artist]);
 
   const imageProps = data.pics.edges.map(({ node }, idx) => {
     const { image, subject, dimensions, id, sold } = node;
+    const imgTitle = dimensions
+      ? `${artist} - ${dimensions.width}x${dimensions.height}cm`
+      : `${artist}`;
     return {
       image,
       alt: subject.name,
       title: subject.name,
+      imgTitle,
       key: id,
       idx,
       sold,
@@ -88,18 +110,19 @@ const ArtistPage = ({ data }) => {
   return (
     <Container width={width} span={span}>
       {trail.map((props, idx) => {
-        const { image, key, ratio, sold, title, imgStyle, ...others } = imageProps[idx];
+        const { image, key, ratio, sold, title, imgStyle, imgTitle, ...others } = imageProps[idx];
         return (
           <PictureBox className={addClass(ratio)} style={{ ...props }} key={key}>
             <SEO title={title} imageSrc={image.asset.url} />
             <Image
               {...image}
               width={width * span * 10}
-              title={title}
+              title={imgTitle}
               style={imgStyle}
               {...others}
             />
             {sold && <SoldTag>SOLD</SoldTag>}
+            <p>{title}</p>
           </PictureBox>
         );
       })}
@@ -138,7 +161,7 @@ export const ARTIST_QUERY = graphql`
       }
     }
     title: sanityArtist(slug: { current: { eq: $slug } }) {
-      name
+      artist: name
     }
   }
 `;
