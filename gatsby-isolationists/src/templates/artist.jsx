@@ -1,67 +1,14 @@
 /* eslint-disable no-unused-expressions */
-import { animated, useTrail } from 'react-spring';
+import { useTrail } from 'react-spring';
 import { graphql } from 'gatsby';
 import React, { useContext, useEffect } from 'react';
-import styled from 'styled-components';
 import Image from 'gatsby-plugin-sanity-image';
 
 import { TitleContext } from '../components/Layout';
-import { mediaQuery } from '../styles/mediaQuery';
-import { SoldTag } from '../styles';
+import { GalleryLayout, SoldTag, PictureBox } from '../styles';
 import SEO from '../components/seo';
 import { useBreakpoint } from '../hooks/useBreakpoint';
 import { addClass } from '../utils/helpers';
-
-const PictureBox = styled(animated.div)`
-  position: relative;
-  p {
-    margin-top: 0rem;
-    text-align: center;
-    font-size: 1.6rem;
-    opacity: 0.9;
-  }
-`;
-
-const Container = styled.div`
-  padding: 2rem 0.7rem;
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: ${({ width }) => `repeat(auto-fit, minmax(${width}rem, 1fr))`};
-  grid-auto-flow: dense;
-  align-items: flex-start;
-
-  .tall2 {
-    grid-row: ${({ span2 }) => `span ${span2}`};
-  }
-
-  .wide2 {
-    grid-column: ${({ span2 }) => `span ${span2}`};
-  }
-
-  .wide3 {
-    grid-column: ${({ span3 }) => `span ${span3}`};
-  }
-
-  ${mediaQuery('xs')`
-    gap: 1.4rem;
-    padding: 2rem 1rem;
-  `};
-
-  ${mediaQuery('sm')`
-    gap: 2rem;
-    padding: 2rem;
- `};
-
-  ${mediaQuery('md')`
-    gap: 3rem;
-    padding: 3rem;
- `};
-
-  ${mediaQuery('lg')`
-    gap: 4rem;
-    padding: 6rem;
- `};
-`;
 
 let span3 = 2;
 let span2 = 1;
@@ -114,7 +61,7 @@ const ArtistPage = ({ data }) => {
   });
 
   return (
-    <Container width={imgWidth} span3={span3} span2={span2}>
+    <GalleryLayout width={imgWidth} span3={span3} span2={span2}>
       {trail.map((props, idx) => {
         const { image, key, ratio, sold, title, imgStyle, imgTitle, ...others } = imageProps[idx];
         return (
@@ -132,7 +79,7 @@ const ArtistPage = ({ data }) => {
           </PictureBox>
         );
       })}
-    </Container>
+    </GalleryLayout>
   );
 };
 

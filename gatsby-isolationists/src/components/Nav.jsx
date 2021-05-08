@@ -46,12 +46,12 @@ const NavbarItem = styled.div`
 const Navbar = styled.nav`
   position: fixed;
   z-index: 10;
-  display: grid;
   top: 0;
   left: 0;
   right: 0;
-  max-width: var(--pageWidth);
+  max-width: var(--maxWidth);
   margin: 0 auto;
+  display: grid;
   grid-template-columns: 1fr auto auto;
   place-items: center center;
   background: var(--bg);
@@ -63,8 +63,11 @@ const Navbar = styled.nav`
     height: var(--navHeight);
     gap: 2rem;
     padding-right: 2rem;
+  `};
 
- `};
+  ${mediaQuery('xl')`
+    padding: 0 25rem;
+  `};
 
   .title {
     color: var(--offWhite);
@@ -144,7 +147,7 @@ export default function Nav({ title }) {
   `);
 
   return (
-    <Header>
+    <Header style={{ maxWidth: 'var(pageWidth)' }}>
       <h2 className="title">{title}</h2>
       <NavLink icon={<Icon symbol="home" />} key="Home" />
       <NavButton icon={<Icon symbol="list" />} key="Caret" open={open} setOpen={setOpen}>

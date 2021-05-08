@@ -1,63 +1,14 @@
 /* eslint-disable no-unused-expressions */
-import { animated, useSpring } from 'react-spring';
+import { useSpring } from 'react-spring';
 import { graphql } from 'gatsby';
 import React, { useContext, useEffect } from 'react';
 import Image from 'gatsby-plugin-sanity-image';
-import styled from 'styled-components';
 import { TitleContext } from '../components/Layout';
 
 import SEO from '../components/seo';
-import { SoldTag } from '../styles';
+import { GalleryLayout, PictureBox, SoldTag } from '../styles';
 import { addClass } from '../utils/helpers';
 import { useBreakpoint } from '../hooks/useBreakpoint';
-import { mediaQuery } from '../styles/mediaQuery';
-
-const PictureBox = styled(animated.div)`
-  position: relative;
-  p {
-    margin-top: 0rem;
-    text-align: center;
-    font-size: 1.6rem;
-    opacity: 0.9;
-  }
-`;
-
-const GalleryLayout = styled.div`
-  display: grid;
-  max-width: var(--pageWidth);
-  margin: 0 auto;
-  grid-gap: 1rem;
-  grid-template-columns: ${({ width }) => `repeat(auto-fit, minmax(${width}rem, 1fr))`};
-  grid-auto-flow: dense;
-  padding: 2rem 0.7rem;
-  align-items: flex-start;
-
-  .tall2 {
-    grid-row: ${({ span2 }) => `span ${span2}`};
-  }
-
-  .wide2 {
-    grid-column: ${({ span2 }) => `span ${span2}`};
-  }
-
-  .wide3 {
-    grid-column: ${({ span }) => `span ${span}`};
-  }
-
-  ${mediaQuery('xs')`
-    gap: 1.4rem;
-    padding: 2rem 1rem;
-  `};
-
-  ${mediaQuery('sm')`
-    gap: 2rem;
-    padding: 2rem;
- `};
-
-  ${mediaQuery('md')`
-    gap: 4rem;
- `};
-`;
 
 let span3 = 2;
 let span2 = 1;
@@ -112,7 +63,11 @@ const SubjectPage = ({ data }) => {
   });
 
   return (
-    <GalleryLayout width={imgWidth} span3={span3} span2={span2}>
+    <GalleryLayout
+      width={imgWidth}
+      span3={span3}
+      span2={span2}
+      style={{ maxWidth: 'var(--pageWidth)' }}>
       {propsArray.map(props => {
         const { image, title, imgStyle, ratio, sold, key, imgTitle, ...others } = props;
 
