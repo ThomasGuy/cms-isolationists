@@ -18,7 +18,6 @@ const NavbarItem = styled.div`
     --button-size: calc(var(--navHeight) * 0.5);
     width: var(--button-size);
     height: var(--button-size);
-    background-color: var(--button);
     border-radius: 50%;
     padding: 5px;
     padding-left: 2px;
@@ -27,6 +26,10 @@ const NavbarItem = styled.div`
     align-items: center;
     justify-content: center;
     transition: filter 300ms;
+
+    ${mediaQuery('sm')`
+      background-color: var(--button);
+    `};
   }
 
   .icon-button:hover {
@@ -47,14 +50,21 @@ const Navbar = styled.nav`
   top: 0;
   left: 0;
   right: 0;
-  max-width: var(--maxWidth);
+  max-width: var(--pageWidth);
   margin: 0 auto;
   grid-template-columns: 1fr auto auto;
   place-items: center center;
   background: var(--bg);
-  gap: 2rem;
-  height: var(--navHeight);
-  padding-right: 2rem;
+  height: 6rem;
+  gap: 0.5rem;
+  padding-right: 1rem;
+
+  ${mediaQuery('sm')`
+    height: var(--navHeight);
+    gap: 2rem;
+    padding-right: 2rem;
+
+ `};
 
   .title {
     color: var(--offWhite);

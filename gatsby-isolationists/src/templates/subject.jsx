@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import { animated } from 'react-spring';
+import { animated, useSpring } from 'react-spring';
 import { graphql } from 'gatsby';
 import React, { useContext, useEffect } from 'react';
 import Image from 'gatsby-plugin-sanity-image';
@@ -12,6 +12,16 @@ import { addClass } from '../utils/helpers';
 import { useBreakpoint } from '../hooks/useBreakpoint';
 import { mediaQuery } from '../styles/mediaQuery';
 
+const PictureBox = styled(animated.div)`
+  position: relative;
+  p {
+    margin-top: 0rem;
+    text-align: center;
+    font-size: 1.6rem;
+    opacity: 0.9;
+  }
+`;
+
 const GalleryLayout = styled.div`
   display: grid;
   max-width: var(--pageWidth);
@@ -23,11 +33,11 @@ const GalleryLayout = styled.div`
   align-items: flex-start;
 
   .tall2 {
-    grid-row: span 2;
+    grid-row: ${({ span2 }) => `span ${span2}`};
   }
 
   .wide2 {
-    grid-column: span 2;
+    grid-column: ${({ span2 }) => `span ${span2}`};
   }
 
   .wide3 {
@@ -49,31 +59,30 @@ const GalleryLayout = styled.div`
  `};
 `;
 
-const PictureBox = styled(animated.div)`
-  position: relative;
-
-  p {
-    margin-top: 0rem;
-    text-align: center;
-    font-size: 1.6rem;
-  }
-`;
+let span3 = 2;
+let span2 = 1;
+let imgWidth = 18;
 
 const SubjectPage = ({ data }) => {
-  const { setTitle } = useContext(TitleContext);
   const breakpoint = useBreakpoint();
+  const { setTitle } = useContext(TitleContext);
   const { subject } = data.title;
-  let span = 2;
-  let imgWidth = 13;
-
-  if (breakpoint.galleryMd) {
-    breakpoint.span ? (span = 3) : (span = 2);
-    breakpoint.galleryLg ? (imgWidth = 18) : (imgWidth = 16);
-  }
 
   useEffect(() => {
     setTitle(subject);
   }, [subject]);
+
+  if (breakpoint.galleryMd) {
+    breakpoint.span ? (span3 = 3) : (span3 = 2);
+    breakpoint.galleryLg ? (imgWidth = 18) : (imgWidth = 16);
+  }
+
+  if (breakpoint.mobile) {
+    span2 = 1;
+    span3 = 1;
+  } else {
+    span2 = 2;
+  }
 
   const propsArray = data.pics.edges.map(({ node }, idx) => {
     const { image, artist, dimensions, id, sold } = node;
@@ -88,23 +97,37 @@ const SubjectPage = ({ data }) => {
       key: id,
       idx,
       sold,
+      dimensions,
       ratio: image.asset.metadata.dimensions.aspectRatio,
       loading: 'eager',
       imgStyle: { objectFit: 'contain', width: '100%', height: '100%' },
     };
   });
 
+  const { xy, ...rest } = useSpring({
+    xy: [0, 0],
+    opacity: 1,
+    from: { xy: [0, -10], opacity: 0 },
+    config: { mass: 1.5, tension: 50, friction: 30 },
+  });
+
   return (
-    <GalleryLayout width={imgWidth} span={span}>
+    <GalleryLayout width={imgWidth} span3={span3} span2={span2}>
       {propsArray.map(props => {
         const { image, title, imgStyle, ratio, sold, key, imgTitle, ...others } = props;
 
         return (
-          <PictureBox key={key} className={addClass(ratio)}>
+          <PictureBox
+            key={key}
+            className={addClass(ratio)}
+            style={{
+              transform: xy.to((x, y) => `translate(${x}rem, ${y}rem)`),
+              ...rest,
+            }}>
             <SEO title={title} imageSrc={image.asset.url} />
             <Image
               {...image}
-              width={imgWidth * span * 10}
+              width={imgWidth * span3 * 10}
               title={imgTitle}
               style={imgStyle}
               {...others}
@@ -130,6 +153,10 @@ export const SUBJECT_QUERY = graphql`
           artist {
             name
           }
+          dimensions {
+            width
+            height
+          }
           image {
             ...ImageWithPreview
             asset {
@@ -140,10 +167,6 @@ export const SUBJECT_QUERY = graphql`
                 }
               }
             }
-          }
-          dimensions {
-            width
-            height
           }
         }
       }

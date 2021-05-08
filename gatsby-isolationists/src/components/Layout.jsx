@@ -8,12 +8,18 @@ import Nav from './Nav';
 import useSiteMetadata from '../hooks/useSiteMetadata';
 import SEO from './seo';
 import { BreakpointProvider } from '../hooks/useBreakpoint';
+import { mediaQuery } from '../styles/mediaQuery';
 
 const ContentStyles = styled.div`
   max-width: var(--maxWidth);
   min-height: 100vh;
   margin: 0 auto;
+  margin-top: 6rem;
   padding: 0;
+
+  ${mediaQuery('sm')`
+    margin-top: var(--navHeight);
+ `};
 `;
 
 // these should maybe be synced up with mediaQueries
@@ -22,9 +28,10 @@ const queries = {
   // navChange: '(max-width: 780px)',
 
   // md: '(max-width: 668px)',
-  galleryMd: '(min-width: 588px)',
-  galleryLg: '(min-width: 910px)',
-  span: '(min-width: 700px)',
+  galleryMd: '(min-width: 450px)',
+  galleryLg: '(min-width: 968px)',
+  span: '(min-width: 640px)',
+  mobile: '(max-width: 380px)',
 };
 
 export const TitleContext = createContext({

@@ -4,6 +4,7 @@ import { graphql } from 'gatsby';
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import Image from 'gatsby-plugin-sanity-image';
+
 import { TitleContext } from '../components/Layout';
 import { mediaQuery } from '../styles/mediaQuery';
 import { SoldTag } from '../styles';
@@ -17,13 +18,12 @@ const PictureBox = styled(animated.div)`
     margin-top: 0rem;
     text-align: center;
     font-size: 1.6rem;
+    opacity: 0.9;
   }
 `;
 
 const Container = styled.div`
   padding: 2rem 0.7rem;
-  /* max-width: var(--pageWidth);
-  margin: 0 auto; */
   display: grid;
   gap: 1rem;
   grid-template-columns: ${({ width }) => `repeat(auto-fit, minmax(${width}rem, 1fr))`};
@@ -31,15 +31,15 @@ const Container = styled.div`
   align-items: flex-start;
 
   .tall2 {
-    grid-row: span 2;
+    grid-row: ${({ span2 }) => `span ${span2}`};
   }
 
   .wide2 {
-    grid-column: span 2;
+    grid-column: ${({ span2 }) => `span ${span2}`};
   }
 
   .wide3 {
-    grid-column: ${({ span }) => `span ${span}`};
+    grid-column: ${({ span3 }) => `span ${span3}`};
   }
 
   ${mediaQuery('xs')`
@@ -59,27 +59,34 @@ const Container = styled.div`
 
   ${mediaQuery('lg')`
     gap: 4rem;
-    row-gap: 6rem;
     padding: 6rem;
  `};
 `;
 
-let span = 2;
-let width = 13;
+let span3 = 2;
+let span2 = 1;
+let imgWidth = 18;
 
 const ArtistPage = ({ data }) => {
   const breakpoint = useBreakpoint();
   const { setTitle } = useContext(TitleContext);
   const { artist } = data.title;
 
-  if (breakpoint.galleryMd) {
-    breakpoint.span ? (span = 3) : (span = 2);
-    breakpoint.galleryLg ? (width = 23) : (width = 18);
-  } else width = 13;
-
   useEffect(() => {
     setTitle(artist);
   }, [artist]);
+
+  if (breakpoint.galleryMd) {
+    breakpoint.span ? (span3 = 3) : (span3 = 2);
+    breakpoint.galleryLg ? (imgWidth = 23) : (imgWidth = 18);
+  }
+
+  if (breakpoint.mobile) {
+    span2 = 1;
+    span3 = 1;
+  } else {
+    span2 = 2;
+  }
 
   const imageProps = data.pics.edges.map(({ node }, idx) => {
     const { image, subject, dimensions, id, sold } = node;
@@ -97,18 +104,17 @@ const ArtistPage = ({ data }) => {
       dimensions,
       ratio: image.asset.metadata.dimensions.aspectRatio,
       loading: 'eager',
-      imgStyle: { objectFit: 'cover', width: '100%', height: '100%', marginBottom: '0' },
+      imgStyle: { objectFit: 'contain', width: '100%', height: '100%' },
     };
   });
 
   const trail = useTrail(imageProps.length, {
-    opacity: 1,
-    scale: 1,
-    from: { opacity: 0, scale: 0.3 },
+    to: { opacity: 1, transform: 'scale(1)' },
+    from: { opacity: 0, transform: 'scale(0.3)' },
   });
 
   return (
-    <Container width={width} span={span}>
+    <Container width={imgWidth} span3={span3} span2={span2}>
       {trail.map((props, idx) => {
         const { image, key, ratio, sold, title, imgStyle, imgTitle, ...others } = imageProps[idx];
         return (
@@ -116,7 +122,7 @@ const ArtistPage = ({ data }) => {
             <SEO title={title} imageSrc={image.asset.url} />
             <Image
               {...image}
-              width={width * span * 10}
+              width={imgWidth * span3 * 10}
               title={imgTitle}
               style={imgStyle}
               {...others}

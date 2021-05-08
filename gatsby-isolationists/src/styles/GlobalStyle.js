@@ -19,7 +19,7 @@ export const GlobalStyle = createGlobalStyle`
     --border: 1px solid #474a4d;
     --border-radius: 8px;
     --speed: 500ms;
-    --maxWidth: 1880px;
+    --maxWidth: 1800px;
     --pageWidth: 1280px;
   }
 
@@ -36,7 +36,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    margin-top: var(--navHeight);
     color: var(--text-color);
     background-color: var(--background);
   }
