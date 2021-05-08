@@ -25,7 +25,7 @@ const SubjectPage = ({ data }) => {
 
   if (breakpoint.galleryMd) {
     breakpoint.span ? (span3 = 3) : (span3 = 2);
-    breakpoint.galleryLg ? (imgWidth = 18) : (imgWidth = 16);
+    breakpoint.galleryLg ? (imgWidth = 23) : (imgWidth = 18);
   }
 
   if (breakpoint.mobile) {
@@ -63,11 +63,7 @@ const SubjectPage = ({ data }) => {
   });
 
   return (
-    <GalleryLayout
-      width={imgWidth}
-      span3={span3}
-      span2={span2}
-      style={{ maxWidth: 'var(--pageWidth)' }}>
+    <GalleryLayout width={imgWidth} span3={span3} span2={span2} style={{ maxWidth: '1600px' }}>
       {propsArray.map(props => {
         const { image, title, imgStyle, ratio, sold, key, imgTitle, ...others } = props;
 

@@ -7,11 +7,11 @@ import { TitleContext } from '../components/Layout';
 import SEO from '../components/seo';
 
 const FrontPage = styled.article`
-  margin: 1rem;
   max-width: var(--pageWidth);
   margin: 0 auto;
   font-size: 1.8rem;
   line-height: 1.6;
+  padding: 2rem;
 
   .artistLink {
     display: flex;
