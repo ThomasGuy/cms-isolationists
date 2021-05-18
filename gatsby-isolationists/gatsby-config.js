@@ -18,11 +18,12 @@ module.exports = {
     siteUrl: `https://wednesday-isolationists.co.uk`,
   },
   plugins: [
+    'gatsby-plugin-robots-txt',
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
     'gatsby-plugin-image',
     `gatsby-plugin-sharp`,
-    // `gatsby-plugin-sitemap`,
+    `gatsby-plugin-sitemap`,
     `gatsby-transformer-sharp`,
     'gatsby-plugin-react-svg',
     {
