@@ -79,7 +79,7 @@ const ArtistPage = ({ data }) => {
           </PictureBox>
         );
       })}
-    </Container>
+    </GalleryLayout>
   );
 };
 
