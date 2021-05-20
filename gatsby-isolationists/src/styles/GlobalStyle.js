@@ -19,6 +19,8 @@ export const GlobalStyle = createGlobalStyle`
     --border: 1px solid #474a4d;
     --border-radius: 8px;
     --speed: 500ms;
+    --maxWidth: 1800px;
+    --pageWidth: 1280px;
   }
 
   html {
@@ -26,6 +28,7 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
     margin: 0;
     padding: 0;
+    --navHeight: 8rem;
   }
 
   *, *:before, *:after {
@@ -33,7 +36,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    --navHeight: 6rem;
     color: var(--text-color);
     background-color: var(--background);
   }

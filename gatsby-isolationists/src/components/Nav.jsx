@@ -7,27 +7,29 @@ import styled from 'styled-components';
 import Icon from './icons';
 import useDetectOutsideClick from '../hooks/useDetectOutsideClick';
 import MultiDropdownMenu from '../hooks/AniMutiDropdown';
+import { mediaQuery } from '../styles/mediaQuery';
 
-const NavbarNavItem = styled.div`
+const NavbarItem = styled.div`
   position: relative;
   margin-bottom: 0;
-  /* display: grid;
-  place-items: center center; */
 
   /* Icon Button */
   .icon-button {
-    --button-size: calc(var(--navHeight) * 0.6);
+    --button-size: calc(var(--navHeight) * 0.5);
     width: var(--button-size);
     height: var(--button-size);
-    background-color: var(--button);
     border-radius: 50%;
     padding: 5px;
-    padding-left: 3px;
+    padding-left: 2px;
     margin: 2px;
     display: grid;
-    place-items: center center;
+    align-items: center;
     justify-content: center;
     transition: filter 300ms;
+
+    ${mediaQuery('sm')`
+      background-color: var(--button);
+    `};
   }
 
   .icon-button:hover {
@@ -41,45 +43,79 @@ const NavbarNavItem = styled.div`
   }
 `;
 
-const Container = styled.nav`
+const Navbar = styled.nav`
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: var(--maxWidth);
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr auto auto;
   place-items: center center;
   background: var(--bg);
-  gap: 2rem;
-  height: var(--navHeight);
-  padding-right: 2rem;
+  height: 6rem;
+  gap: 0.5rem;
+  padding-right: 1rem;
+
+  ${mediaQuery('sm')`
+    height: var(--navHeight);
+    gap: 2rem;
+    padding-right: 2rem;
+  `};
+
+  ${mediaQuery('xl')`
+    padding: 0 25rem;
+  `};
 
   .title {
-    font-size: 3.2rem;
-    color: var(--title);
-    line-height: 3.2rem;
+    color: var(--offWhite);
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0 1rem;
+
+    ${mediaQuery('xs')`
+      font-size: 2.4rem;
+      `};
+
+    ${mediaQuery('sm')`
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+      line-height: 1.2;
+    `};
+
+    ${mediaQuery('md')`
+      font-size: 3.2rem;
+    `};
   }
 `;
 
 function Header({ children }) {
-  return <Container>{children}</Container>;
+  return <Navbar>{children}</Navbar>;
 }
 
-function NavItem({ open, setOpen, children, icon }) {
+function NavButton({ open, setOpen, children, icon }) {
   const clicked = () => setOpen(state => !state);
   return (
-    <NavbarNavItem>
+    <NavbarItem>
       <div className="icon-button" onClick={clicked}>
         {icon}
       </div>
       {open && children}
-    </NavbarNavItem>
+    </NavbarItem>
   );
 }
 
 function NavLink({ icon }) {
   return (
-    <NavbarNavItem>
+    <NavbarItem>
       <Link className="icon-button" to="/">
         {icon}
       </Link>
-    </NavbarNavItem>
+    </NavbarItem>
   );
 }
 
@@ -87,7 +123,7 @@ export default function Nav({ title }) {
   const dropdownRef = useRef(null);
   const [open, setOpen] = useDetectOutsideClick(dropdownRef, false);
   const { artists, subjects } = useStaticQuery(graphql`
-    query HeaderQuery2 {
+    query {
       subjects: allSanitySubject(sort: { fields: week, order: DESC }) {
         nodes {
           id
@@ -111,12 +147,12 @@ export default function Nav({ title }) {
   `);
 
   return (
-    <Header>
+    <Header style={{ maxWidth: 'var(pageWidth)' }}>
       <h2 className="title">{title}</h2>
       <NavLink icon={<Icon symbol="home" />} key="Home" />
-      <NavItem icon={<Icon symbol="list" />} key="Caret" open={open} setOpen={setOpen}>
+      <NavButton icon={<Icon symbol="list" />} key="Caret" open={open} setOpen={setOpen}>
         <MultiDropdownMenu artists={artists} subjects={subjects} dropdownRef={dropdownRef} />
-      </NavItem>
+      </NavButton>
     </Header>
   );
 }

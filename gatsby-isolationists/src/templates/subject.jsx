@@ -1,48 +1,98 @@
+/* eslint-disable no-unused-expressions */
+import { useSpring } from 'react-spring';
 import { graphql } from 'gatsby';
 import React, { useContext, useEffect } from 'react';
+import Image from 'gatsby-plugin-sanity-image';
 import { TitleContext } from '../components/Layout';
-import SanityImageBox from '../components/SanityImageBox';
 
-import { GalleryLayout } from '../styles';
+import SEO from '../components/seo';
+import { GalleryLayout, PictureBox, SoldTag } from '../styles';
+import { addClass } from '../utils/helpers';
+import { useBreakpoint } from '../hooks/useBreakpoint';
 
-const subjectPage = ({ data }) => {
+let span3 = 2;
+let span2 = 1;
+let imgWidth = 18;
+
+const SubjectPage = ({ data }) => {
+  const breakpoint = useBreakpoint();
   const { setTitle } = useContext(TitleContext);
-  const { name } = data.title;
+  const { subject } = data.title;
 
   useEffect(() => {
-    setTitle(name);
-  }, [name]);
+    setTitle(subject);
+  }, [subject]);
+
+  if (breakpoint.galleryMd) {
+    breakpoint.span ? (span3 = 3) : (span3 = 2);
+    breakpoint.galleryLg ? (imgWidth = 23) : (imgWidth = 18);
+  }
+
+  if (breakpoint.mobile) {
+    span2 = 1;
+    span3 = 1;
+  } else {
+    span2 = 2;
+  }
 
   const propsArray = data.pics.edges.map(({ node }, idx) => {
     const { image, artist, dimensions, id, sold } = node;
-
+    const imgTitle = dimensions
+      ? `${subject} - ${dimensions.width}x${dimensions.height}cm`
+      : `${subject}`;
     return {
       image,
       alt: artist.name,
-      name: artist.name,
+      title: artist.name,
+      imgTitle,
       key: id,
       idx,
       sold,
-      aspectRatio: image.asset.metadata.dimensions.aspectRatio,
       dimensions,
+      ratio: image.asset.metadata.dimensions.aspectRatio,
+      loading: 'eager',
+      imgStyle: { objectFit: 'contain', width: '100%', height: '100%' },
     };
   });
-  // eslint-disable-next-line func-names
-  const sorted = propsArray.sort(function (p1, p2) {
-    return p2.aspectRatio - p1.aspectRatio;
+
+  const { xy, ...rest } = useSpring({
+    xy: [0, 0],
+    opacity: 1,
+    from: { xy: [0, -10], opacity: 0 },
+    config: { mass: 1.5, tension: 50, friction: 30 },
   });
 
   return (
-    <GalleryLayout>
-      {sorted.map(props => {
-        const { dimensions, ...others } = props;
-        return <SanityImageBox dimensions={dimensions} {...others} />;
+    <GalleryLayout width={imgWidth} span3={span3} span2={span2} style={{ maxWidth: '1600px' }}>
+      {propsArray.map(props => {
+        const { image, title, imgStyle, ratio, sold, key, imgTitle, ...others } = props;
+
+        return (
+          <PictureBox
+            key={key}
+            className={addClass(ratio)}
+            style={{
+              transform: xy.to((x, y) => `translate(${x}rem, ${y}rem)`),
+              ...rest,
+            }}>
+            <SEO title={title} imageSrc={image.asset.url} />
+            <Image
+              {...image}
+              width={imgWidth * span3 * 10}
+              title={imgTitle}
+              style={imgStyle}
+              {...others}
+            />
+            {sold && <SoldTag>SOLD</SoldTag>}
+            <p>{title}</p>
+          </PictureBox>
+        );
       })}
     </GalleryLayout>
   );
 };
 
-export default subjectPage;
+export default SubjectPage;
 
 export const SUBJECT_QUERY = graphql`
   query SUBJECT_QUERY($slug: String!) {
@@ -54,15 +104,14 @@ export const SUBJECT_QUERY = graphql`
           artist {
             name
           }
-          subject {
-            name
-            week
-            order
+          dimensions {
+            width
+            height
           }
           image {
+            ...ImageWithPreview
             asset {
               url
-              gatsbyImageData(placeholder: BLURRED, layout: CONSTRAINED, width: 450)
               metadata {
                 dimensions {
                   aspectRatio
@@ -70,15 +119,11 @@ export const SUBJECT_QUERY = graphql`
               }
             }
           }
-          dimensions {
-            width
-            height
-          }
         }
       }
     }
     title: sanitySubject(slug: { current: { eq: $slug } }) {
-      name
+      subject: name
     }
   }
 `;

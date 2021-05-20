@@ -16,19 +16,14 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
       <MenuItemStyled onClick={clickHandler}>
         <span className="icon-button">{leftIcon}</span>
         {children}
-        <span className="icon-right">{rightIcon}</span>
+        {rightIcon && <span className="icon-right">{rightIcon}</span>}
       </MenuItemStyled>
     );
   }
 
-  function DropdownLink({ data, midSlug, children }) {
-    const { name, slug } = data;
-    return (
-      <MenuItemStyled>
-        <Link to={`/gallery/${midSlug}/${slug.current}`}>{children || name}</Link>
-      </MenuItemStyled>
-    );
-  }
+  // function DropdownLink({ children }) {
+  //   return <MenuItemStyled>{children}</MenuItemStyled>;
+  // }
 
   return (
     <Dropdown ref={dropdownRef}>
@@ -64,11 +59,20 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             exit={{ height: 0, opacity: 0 }}
             key="artist">
             <DropdownItem leftIcon={<ArrowIcon />} goToMenu="main" key="title">
-              Artists
+              <span className="pad">Gallery</span>
+              <span className="pad icon-right">Contact</span>
             </DropdownItem>
-            {artists.nodes.map(artist => (
-              <DropdownLink data={artist} midSlug="artist" key={artist.id} />
-            ))}
+            {artists.nodes.map(artist => {
+              const { slug, id, name } = artist;
+              return (
+                <MenuItemStyled key={id}>
+                  <Link to={`/gallery/artist/${slug.current}`}>{name}</Link>
+                  <Link className="icon-right" to={`/biography/${slug.current}`}>
+                    About
+                  </Link>
+                </MenuItemStyled>
+              );
+            })}
           </Menu>
         )}
 
@@ -82,11 +86,11 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
               Subjects
             </DropdownItem>
             {subjects.nodes.map(subject => {
-              const { name, week, id } = subject;
+              const { name, week, id, slug } = subject;
               return (
-                <DropdownLink data={subject} midSlug="subject" key={id}>
-                  {`${week}. ${name}`}
-                </DropdownLink>
+                <MenuItemStyled key={id}>
+                  <Link to={`/gallery/subject/${slug.current}`}>{`${week}. ${name}`}</Link>
+                </MenuItemStyled>
               );
             })}
           </Menu>

@@ -8,26 +8,30 @@ import Nav from './Nav';
 import useSiteMetadata from '../hooks/useSiteMetadata';
 import SEO from './seo';
 import { BreakpointProvider } from '../hooks/useBreakpoint';
+import { mediaQuery } from '../styles/mediaQuery';
 
 const ContentStyles = styled.div`
-  display: grid;
-  justify-content: center;
-  gap: 2rem;
-  max-width: 1280px;
+  max-width: var(--maxWidth);
   min-height: 100vh;
   margin: 0 auto;
-  padding: 0 1.2rem;
+  margin-top: 6rem;
+  padding: 0;
+
+  ${mediaQuery('sm')`
+    margin-top: var(--navHeight);
+ `};
 `;
 
 // these should maybe be synced up with mediaQueries
 const queries = {
-  or: '(orientation: portrait)', // we can check orientation also
-  navChange: '(max-width: 780px)',
+  // or: '(orientation: portrait)', // we can check orientation also
+  // navChange: '(max-width: 780px)',
 
-  md: '(max-width: 668px)',
-  galleryMd: '(min-width: 468px)',
-  galleryLg: '(min-width: 910px)',
-  span: '(min-width: 580px)',
+  // md: '(max-width: 668px)',
+  galleryMd: '(min-width: 450px)',
+  galleryLg: '(min-width: 1150px)',
+  span: '(min-width: 640px)',
+  mobile: '(max-width: 380px)',
 };
 
 export const TitleContext = createContext({

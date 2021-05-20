@@ -1,52 +1,81 @@
+/* eslint-disable no-unused-expressions */
+import { useTrail } from 'react-spring';
 import { graphql } from 'gatsby';
 import React, { useContext, useEffect } from 'react';
 import Image from 'gatsby-plugin-sanity-image';
-import { useTrail } from 'react-spring';
+
 import { TitleContext } from '../components/Layout';
-
-import { Container, PictureBox, addClass, SoldTag } from '../styles';
+import { GalleryLayout, SoldTag, PictureBox } from '../styles';
 import SEO from '../components/seo';
+import { useBreakpoint } from '../hooks/useBreakpoint';
+import { addClass } from '../utils/helpers';
 
-const artistPage = ({ data }) => {
+let span3 = 2;
+let span2 = 1;
+let imgWidth = 18;
+
+const ArtistPage = ({ data }) => {
+  const breakpoint = useBreakpoint();
   const { setTitle } = useContext(TitleContext);
-  const { name } = data.title;
+  const { artist } = data.title;
 
   useEffect(() => {
-    setTitle(name);
-  }, [name]);
+    setTitle(artist);
+  }, [artist]);
+
+  if (breakpoint.galleryMd) {
+    breakpoint.span ? (span3 = 3) : (span3 = 2);
+    breakpoint.galleryLg ? (imgWidth = 23) : (imgWidth = 18);
+  }
+
+  if (breakpoint.mobile) {
+    span2 = 1;
+    span3 = 1;
+  } else {
+    span2 = 2;
+  }
 
   const imageProps = data.pics.edges.map(({ node }, idx) => {
     const { image, subject, dimensions, id, sold } = node;
-
+    const imgTitle = dimensions
+      ? `${artist} - ${dimensions.width}x${dimensions.height}cm`
+      : `${artist}`;
     return {
       image,
       alt: subject.name,
       title: subject.name,
+      imgTitle,
       key: id,
       idx,
       sold,
-      ratio: image.asset.metadata.dimensions.aspectRatio,
       dimensions,
-      imgStyle: { width: '100%', height: '100%', objectFit: 'cover', marginBottom: '0' },
+      ratio: image.asset.metadata.dimensions.aspectRatio,
+      loading: 'eager',
+      imgStyle: { objectFit: 'contain', width: '100%', height: '100%' },
     };
   });
-  const config = { mass: 5, tension: 2000, friction: 200 };
+
   const trail = useTrail(imageProps.length, {
-    config,
-    opacity: 1,
-    scale: 1,
-    from: { opacity: 0, scale: 0.3 },
+    to: { opacity: 1, transform: 'scale(1)' },
+    from: { opacity: 0, transform: 'scale(0.3)' },
   });
 
   return (
-    <Container>
+    <GalleryLayout width={imgWidth} span3={span3} span2={span2}>
       {trail.map((props, idx) => {
-        const { image, ratio, title, key, sold, imgStyle, ...others } = imageProps[idx];
+        const { image, key, ratio, sold, title, imgStyle, imgTitle, ...others } = imageProps[idx];
         return (
-          <PictureBox className={addClass(ratio)} key={key} style={{ ...props }}>
+          <PictureBox className={addClass(ratio)} style={{ ...props }} key={key}>
             <SEO title={title} imageSrc={image.asset.url} />
-            <Image {...image} width={500} height={500} title={title} style={imgStyle} {...others} />
+            <Image
+              {...image}
+              width={imgWidth * span3 * 10}
+              title={imgTitle}
+              style={imgStyle}
+              {...others}
+            />
             {sold && <SoldTag>SOLD</SoldTag>}
+            <p>{title}</p>
           </PictureBox>
         );
       })}
@@ -54,23 +83,18 @@ const artistPage = ({ data }) => {
   );
 };
 
-export default artistPage;
+export default ArtistPage;
 
 export const ARTIST_QUERY = graphql`
   query ARTIST_QUERY($slug: String!) {
     pics: allSanityPicture(filter: { artist: { slug: { current: { eq: $slug } } } }) {
       edges {
         node {
-          id
-          sold
-          artist {
-            name
-          }
           subject {
             name
-            week
-            order
           }
+          id
+          sold
           image {
             ...ImageWithPreview
             asset {
@@ -83,14 +107,14 @@ export const ARTIST_QUERY = graphql`
             }
           }
           dimensions {
-            height
             width
+            height
           }
         }
       }
     }
     title: sanityArtist(slug: { current: { eq: $slug } }) {
-      name
+      artist: name
     }
   }
 `;

@@ -6,12 +6,14 @@ export const Dropdown = styled.div`
   position: absolute;
   top: calc(var(--navHeight) * 0.95);
   right: 0.4rem;
-  width: 300px;
+  width: 30rem;
+  max-height: 60rem;
   background-color: var(--bg);
   border: var(--border);
   border-radius: var(--border-radius);
-  padding: 15px;
-  overflow: hidden;
+  padding: 1.5rem;
+  /* overflow: auto; */
+  overflow-y: scroll;
   z-index: 20;
 `;
 
@@ -20,8 +22,8 @@ export const MenuItemStyled = styled.div`
   height: 50px;
   display: flex;
   align-items: center;
+  justify-content: end;
   border-radius: var(--border-radius);
-  transition: background var(--speed);
   padding: 0.5rem;
 
   &:hover {
@@ -38,6 +40,10 @@ export const MenuItemStyled = styled.div`
 
   .icon-right {
     margin-left: auto;
+  }
+
+  .pad {
+    padding: 0 0.5rem;
   }
 `;
 

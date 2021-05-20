@@ -15,13 +15,15 @@ module.exports = {
     title: `Wednesday Isolationists`,
     description: `A collective of UK Artists had no name before the Covid Lockdown, but with this new way of working from home they became the "Wednesday Isolationists"`,
     author: `TWGuy <twguy.weddev@gmail.com>`,
-    siteURL: `https://wednesday-isolationists.co.uk`,
+    siteUrl: `https://wednesday-isolationists.co.uk`,
   },
   plugins: [
+    'gatsby-plugin-robots-txt',
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
     'gatsby-plugin-image',
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-sitemap`,
     `gatsby-transformer-sharp`,
     'gatsby-plugin-react-svg',
     {
@@ -32,15 +34,13 @@ module.exports = {
         watchMode: !isProd,
         useCdn: isProd,
         overlayDrafts: !isProd && token,
-        apiVersion: '2021-05-01',
       },
     },
     {
-      resolve: `gatsby-plugin-sanity-image`,
+      resolve: 'gatsby-plugin-sanity-image',
       options: {
         ...clientConfig.sanity,
         token,
-        apiVersion: '2021-05-01',
       },
     },
     {
@@ -58,4 +58,7 @@ module.exports = {
     },
     'gatsby-plugin-gatsby-cloud',
   ],
+  flags: {
+    FAST_DEV: true,
+  },
 };
