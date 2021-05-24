@@ -1,0 +1,23 @@
+{
+  "name": "cms-isolationists",
+  "version": "1.0.0",
+  "description": "Gallery website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThomasGuy/cms-isolationists.git"
+  },
+  "keywords": [
+    "Gatsby",
+    "Sanity"
+  ],
+  "author": "Thomas Guy <twguy.webdev@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThomasGuy/cms-isolationists/issues"
+  },
+  "homepage": "https://github.com/ThomasGuy/cms-isolationists#readme"
+}
