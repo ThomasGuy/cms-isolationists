@@ -10,7 +10,6 @@ import SEO from '../components/seo';
 import { useBreakpoint } from '../hooks/useBreakpoint';
 import { addClass } from '../utils/helpers';
 
-let span3 = 2;
 let span2 = 1;
 let imgWidth = 18;
 
@@ -23,22 +22,8 @@ const ArtistPage = ({ data }) => {
     setTitle(artist);
   }, [artist]);
 
-  // useEffect(() => {
-  //   breakpoint.galleryLg ? (imgWidth = 23) : (imgWidth = 18);
-  //   breakpoint.mobile ? (span2 = 1) : (span2 = 2);
-  // }, [breakpoint]);
-
-  if (breakpoint.galleryMd) {
-    breakpoint.span ? (span3 = 3) : (span3 = 2);
-    breakpoint.galleryLg ? (imgWidth = 23) : (imgWidth = 18);
-  }
-
-  if (breakpoint.mobile) {
-    span2 = 1;
-    span3 = 1;
-  } else {
-    span2 = 2;
-  }
+  breakpoint.galleryLg ? (imgWidth = 23) : (imgWidth = 18);
+  breakpoint.mobile ? (span2 = 1) : (span2 = 2);
 
   const imageProps = data.pics.edges.map(({ node }, idx) => {
     const { image, subject, dimensions, id, sold } = node;
@@ -66,7 +51,7 @@ const ArtistPage = ({ data }) => {
   });
 
   return (
-    <GalleryLayout width={imgWidth} span3={span3} span2={span2}>
+    <GalleryLayout width={imgWidth} span2={span2}>
       {trail.map((props, idx) => {
         const { image, key, ratio, sold, title, imgStyle, imgTitle, ...others } =
           imageProps[idx];
@@ -75,7 +60,7 @@ const ArtistPage = ({ data }) => {
             <SEO title={title} imageSrc={image.asset.url} />
             <Image
               {...image}
-              width={imgWidth * span3 * 10}
+              width={imgWidth * span2 * 10} // no span3 now
               title={imgTitle}
               style={imgStyle}
               {...others}

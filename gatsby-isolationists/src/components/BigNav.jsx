@@ -1,6 +1,6 @@
 /* eslint-disable react/no-this-in-sfc */
 import { animated, useSpring } from 'react-spring';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import useDetectOutsideClick from '../hooks/useDetectOutsideClick';
@@ -53,14 +53,14 @@ const Navbar = styled.nav`
   top: 0;
   left: 0;
   right: 0;
-  max-width: var(--maxWidth);
+  max-width: var(--pageWidth);
   background: var(--bg);
   height: 12rem;
   margin: 0 auto;
   display: grid;
   padding: 1rem;
   padding-bottom: 2rem;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, auto);
   grid-template-rows: repeat(2, auto);
   place-items: center center;
   column-gap: 2rem;
@@ -69,19 +69,23 @@ const Navbar = styled.nav`
   line-height: 1.5rem;
 
   .heading {
-    grid-column: 1 / 4;
-    font-size: 3.6rem;
+    grid-column: 1 / 3;
+    font-size: 2.3rem;
     color: var(--offWhite);
     font-weight: 600;
     margin: 0.7rem;
     padding: 0 1rem;
     padding-top: 0.7rem;
     justify-self: end;
+
+    ${mediaQuery('lg')`
+      font-size: 3.6rem;
+    `};
   }
 
   p {
     justify-self: start;
-    grid-column: 4 / 7;
+    grid-column: 3 / 5;
     font-size: 1.5rem;
     color: var(--title);
     margin: 0;
@@ -98,14 +102,6 @@ const Navbar = styled.nav`
       }
     `};
   }
-`;
-
-const NavButtons = styled.div`
-  grid-column: 1 / -1;
-  display: grid;
-  place-items: center center;
-  grid-template-columns: repeat(4, auto);
-  gap: 2rem;
 `;
 
 const NavDropdown = styled.div`
@@ -136,12 +132,19 @@ const NavDropdown = styled.div`
   }
 `;
 
+const NavButtons = styled.div`
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center center;
+  grid-template-columns: repeat(4, auto);
+  gap: 2rem;
+`;
+
 const Nav = ({ children }) => {
   return <Navbar>{children}</Navbar>;
 };
 
 function BigNav({ title, artists, subjects }) {
-  const [activeMenu, setActiveMenu] = useState(null);
   const dropRef1 = useRef();
   const dropRef2 = useRef();
   const dropRef3 = useRef();
@@ -153,21 +156,18 @@ function BigNav({ title, artists, subjects }) {
     const expanded = evt.target.getAttribute('aria-expanded') === 'true' || false;
     evt.target.setAttribute('aria-expanded', !expanded);
     setOpen1(state => !state);
-    setActiveMenu(this.getAttribute('active'));
   }
 
   function handleSubjectMenu(evt) {
     const expanded = evt.target.getAttribute('aria-expanded') === 'true' || false;
     evt.target.setAttribute('aria-expanded', !expanded);
     setOpen2(state => !state);
-    setActiveMenu(this.getAttribute('active'));
   }
 
   function handleAboutMenu(evt) {
     const expanded = evt.target.getAttribute('aria-expanded') === 'true' || false;
     evt.target.setAttribute('aria-expanded', !expanded);
     setOpen3(state => !state);
-    setActiveMenu(this.getAttribute('active'));
   }
 
   useEffect(() => {
@@ -212,7 +212,6 @@ function BigNav({ title, artists, subjects }) {
           <button
             id="artist-menu-button"
             type="button"
-            active="Artist"
             onClick={() => handleArtistMenu}
             aria-label="artist gallery menu"
             aria-haspopup="true"
@@ -242,13 +241,12 @@ function BigNav({ title, artists, subjects }) {
             id="subject-menu-button"
             type="button"
             onClick={() => handleSubjectMenu}
-            active="Subject"
             aria-label="subject gallery menu"
             aria-haspopup="true"
             aria-expanded="false"
             aria-controls="menu-list">
             Subjects
-            {open2 && activeMenu === 'Subject' && (
+            {open2 && (
               <Dropdown id="subject-menu-list" roll="menu" style={{ ...springProps }}>
                 {subjects.nodes.map(node => {
                   const { id, name, week, slug } = node;
@@ -270,13 +268,12 @@ function BigNav({ title, artists, subjects }) {
             id="about-menu-button"
             type="button"
             onClick={() => handleAboutMenu}
-            active="About"
             aria-label="about artist menu"
             aria-haspopup="true"
             aria-expanded="false"
             aria-controls="menu-list">
             About
-            {open3 && activeMenu === 'About' && (
+            {open3 && (
               <Dropdown id="about-menu-list" roll="menu" style={{ ...springProps }}>
                 {artists.nodes.map(node => {
                   const { id, name, slug } = node;

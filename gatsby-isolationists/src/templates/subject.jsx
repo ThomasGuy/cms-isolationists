@@ -10,7 +10,6 @@ import { GalleryLayout, PictureBox, SoldTag } from '../styles';
 import { addClass } from '../utils/helpers';
 import { useBreakpoint } from '../hooks/useBreakpoint';
 
-let span3 = 2;
 let span2 = 1;
 let imgWidth = 18;
 
@@ -23,22 +22,8 @@ const SubjectPage = ({ data }) => {
     setTitle(subject);
   }, [subject]);
 
-  if (breakpoint.galleryMd) {
-    breakpoint.span ? (span3 = 3) : (span3 = 2);
-    breakpoint.galleryLg ? (imgWidth = 23) : (imgWidth = 18);
-  }
-
-  // useEffect(() => {
-  //   breakpoint.galleryLg ? (imgWidth = 23) : (imgWidth = 18);
-  //   breakpoint.mobile ? (span2 = 1) : (span2 = 2);
-  // }, [breakpoint]);
-
-  if (breakpoint.mobile) {
-    span2 = 1;
-    span3 = 1;
-  } else {
-    span2 = 2;
-  }
+  breakpoint.galleryLg ? (imgWidth = 23) : (imgWidth = 18);
+  breakpoint.mobile ? (span2 = 1) : (span2 = 2);
 
   const propsArray = data.pics.edges.map(({ node }, idx) => {
     const { image, artist, dimensions, id, sold } = node;
@@ -68,11 +53,7 @@ const SubjectPage = ({ data }) => {
   });
 
   return (
-    <GalleryLayout
-      width={imgWidth}
-      span3={span3}
-      span2={span2}
-      style={{ maxWidth: '1600px' }}>
+    <GalleryLayout width={imgWidth} span2={span2}>
       {propsArray.map(props => {
         const { image, title, imgStyle, ratio, sold, key, imgTitle, ...others } = props;
 
@@ -87,7 +68,7 @@ const SubjectPage = ({ data }) => {
             <SEO title={title} imageSrc={image.asset.url} />
             <Image
               {...image}
-              width={imgWidth * span3 * 10}
+              width={imgWidth * span2 * 10} // no span3
               title={imgTitle}
               style={imgStyle}
               {...others}

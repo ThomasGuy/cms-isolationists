@@ -19,10 +19,6 @@ export const GalleryLayout = styled.div`
     grid-column: ${({ span2 }) => `span ${span2}`};
   }
 
-  .wide3 {
-    grid-column: ${({ span2 }) => `span ${span2}`};
-  }
-
   ${mediaQuery('xs')`
     gap: 1.4rem;
     padding: 2rem 1rem;
