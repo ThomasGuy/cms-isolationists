@@ -14,24 +14,28 @@ const ContentStyles = styled.div`
   max-width: var(--maxWidth);
   min-height: 100vh;
   margin: 0 auto;
-  margin-top: 6rem;
+  margin-top: 8rem;
   padding: 0;
 
   ${mediaQuery('sm')`
     margin-top: var(--navHeight);
+ `};
+
+  ${mediaQuery('md')`
+    margin-top: 13rem;
  `};
 `;
 
 // these should maybe be synced up with mediaQueries
 const queries = {
   // or: '(orientation: portrait)', // we can check orientation also
-  // navChange: '(max-width: 780px)',
+  navChange: '(min-width: 680px)',
 
   // md: '(max-width: 668px)',
   galleryMd: '(min-width: 450px)',
-  galleryLg: '(min-width: 1150px)',
-  span: '(min-width: 640px)',
-  mobile: '(max-width: 380px)',
+  galleryLg: '(min-width: 968px)',
+  // span: '(min-width: 840px)',
+  mobile: '(max-width: 400px)',
 };
 
 export const TitleContext = createContext({
@@ -49,7 +53,9 @@ const Layout = ({ children }) => {
       <ContentStyles>
         <BreakpointProvider queries={queries}>
           <Nav title={title} />
-          <TitleContext.Provider value={{ title, setTitle }}>{children}</TitleContext.Provider>
+          <TitleContext.Provider value={{ title, setTitle }}>
+            {children}
+          </TitleContext.Provider>
         </BreakpointProvider>
         <Footer />
       </ContentStyles>

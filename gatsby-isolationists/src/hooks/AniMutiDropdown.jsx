@@ -21,10 +21,6 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
     );
   }
 
-  // function DropdownLink({ children }) {
-  //   return <MenuItemStyled>{children}</MenuItemStyled>;
-  // }
-
   return (
     <Dropdown ref={dropdownRef}>
       <AnimatePresence>
@@ -89,7 +85,8 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
               const { name, week, id, slug } = subject;
               return (
                 <MenuItemStyled key={id}>
-                  <Link to={`/gallery/subject/${slug.current}`}>{`${week}. ${name}`}</Link>
+                  <Link
+                    to={`/gallery/subject/${slug.current}`}>{`${week}. ${name}`}</Link>
                 </MenuItemStyled>
               );
             })}

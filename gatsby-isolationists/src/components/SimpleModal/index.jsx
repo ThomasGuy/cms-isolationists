@@ -27,7 +27,7 @@ export function Modal({ onCloseRequest, children }) {
         onCloseRequest();
       }
     },
-    [onCloseRequest]
+    [onCloseRequest],
   );
 
   useEffect(() => {

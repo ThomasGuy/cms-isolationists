@@ -23,6 +23,11 @@ const ArtistPage = ({ data }) => {
     setTitle(artist);
   }, [artist]);
 
+  // useEffect(() => {
+  //   breakpoint.galleryLg ? (imgWidth = 23) : (imgWidth = 18);
+  //   breakpoint.mobile ? (span2 = 1) : (span2 = 2);
+  // }, [breakpoint]);
+
   if (breakpoint.galleryMd) {
     breakpoint.span ? (span3 = 3) : (span3 = 2);
     breakpoint.galleryLg ? (imgWidth = 23) : (imgWidth = 18);
@@ -63,7 +68,8 @@ const ArtistPage = ({ data }) => {
   return (
     <GalleryLayout width={imgWidth} span3={span3} span2={span2}>
       {trail.map((props, idx) => {
-        const { image, key, ratio, sold, title, imgStyle, imgTitle, ...others } = imageProps[idx];
+        const { image, key, ratio, sold, title, imgStyle, imgTitle, ...others } =
+          imageProps[idx];
         return (
           <PictureBox className={addClass(ratio)} style={{ ...props }} key={key}>
             <SEO title={title} imageSrc={image.asset.url} />

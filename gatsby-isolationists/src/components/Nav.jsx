@@ -8,6 +8,8 @@ import Icon from './icons';
 import useDetectOutsideClick from '../hooks/useDetectOutsideClick';
 import MultiDropdownMenu from '../hooks/AniMutiDropdown';
 import { mediaQuery } from '../styles/mediaQuery';
+import { useBreakpoint } from '../hooks/useBreakpoint';
+import BigNav from './BigNav';
 
 const NavbarItem = styled.div`
   position: relative;
@@ -15,9 +17,9 @@ const NavbarItem = styled.div`
 
   /* Icon Button */
   .icon-button {
-    --button-size: calc(var(--navHeight) * 0.5);
-    width: var(--button-size);
-    height: var(--button-size);
+    --button-size: calc(var(--navHeight) * 0.45);
+    width: 3.5rem;
+    height: 3.5rem;
     border-radius: 50%;
     padding: 5px;
     padding-left: 2px;
@@ -27,19 +29,24 @@ const NavbarItem = styled.div`
     justify-content: center;
     transition: filter 300ms;
 
+    svg {
+      fill: var(--text-color);
+      width: 20px;
+      height: 20px;
+    }
+
     ${mediaQuery('sm')`
       background-color: var(--button);
+      svg {
+        fill: var(--text-color);
+        width: 25px;
+        height: 25px;
+      }
     `};
   }
 
   .icon-button:hover {
     filter: brightness(1.3);
-  }
-
-  svg {
-    fill: var(--text-color);
-    width: 25px;
-    height: 25px;
   }
 `;
 
@@ -55,7 +62,7 @@ const Navbar = styled.nav`
   grid-template-columns: 1fr auto auto;
   place-items: center center;
   background: var(--bg);
-  height: 6rem;
+  height: var(--navHeight);
   gap: 0.5rem;
   padding-right: 1rem;
 
@@ -68,15 +75,26 @@ const Navbar = styled.nav`
   ${mediaQuery('xl')`
     padding: 0 25rem;
   `};
+`;
+
+const TitleArea = styled.div`
+  display: grid;
+  grid-template-rows: auto auto;
+  place-items: center center;
+  gap: 1rem;
+  font-size: 1.6rem;
 
   .title {
     color: var(--offWhite);
-    font-size: 1.6rem;
     font-weight: 600;
     margin: 0;
     padding: 0 1rem;
+    padding-top: 0.7rem;
+    letter-spacing: 1.1px;
+    line-height: 1.5rem;
 
     ${mediaQuery('xs')`
+      padding-top: 1rem;
       font-size: 2.4rem;
       `};
 
@@ -84,11 +102,32 @@ const Navbar = styled.nav`
       font-size: 2.8rem;
       font-weight: 700;
       letter-spacing: 1.3px;
-      line-height: 1.2;
     `};
 
     ${mediaQuery('md')`
       font-size: 3.2rem;
+    `};
+  }
+
+  p {
+    color: var(--title);
+    font-size: 1.1rem;
+    span {
+      font-size: 0.9rem;
+    }
+
+    ${mediaQuery('xs')`
+      font-size: 1.4rem;
+      span {
+        font-size: 1.2rem;
+      }
+    `};
+
+    ${mediaQuery('sm')`
+      font-size: 1.6rem;
+      span {
+        font-size: 1.4rem;
+      }
     `};
   }
 `;
@@ -120,6 +159,7 @@ function NavLink({ icon }) {
 }
 
 export default function Nav({ title }) {
+  const breakpoint = useBreakpoint();
   const dropdownRef = useRef(null);
   const [open, setOpen] = useDetectOutsideClick(dropdownRef, false);
   const { artists, subjects } = useStaticQuery(graphql`
@@ -147,12 +187,38 @@ export default function Nav({ title }) {
   `);
 
   return (
-    <Header style={{ maxWidth: 'var(pageWidth)' }}>
-      <h2 className="title">{title}</h2>
-      <NavLink icon={<Icon symbol="home" />} key="Home" />
-      <NavButton icon={<Icon symbol="list" />} key="Caret" open={open} setOpen={setOpen}>
-        <MultiDropdownMenu artists={artists} subjects={subjects} dropdownRef={dropdownRef} />
-      </NavButton>
-    </Header>
+    <>
+      {breakpoint.navChange ? (
+        <BigNav
+          title={title}
+          dropdownRef={dropdownRef}
+          artists={artists}
+          subjects={subjects}
+          open={open}
+          setOpen={setOpen}
+        />
+      ) : (
+        <Header style={{ maxWidth: 'var(pageWidth)' }}>
+          <TitleArea>
+            <h2 className="title">{title}</h2>
+            <p>
+              All pictures for sale from £50 <span>email artist</span>
+            </p>
+          </TitleArea>
+          <NavLink icon={<Icon symbol="home" />} key="Home" />
+          <NavButton
+            icon={<Icon symbol="list" />}
+            key="Caret"
+            open={open}
+            setOpen={setOpen}>
+            <MultiDropdownMenu
+              artists={artists}
+              subjects={subjects}
+              dropdownRef={dropdownRef}
+            />
+          </NavButton>
+        </Header>
+      )}
+    </>
   );
 }

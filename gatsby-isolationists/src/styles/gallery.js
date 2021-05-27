@@ -20,7 +20,7 @@ export const GalleryLayout = styled.div`
   }
 
   .wide3 {
-    grid-column: ${({ span3 }) => `span ${span3}`};
+    grid-column: ${({ span2 }) => `span ${span2}`};
   }
 
   ${mediaQuery('xs')`
@@ -38,8 +38,8 @@ export const GalleryLayout = styled.div`
     padding: 3rem;
  `};
 
-  ${mediaQuery('lg')`
-    gap: 4rem;
+  ${mediaQuery('xl')`
+    gap: 6rem;
     padding: 4rem;
  `};
 `;

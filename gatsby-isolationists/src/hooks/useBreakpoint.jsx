@@ -50,7 +50,11 @@ const BreakpointProvider = ({ children, queries }) => {
     };
   }, [queries]);
 
-  return <BreakpointContext.Provider value={queryMatch}>{children}</BreakpointContext.Provider>;
+  return (
+    <BreakpointContext.Provider value={queryMatch}>
+      {children}
+    </BreakpointContext.Provider>
+  );
 };
 
 function useBreakpoint() {

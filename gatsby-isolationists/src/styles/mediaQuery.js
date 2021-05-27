@@ -1,9 +1,9 @@
 const breakpoints = {
   xs: 360,
   sm: 450,
-  md: 640,
+  md: 680,
   lg: 968,
-  xl: 1150,
+  xl: 1280,
 };
 
 export const mediaQuery = key => style =>

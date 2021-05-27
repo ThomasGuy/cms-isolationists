@@ -8,7 +8,8 @@ import SEO from '../components/seo';
 import { Image, Grid, Row, Col, Title, Bio } from '../styles';
 
 const BioPage = ({ pageContext }) => {
-  const { id, name, social, links, email, education, biography, mug, mainImage } = pageContext.node;
+  const { id, name, social, links, email, education, biography, mug, mainImage } =
+    pageContext.node;
   const { setTitle } = useContext(TitleContext);
 
   useEffect(() => {
@@ -58,7 +59,8 @@ const BioPage = ({ pageContext }) => {
 
         <Row>
           <Col>
-            {biography && biography.map((bio, idx) => <Bio key={makeId('bio', idx)}>{bio}</Bio>)}
+            {biography &&
+              biography.map((bio, idx) => <Bio key={makeId('bio', idx)}>{bio}</Bio>)}
           </Col>
         </Row>
 
@@ -83,7 +85,10 @@ const BioPage = ({ pageContext }) => {
               <ul>
                 <li>
                   {social.facebook && (
-                    <a className="social" title="follow me on facebook" href={`${social.facebook}`}>
+                    <a
+                      className="social"
+                      title="follow me on facebook"
+                      href={`${social.facebook}`}>
                       <img
                         style={{ marginBottom: '0' }}
                         alt="follow me on facebook"
@@ -93,7 +98,10 @@ const BioPage = ({ pageContext }) => {
                     </a>
                   )}
                   {social.instagram && (
-                    <a className="social" title="follow me on Instagram" href={social.instagram}>
+                    <a
+                      className="social"
+                      title="follow me on Instagram"
+                      href={social.instagram}>
                       <img
                         style={{ marginBottom: '0' }}
                         alt="follow me on instagram"

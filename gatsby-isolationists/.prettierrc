@@ -4,16 +4,15 @@
   "endOfLine": "lf",
   "htmlWhitespaceSensitivity": "css",
   "insertPragma": false,
+  "requirePragma": false,
   "jsxBracketSameLine": true,
   "jsxSingleQuote": false,
-  "printWidth": 100,
+  "printWidth": 88,
   "proseWrap": "preserve",
   "quoteProps": "as-needed",
-  "requirePragma": false,
   "semi": true,
   "singleQuote": true,
   "tabWidth": 2,
   "trailingComma": "all",
-  "useTabs": false,
-  "react/jsx-curly-spacing": "all"
+  "useTabs": false
 }

@@ -104,7 +104,6 @@ const bioPages = async ({ graphql, actions, reporter }) => {
             social {
               instagram
               facebook
-              twitter
             }
             mainImage {
               asset {

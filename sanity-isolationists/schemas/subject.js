@@ -38,12 +38,6 @@ export default {
       type: 'number',
       hidden: true,
     },
-    // {
-    //   name: 'Pictures',
-    //   title: 'Pictures',
-    //   type: 'array',
-    // of: [{ type: 'reference', to: [{ type: 'picture' }] }],
-    // },
   ],
   orderings: [
     {

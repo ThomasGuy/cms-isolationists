@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
     --lightGrey: #e1e1e1;
     --lightGray: var(---lightGrey);
     --offWhite: #ededed;
-    --bs: 0 12px 24px 0 rgba(0,0,0,0.09);
+    --bs: 0 8px 6px 0 rgba(fa,fa,fa,0.09);
     --title: #b88f83;
     --background: #282c34;
     --button: #b22cb2cc;
@@ -19,8 +19,9 @@ export const GlobalStyle = createGlobalStyle`
     --border: 1px solid #474a4d;
     --border-radius: 8px;
     --speed: 500ms;
-    --maxWidth: 1800px;
+    --maxWidth: 1750px;
     --pageWidth: 1280px;
+    --navHeight: 8rem;
   }
 
   html {
@@ -28,7 +29,6 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 62.5%;
     margin: 0;
     padding: 0;
-    --navHeight: 8rem;
   }
 
   *, *:before, *:after {
