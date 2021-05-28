@@ -1,30 +1,34 @@
 import { animated } from 'react-spring';
 import styled from 'styled-components';
+import { mediaQuery } from './mediaQuery';
 
 // Dropdown styles
 export const Dropdown = styled.div`
   position: absolute;
-  top: calc(var(--navHeight) * 0.95);
+  top: calc(var(--navHeight) * 0.8);
   right: 0.4rem;
-  width: 30rem;
+  width: 25rem;
   max-height: 60rem;
   background-color: var(--bg);
   border: var(--border);
   border-radius: var(--border-radius);
   padding: 1.5rem;
-  /* overflow: auto; */
-  overflow-y: scroll;
+  overflow-y: auto;
   z-index: 20;
+
+  ${mediaQuery('xs')`
+    width: 30rem;
+  `};
 `;
 
 export const MenuItemStyled = styled.div`
   font-size: 1.8rem;
   height: 5rem;
   display: flex;
+  gap: 0.5rem;
   align-items: center;
   justify-content: end;
   border-radius: var(--border-radius);
-  padding: 0.5rem;
 
   &:hover {
     background-color: #525357;

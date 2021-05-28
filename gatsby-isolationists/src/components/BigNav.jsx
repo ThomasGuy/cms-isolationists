@@ -1,4 +1,3 @@
-/* eslint-disable react/no-this-in-sfc */
 import { animated, useSpring } from 'react-spring';
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
@@ -47,15 +46,19 @@ const Li = styled.li`
   }
 `;
 
-const Navbar = styled.nav`
+const FullWidth = styled.div`
+  width: 100%;
   position: fixed;
   z-index: 10;
   top: 0;
   left: 0;
   right: 0;
-  max-width: var(--pageWidth);
   background: var(--bg);
-  height: 12rem;
+  height: 11.5rem;
+`;
+
+const Navbar = styled.nav`
+  max-width: var(--pageWidth);
   margin: 0 auto;
   display: grid;
   padding: 1rem;
@@ -64,21 +67,38 @@ const Navbar = styled.nav`
   grid-template-rows: repeat(2, auto);
   place-items: center center;
   column-gap: 2rem;
-  row-gap: 1rem;
-  letter-spacing: 1.1px;
-  line-height: 1.5rem;
+  row-gap: 2rem;
+  line-height: 2rem;
 
   .heading {
-    grid-column: 1 / 3;
-    font-size: 2.3rem;
+    grid-column: ${({ subTitle }) => {
+      if (subTitle) {
+        return '1 / 3';
+      }
+      return '1 / -1';
+    }};
+
+    justify-self: ${({ subTitle }) => {
+      if (subTitle) {
+        return 'end';
+      }
+      return 'center';
+    }};
+
+    font-size: 2.1rem;
+    letter-spacing: 1.1px;
     color: var(--offWhite);
     font-weight: 600;
     margin: 0.7rem;
     padding: 0 1rem;
     padding-top: 0.7rem;
-    justify-self: end;
 
     ${mediaQuery('lg')`
+      font-size: 3rem;
+      letter-spacing: 1.2px;
+    `};
+
+    ${mediaQuery('xl')`
       font-size: 3.6rem;
     `};
   }
@@ -140,11 +160,15 @@ const NavButtons = styled.div`
   gap: 2rem;
 `;
 
-const Nav = ({ children }) => {
-  return <Navbar>{children}</Navbar>;
+const Nav = ({ children, subTitle }) => {
+  return (
+    <FullWidth>
+      <Navbar subTitle={subTitle}>{children}</Navbar>
+    </FullWidth>
+  );
 };
 
-function BigNav({ title, artists, subjects }) {
+function BigNav({ title, subTitle, artists, subjects }) {
   const dropRef1 = useRef();
   const dropRef2 = useRef();
   const dropRef3 = useRef();
@@ -190,17 +214,20 @@ function BigNav({ title, artists, subjects }) {
   // abit of animation for thr non visually impared
   const config = { mass: 20, tension: 100, friction: 76 };
   const springProps = useSpring({
+    xy: [0, 0],
     opacity: 1,
-    from: { opacity: 0 },
+    from: { opacity: 0, xy: [-200, 0] },
     ...config,
   });
 
   return (
-    <Nav id="navigation" aria-labelledby="site-navigation">
+    <Nav id="navigation" aria-labelledby="site-navigation" subTitle={subTitle}>
       <div className="heading">{title}</div>
-      <p>
-        All pictures for sale from £50 <span>email artist</span>
-      </p>
+      {subTitle && (
+        <p>
+          All pictures for sale from £50 <span>email artist</span>
+        </p>
+      )}
       <NavButtons>
         <NavDropdown>
           <button type="button" role="link" aria-label="link homepage">

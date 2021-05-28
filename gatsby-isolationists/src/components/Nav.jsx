@@ -1,10 +1,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useRef } from 'react';
-import { graphql, Link, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 
 import Icon from './icons';
+// import { ReactComponent as Burger } from './icons/svg/burger.svg';
 import useDetectOutsideClick from '../hooks/useDetectOutsideClick';
 import MultiDropdownMenu from '../hooks/AniMutiDropdown';
 import { mediaQuery } from '../styles/mediaQuery';
@@ -56,24 +57,17 @@ const Navbar = styled.nav`
   top: 0;
   left: 0;
   right: 0;
-  max-width: var(--maxWidth);
-  margin: 0 auto;
+  max-width: var(--pageWidth);
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr auto;
   place-items: center center;
   background: var(--bg);
   height: var(--navHeight);
-  gap: 0.5rem;
+  gap: 1rem;
   padding-right: 1rem;
 
   ${mediaQuery('sm')`
     height: var(--navHeight);
-    gap: 2rem;
-    padding-right: 2rem;
-  `};
-
-  ${mediaQuery('xl')`
-    padding: 0 25rem;
   `};
 `;
 
@@ -82,30 +76,22 @@ const TitleArea = styled.div`
   grid-template-rows: auto auto;
   place-items: center center;
   gap: 1rem;
-  font-size: 1.6rem;
 
   .title {
+    font-size: 1.4rem;
     color: var(--offWhite);
-    font-weight: 600;
+    font-weight: 400;
     margin: 0;
     padding: 0 1rem;
     padding-top: 0.7rem;
-    letter-spacing: 1.1px;
-    line-height: 1.5rem;
+    line-height: 2rem;
 
     ${mediaQuery('xs')`
-      padding-top: 1rem;
-      font-size: 2.4rem;
+      font-size: 1.7rem;
       `};
 
     ${mediaQuery('sm')`
-      font-size: 2.8rem;
-      font-weight: 700;
-      letter-spacing: 1.3px;
-    `};
-
-    ${mediaQuery('md')`
-      font-size: 3.2rem;
+      font-size: 2.2rem;
     `};
   }
 
@@ -148,17 +134,17 @@ function NavButton({ open, setOpen, children, icon }) {
   );
 }
 
-function NavLink({ icon }) {
-  return (
-    <NavbarItem>
-      <Link className="icon-button" to="/">
-        {icon}
-      </Link>
-    </NavbarItem>
-  );
-}
+// function NavLink({ icon }) {
+//   return (
+//     <NavbarItem>
+//       <Link className="icon-button" to="/">
+//         {icon}
+//       </Link>
+//     </NavbarItem>
+//   );
+// }
 
-export default function Nav({ title }) {
+export default function Nav({ title, subTitle }) {
   const breakpoint = useBreakpoint();
   const dropdownRef = useRef(null);
   const [open, setOpen] = useDetectOutsideClick(dropdownRef, false);
@@ -191,6 +177,7 @@ export default function Nav({ title }) {
       {breakpoint.navChange ? (
         <BigNav
           title={title}
+          subTitle={subTitle}
           dropdownRef={dropdownRef}
           artists={artists}
           subjects={subjects}
@@ -198,14 +185,15 @@ export default function Nav({ title }) {
           setOpen={setOpen}
         />
       ) : (
-        <Header style={{ maxWidth: 'var(pageWidth)' }}>
+        <Header>
           <TitleArea>
-            <h2 className="title">{title}</h2>
-            <p>
-              All pictures for sale from £50 <span>email artist</span>
-            </p>
+            <div className="title">{title}</div>
+            {subTitle && (
+              <p>
+                All pictures for sale from £50 <span>email artist</span>
+              </p>
+            )}
           </TitleArea>
-          <NavLink icon={<Icon symbol="home" />} key="Home" />
           <NavButton
             icon={<Icon symbol="list" />}
             key="Caret"

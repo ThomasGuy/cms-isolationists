@@ -67,10 +67,11 @@ function ArtistLink({ artist }) {
 
 export default function Homepage({ pageContext }) {
   const { studio, mugs, title } = pageContext;
-  const { setTitle } = useContext(TitleContext);
+  const { setTitle, setSubtitle } = useContext(TitleContext);
 
   useEffect(() => {
     setTitle(title);
+    setSubtitle(false);
   }, [title]);
 
   return (

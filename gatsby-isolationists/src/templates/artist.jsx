@@ -15,11 +15,12 @@ let imgWidth = 18;
 
 const ArtistPage = ({ data }) => {
   const breakpoint = useBreakpoint();
-  const { setTitle } = useContext(TitleContext);
+  const { setTitle, setSubtitle } = useContext(TitleContext);
   const { artist } = data.title;
 
   useEffect(() => {
     setTitle(artist);
+    setSubtitle(true);
   }, [artist]);
 
   breakpoint.galleryLg ? (imgWidth = 23) : (imgWidth = 18);

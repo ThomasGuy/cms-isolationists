@@ -10,10 +10,11 @@ import { Image, Grid, Row, Col, Title, Bio } from '../styles';
 const BioPage = ({ pageContext }) => {
   const { id, name, social, links, email, education, biography, mug, mainImage } =
     pageContext.node;
-  const { setTitle } = useContext(TitleContext);
+  const { setTitle, setSubtitle } = useContext(TitleContext);
 
   useEffect(() => {
     setTitle(name);
+    setSubtitle(false);
   }, [name]);
 
   function makeId(slug, idx) {

@@ -40,11 +40,14 @@ const queries = {
 
 export const TitleContext = createContext({
   title: 'Sporty',
+  subTitle: false,
   setTitle: () => {},
+  setSubtitle: () => {},
 });
 
 const Layout = ({ children }) => {
   const [title, setTitle] = useState();
+  const [subTitle, setSubtitle] = useState(false);
   const { siteTitle, siteDescription } = useSiteMetadata();
   return (
     <>
@@ -52,8 +55,8 @@ const Layout = ({ children }) => {
       <SEO title={siteTitle} decription={siteDescription} />
       <ContentStyles>
         <BreakpointProvider queries={queries}>
-          <Nav title={title} />
-          <TitleContext.Provider value={{ title, setTitle }}>
+          <Nav title={title} subTitle={subTitle} />
+          <TitleContext.Provider value={{ title, setTitle, subTitle, setSubtitle }}>
             {children}
           </TitleContext.Provider>
         </BreakpointProvider>

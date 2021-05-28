@@ -58,7 +58,8 @@ module.exports = {
     },
     'gatsby-plugin-gatsby-cloud',
   ],
-  // flags: {
-  //   FAST_DEV: true,
-  // },
+  flags: {
+    FAST_DEV: true,
+    DEV_SSR: true,
+  },
 };

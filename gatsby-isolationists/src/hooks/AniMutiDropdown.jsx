@@ -6,6 +6,7 @@ import { Dropdown, MenuItemStyled, Menu } from '../styles';
 import CogIcon from '../components/icons/svg/cog.svg';
 import ChevronIcon from '../components/icons/svg/chevron.svg';
 import ArrowIcon from '../components/icons/svg/arrow.svg';
+import HomeIcon from '../components/icons/svg/house.svg';
 
 function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
   const [activeMenu, setActiveMenu] = useState('main');
@@ -30,7 +31,14 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             animate={{ height: 'auto', opacity: 1, x: 0 }}
             exit={{ height: 0, opacity: 0, x: '-100%' }}
             key="main">
-            <DropdownItem key="title">Gallery</DropdownItem>
+            <MenuItemStyled key="bob">
+              <Link className="icon-button" to="/">
+                <HomeIcon />
+              </Link>
+              <Link to="/">
+                <span classNane="pad">Home</span>
+              </Link>
+            </MenuItemStyled>
             <DropdownItem
               leftIcon={<CogIcon />}
               rightIcon={<ChevronIcon />}
@@ -79,7 +87,7 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             exit={{ height: 0, opacity: 0, x: '110%' }}
             key="subject">
             <DropdownItem leftIcon={<ArrowIcon />} goToMenu="main" key="title">
-              Subjects
+              Gallery
             </DropdownItem>
             {subjects.nodes.map(subject => {
               const { name, week, id, slug } = subject;

@@ -11,8 +11,8 @@ import {
   CloseIcon,
 } from './icons';
 
-function Icon(props) {
-  switch (props.symbol) {
+function Icon({ symbol }) {
+  switch (symbol) {
     case 'hamburger':
       return <HamburgerIcon />;
     case 'list':
@@ -32,7 +32,7 @@ function Icon(props) {
     case 'close':
       return <CloseIcon />;
     default:
-      return <span>Unknown icon: {props.symbol}</span>;
+      return <span>Unknown icon: {symbol}</span>;
   }
 }
 

@@ -14,16 +14,22 @@ let span2 = 1;
 let imgWidth = 18;
 
 const SubjectPage = ({ data }) => {
-  const breakpoint = useBreakpoint();
-  const { setTitle } = useContext(TitleContext);
+  const { galleryLg, mobile } = useBreakpoint();
+  const { setTitle, setSubtitle } = useContext(TitleContext);
   const { subject } = data.title;
 
   useEffect(() => {
     setTitle(subject);
+    setSubtitle(true);
   }, [subject]);
 
-  breakpoint.galleryLg ? (imgWidth = 23) : (imgWidth = 18);
-  breakpoint.mobile ? (span2 = 1) : (span2 = 2);
+  // useLayoutEffect(() => {
+  //   galleryLg ? (imgWidth = 23) : (imgWidth = 18);
+  //   mobile ? (span2 = 1) : (span2 = 2);
+  // }, [galleryLg, mobile]);
+
+  galleryLg ? (imgWidth = 23) : (imgWidth = 18);
+  mobile ? (span2 = 1) : (span2 = 2);
 
   const propsArray = data.pics.edges.map(({ node }, idx) => {
     const { image, artist, dimensions, id, sold } = node;
@@ -48,8 +54,8 @@ const SubjectPage = ({ data }) => {
   const { xy, ...rest } = useSpring({
     xy: [0, 0],
     opacity: 1,
-    from: { xy: [0, -10], opacity: 0 },
-    config: { mass: 1.5, tension: 50, friction: 30 },
+    from: { xy: [0, -20], opacity: 0 },
+    config: { mass: 1.5, tension: 50, friction: 20 },
   });
 
   return (
