@@ -6,10 +6,12 @@ const useDetectOutsideClick = (el, initialState) => {
   useEffect(() => {
     const pageClickEvent = evt => {
       // If the active element exists and is clicked outside of
-      // console.log(el, evt.target.nodeName);
+      // console.log('aria-hidden', evt.target.hasAttribute('aria-hidden'));
       if (
         el.current !== null &&
-        (!el.current.contains(evt.target) || evt.target.nodeName === 'A')
+        (!el.current.contains(evt.target) ||
+          evt.target.nodeName === 'A' ||
+          evt.target.hasAttribute('aria-hidden'))
       ) {
         setIsActive(state => !state);
         // this is only relavant for BigNav aria-expanded

@@ -15,6 +15,7 @@ export const Dropdown = styled.div`
   padding: 1.5rem;
   overflow-y: auto;
   z-index: 20;
+  cursor: pointer;
 
   ${mediaQuery('xs')`
     width: 30rem;

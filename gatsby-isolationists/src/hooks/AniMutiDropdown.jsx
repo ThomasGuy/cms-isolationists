@@ -31,13 +31,11 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             animate={{ height: 'auto', opacity: 1, x: 0 }}
             exit={{ height: 0, opacity: 0, x: '-100%' }}
             key="main">
-            <MenuItemStyled key="bob">
-              <Link className="icon-button" to="/">
-                <HomeIcon />
+            <MenuItemStyled key="home">
+              <Link to="/" className="icon-button" role="link" aria-label="homepage">
+                <HomeIcon aria-hidden="true" />
               </Link>
-              <Link to="/">
-                <span classNane="pad">Home</span>
-              </Link>
+              <Link to="/">Home</Link>
             </MenuItemStyled>
             <DropdownItem
               leftIcon={<CogIcon />}
@@ -63,8 +61,8 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             exit={{ height: 0, opacity: 0 }}
             key="artist">
             <DropdownItem leftIcon={<ArrowIcon />} goToMenu="main" key="title">
-              <span className="pad">Gallery</span>
-              <span className="pad icon-right">Contact</span>
+              Galleries
+              <span className="icon-right">Contact</span>
             </DropdownItem>
             {artists.nodes.map(artist => {
               const { slug, id, name } = artist;
@@ -87,7 +85,7 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             exit={{ height: 0, opacity: 0, x: '110%' }}
             key="subject">
             <DropdownItem leftIcon={<ArrowIcon />} goToMenu="main" key="title">
-              Gallery
+              Galleries
             </DropdownItem>
             {subjects.nodes.map(subject => {
               const { name, week, id, slug } = subject;
