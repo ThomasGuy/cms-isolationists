@@ -25,6 +25,7 @@ const BioPage = ({ pageContext }) => {
   return (
     <>
       <Grid>
+        <SEO title={name} />
         <Row>
           <SEO title={name} imageSrc={mainImage.asset.url} />
           <SanityImageBox name="" key={id} image={mainImage} alt={name} />

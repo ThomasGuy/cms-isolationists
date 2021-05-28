@@ -186,6 +186,9 @@ const homePage = async ({ graphql, actions, reporter }) => {
             placeholder: TRACED_SVG
             tracedSVGOptions: { alphaMax: 1.8 }
           )
+          original {
+            src
+          }
         }
       }
       site {

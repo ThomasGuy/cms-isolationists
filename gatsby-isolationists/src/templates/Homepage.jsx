@@ -76,7 +76,12 @@ export default function Homepage({ pageContext }) {
 
   return (
     <FrontPage>
+      <SEO title={title} />
       <section style={{ padding: '3rem 0' }}>
+        <SEO
+          title="Sally Scott Studio"
+          imageSrc={studio.childImageSharp.original.src}
+        />
         <GatsbyImage
           image={studio.childImageSharp.gatsbyImageData}
           title="Sally Scott Studio"

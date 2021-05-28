@@ -53,6 +53,7 @@ const ArtistPage = ({ data }) => {
 
   return (
     <GalleryLayout width={imgWidth} span2={span2}>
+      <SEO title={data.title.artist} />
       {trail.map((props, idx) => {
         const { image, key, ratio, sold, title, imgStyle, imgTitle, ...others } =
           imageProps[idx];

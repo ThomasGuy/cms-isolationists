@@ -60,6 +60,7 @@ const SubjectPage = ({ data }) => {
 
   return (
     <GalleryLayout width={imgWidth} span2={span2}>
+      <SEO title={data.title.subject} />
       {propsArray.map(props => {
         const { image, title, imgStyle, ratio, sold, key, imgTitle, ...others } = props;
 
