@@ -11,4 +11,9 @@ function addClass(ratio) {
   }
 }
 
-export { addClass };
+const ariaExpanded = element => {
+  const expanded = element.getAttribute('aria-expanded') === 'true' || false;
+  element.setAttribute('aria-expanded', !expanded);
+};
+
+export { addClass, ariaExpanded };

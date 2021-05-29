@@ -1,24 +1,21 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 
 import Icon from './icons';
-// import { ReactComponent as Burger } from './icons/svg/burger.svg';
 import useDetectOutsideClick from '../hooks/useDetectOutsideClick';
 import MultiDropdownMenu from '../hooks/AniMutiDropdown';
 import { mediaQuery } from '../styles/mediaQuery';
 import { useBreakpoint } from '../hooks/useBreakpoint';
 import BigNav from './BigNav';
+import { ariaExpanded } from '../utils/helpers';
 
-const NavbarItem = styled.div`
+const NavButton = styled.div`
   position: relative;
-  margin-bottom: 0;
 
-  /* Icon Button */
   .icon-button {
-    --button-size: calc(var(--navHeight) * 0.45);
     width: 3.5rem;
     height: 3.5rem;
     border-radius: 50%;
@@ -29,25 +26,20 @@ const NavbarItem = styled.div`
     align-items: center;
     justify-content: center;
     transition: filter 300ms;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: var(--button);
 
     svg {
-      fill: var(--text-color);
-      width: 20px;
-      height: 20px;
+      color: var(--offWhite);
+      width: 25px;
+      height: 25px;
     }
 
-    ${mediaQuery('sm')`
-      background-color: var(--button);
-      svg {
-        fill: var(--text-color);
-        width: 25px;
-        height: 25px;
-      }
-    `};
-  }
-
-  .icon-button:hover {
-    filter: brightness(1.3);
+    &:hover {
+      filter: brightness(1.3);
+    }
   }
 `;
 
@@ -78,26 +70,28 @@ const TitleArea = styled.div`
   gap: 1rem;
 
   .title {
-    font-size: 1.4rem;
+    font-size: 1.7rem;
     color: var(--offWhite);
     font-weight: 400;
     margin: 0;
     padding: 0 1rem;
     padding-top: 0.7rem;
     line-height: 2rem;
+    text-align: center;
 
     ${mediaQuery('xs')`
-      font-size: 1.7rem;
+      font-size: 2rem;
       `};
 
     ${mediaQuery('sm')`
-      font-size: 2.2rem;
+      font-size: 2.4rem;
     `};
   }
 
   p {
     color: var(--title);
     font-size: 1.1rem;
+    text-align: center;
     span {
       font-size: 0.9rem;
     }
@@ -119,30 +113,12 @@ const TitleArea = styled.div`
 `;
 
 function Header({ children }) {
-  return <Navbar>{children}</Navbar>;
-}
-
-function NavButton({ open, setOpen, children, icon }) {
-  const clicked = () => setOpen(state => !state);
   return (
-    <NavbarItem>
-      <div className="icon-button" onClick={clicked}>
-        {icon}
-      </div>
-      {open && children}
-    </NavbarItem>
+    <Navbar id="navigation" aria-labelledby="site-navigation">
+      {children}
+    </Navbar>
   );
 }
-
-// function NavLink({ icon }) {
-//   return (
-//     <NavbarItem>
-//       <Link className="icon-button" to="/">
-//         {icon}
-//       </Link>
-//     </NavbarItem>
-//   );
-// }
 
 export default function Nav({ title, subTitle }) {
   const breakpoint = useBreakpoint();
@@ -172,17 +148,27 @@ export default function Nav({ title, subTitle }) {
     }
   `);
 
+  function handleMenu(evt) {
+    const eventTarget = evt.currentTarget;
+    ariaExpanded(eventTarget);
+    setOpen(true);
+  }
+
+  useEffect(() => {
+    const navButton = document.querySelector('nav button');
+    navButton.addEventListener('click', handleMenu);
+
+    return () => navButton.removeEventListener('click', handleMenu);
+  }, []);
+
   return (
     <>
       {breakpoint.navChange ? (
         <BigNav
           title={title}
           subTitle={subTitle}
-          dropdownRef={dropdownRef}
           artists={artists}
           subjects={subjects}
-          open={open}
-          setOpen={setOpen}
         />
       ) : (
         <Header>
@@ -194,16 +180,27 @@ export default function Nav({ title, subTitle }) {
               </p>
             )}
           </TitleArea>
-          <NavButton
-            icon={<Icon symbol="list" />}
-            key="Caret"
-            open={open}
-            setOpen={setOpen}>
-            <MultiDropdownMenu
-              artists={artists}
-              subjects={subjects}
-              dropdownRef={dropdownRef}
-            />
+          <NavButton>
+            <button
+              ref={dropdownRef}
+              id="menu-button"
+              className="icon-button"
+              type="button"
+              onClick={() => handleMenu}
+              aria-label="menu button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="menu-list">
+              <Icon symbol="list" aria-hidden="true" />
+              {open && (
+                <MultiDropdownMenu
+                  id="menu-list"
+                  roll="menu"
+                  artists={artists}
+                  subjects={subjects}
+                />
+              )}
+            </button>
           </NavButton>
         </Header>
       )}

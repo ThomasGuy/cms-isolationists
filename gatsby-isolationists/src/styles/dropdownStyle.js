@@ -30,6 +30,7 @@ export const MenuItemStyled = styled.div`
   align-items: center;
   justify-content: end;
   border-radius: var(--border-radius);
+  color: var(--offWhite);
 
   &:hover {
     background-color: #525357;
@@ -49,6 +50,10 @@ export const MenuItemStyled = styled.div`
 
   .pad {
     padding: 0 0.5rem;
+  }
+
+  svg {
+    fill: var(--offWhite);
   }
 `;
 

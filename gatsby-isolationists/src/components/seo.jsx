@@ -21,7 +21,7 @@ function SEO({ children, location, description, title, imageSrc }) {
       ) : (
         <meta property="og:url" content={siteUrl} />
       )}
-      <meta property="og:image" content={imageSrc || '/studio.jpg'} />
+      <meta property="og:image" content={imageSrc || 'bell.svg'} />
       <meta property="og:title" content={title} key="ogtitle" />
       <meta property="og:site_name" content={siteTitle} key="ogsitename" />
       <meta

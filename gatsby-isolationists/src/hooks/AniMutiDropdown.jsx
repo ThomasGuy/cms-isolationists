@@ -8,7 +8,7 @@ import ChevronIcon from '../components/icons/svg/chevron.svg';
 import ArrowIcon from '../components/icons/svg/arrow.svg';
 import HomeIcon from '../components/icons/svg/house.svg';
 
-function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
+function MutiDropdownMenu({ artists, subjects }) {
   const [activeMenu, setActiveMenu] = useState('main');
 
   function DropdownItem({ goToMenu, leftIcon, rightIcon, children }) {
@@ -23,7 +23,7 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
   }
 
   return (
-    <Dropdown ref={dropdownRef}>
+    <Dropdown>
       <AnimatePresence>
         {activeMenu === 'main' && (
           <Menu
@@ -31,13 +31,14 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             animate={{ height: 'auto', opacity: 1, x: 0 }}
             exit={{ height: 0, opacity: 0, x: '-100%' }}
             key="main">
-            <MenuItemStyled key="home">
+            <MenuItemStyled key="home" role="menuitem">
               <Link to="/" className="icon-button" role="link" aria-label="homepage">
-                <HomeIcon aria-hidden="true" />
+                <HomeIcon aria-hidden="true" aria-label="home-icon" />
               </Link>
               <Link to="/">Home</Link>
             </MenuItemStyled>
             <DropdownItem
+              role="menuitem"
               leftIcon={<CogIcon />}
               rightIcon={<ChevronIcon />}
               goToMenu="Artists"
@@ -45,6 +46,7 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
               Artists
             </DropdownItem>
             <DropdownItem
+              role="menuitem"
               leftIcon={<CogIcon />}
               rightIcon={<ChevronIcon />}
               goToMenu="Subjects"
@@ -67,7 +69,7 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             {artists.nodes.map(artist => {
               const { slug, id, name } = artist;
               return (
-                <MenuItemStyled key={id}>
+                <MenuItemStyled key={id} role="menuitem">
                   <Link to={`/gallery/artist/${slug.current}`}>{name}</Link>
                   <Link className="icon-right" to={`/biography/${slug.current}`}>
                     About
@@ -90,7 +92,7 @@ function MutiDropdownMenu({ artists, subjects, dropdownRef }) {
             {subjects.nodes.map(subject => {
               const { name, week, id, slug } = subject;
               return (
-                <MenuItemStyled key={id}>
+                <MenuItemStyled key={id} role="menuitem">
                   <Link
                     to={`/gallery/subject/${slug.current}`}>{`${week}. ${name}`}</Link>
                 </MenuItemStyled>

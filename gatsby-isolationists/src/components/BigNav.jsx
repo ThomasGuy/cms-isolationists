@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'gatsby';
 import useDetectOutsideClick from '../hooks/useDetectOutsideClick';
 import { mediaQuery } from '../styles/mediaQuery';
+import { ariaExpanded } from '../utils/helpers';
 
 const Dropdown = styled(animated.ul)`
   position: absolute;
@@ -69,6 +70,7 @@ const Navbar = styled.nav`
   column-gap: 2rem;
   row-gap: 2rem;
   line-height: 2rem;
+  text-align: center;
 
   .heading {
     grid-column: ${({ subTitle }) => {
@@ -85,17 +87,17 @@ const Navbar = styled.nav`
       return 'center';
     }};
 
-    font-size: 2.1rem;
-    letter-spacing: 1.1px;
+    font-size: 2.4rem;
+    letter-spacing: 1px;
     color: var(--offWhite);
-    font-weight: 600;
+    font-weight: 400;
     margin: 0.7rem;
     padding: 0 1rem;
     padding-top: 0.7rem;
 
     ${mediaQuery('lg')`
       font-size: 3rem;
-      letter-spacing: 1.2px;
+      letter-spacing: 1.1px;
     `};
 
     ${mediaQuery('xl')`
@@ -110,6 +112,7 @@ const Navbar = styled.nav`
     color: var(--title);
     margin: 0;
     margin-top: 1rem;
+    padding-right: 1rem;
 
     span {
       font-size: 1.2rem;
@@ -177,20 +180,17 @@ function BigNav({ title, subTitle, artists, subjects }) {
   const [open3, setOpen3] = useDetectOutsideClick(dropRef3, false);
 
   function handleArtistMenu(evt) {
-    const expanded = evt.target.getAttribute('aria-expanded') === 'true' || false;
-    evt.target.setAttribute('aria-expanded', !expanded);
+    ariaExpanded(evt.currentTarget);
     setOpen1(state => !state);
   }
 
   function handleSubjectMenu(evt) {
-    const expanded = evt.target.getAttribute('aria-expanded') === 'true' || false;
-    evt.target.setAttribute('aria-expanded', !expanded);
+    ariaExpanded(evt.currentTarget);
     setOpen2(state => !state);
   }
 
   function handleAboutMenu(evt) {
-    const expanded = evt.target.getAttribute('aria-expanded') === 'true' || false;
-    evt.target.setAttribute('aria-expanded', !expanded);
+    ariaExpanded(evt.currentTarget);
     setOpen3(state => !state);
   }
 
@@ -235,8 +235,9 @@ function BigNav({ title, subTitle, artists, subjects }) {
           </button>
         </NavDropdown>
         {/* artists dropdown menu */}
-        <NavDropdown ref={dropRef1}>
+        <NavDropdown>
           <button
+            ref={dropRef1}
             id="artist-menu-button"
             type="button"
             onClick={() => handleArtistMenu}
@@ -263,8 +264,9 @@ function BigNav({ title, subTitle, artists, subjects }) {
         </NavDropdown>
 
         {/* subjects dropdown menu */}
-        <NavDropdown ref={dropRef2}>
+        <NavDropdown>
           <button
+            ref={dropRef2}
             id="subject-menu-button"
             type="button"
             onClick={() => handleSubjectMenu}
@@ -290,8 +292,9 @@ function BigNav({ title, subTitle, artists, subjects }) {
           </button>
         </NavDropdown>
         {/* about artists dropdown menu */}
-        <NavDropdown ref={dropRef3}>
+        <NavDropdown>
           <button
+            ref={dropRef3}
             id="about-menu-button"
             type="button"
             onClick={() => handleAboutMenu}
