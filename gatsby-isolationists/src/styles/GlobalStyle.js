@@ -22,6 +22,7 @@ export const GlobalStyle = createGlobalStyle`
     --maxWidth: 1750px;
     --pageWidth: 1280px;
     --navHeight: 8rem;
+    --playfair: 'Playfair Display', serif;
   }
 
   html {

@@ -8,7 +8,7 @@ import { ariaExpanded } from '../utils/helpers';
 
 const Dropdown = styled(animated.ul)`
   position: absolute;
-  top: 16rem;
+  top: 13rem;
   left: 2rem;
   width: 28rem;
   max-height: 55rem;
@@ -16,7 +16,7 @@ const Dropdown = styled(animated.ul)`
   place-items: center center;
   justify-content: start;
   list-style: none;
-  background: var(--grey);
+  background: var(--bg);
   padding: 1rem;
   z-index: 15;
   overflow-y: auto;
@@ -32,7 +32,7 @@ const Li = styled.li`
   padding: 0.5rem 0.8rem;
   min-width: 26rem;
   min-height: 3rem;
-  background: var(--button);
+  background: #821888;
   border-radius: 0 0 1rem 1rem;
   border: 1px solid black;
   box-shadow: 0 2px 4px 0 rgba(202, 173, 173, 0.288);
@@ -69,10 +69,16 @@ const Navbar = styled.nav`
   place-items: center center;
   column-gap: 2rem;
   row-gap: 2rem;
-  line-height: 2rem;
+  line-height: 2.2rem;
   text-align: center;
 
+  h3 {
+    margin: 0;
+    padding: 0;
+  }
+
   .heading {
+    font-family: var(--playfair);
     grid-column: ${({ subTitle }) => {
       if (subTitle) {
         return '1 / 3';
@@ -87,7 +93,7 @@ const Navbar = styled.nav`
       return 'center';
     }};
 
-    font-size: 2.4rem;
+    font-size: 2.6rem;
     letter-spacing: 1px;
     color: var(--offWhite);
     font-weight: 400;
@@ -141,11 +147,9 @@ const NavDropdown = styled.div`
     margin-bottom: 1rem;
 
     padding: 0.7rem;
-    margin: 0;
     color: var(--offWhite);
-    opacity: 0.9;
     letter-spacing: 1.2px;
-    line-height: 1.5rem;
+    line-height: 2rem;
 
     &:focus,
     &:hover {

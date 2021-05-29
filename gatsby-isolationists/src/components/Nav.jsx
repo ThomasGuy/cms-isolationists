@@ -70,6 +70,7 @@ const TitleArea = styled.div`
   gap: 1rem;
 
   .title {
+    font-family: var(--playfair);
     font-size: 1.7rem;
     color: var(--offWhite);
     font-weight: 400;
