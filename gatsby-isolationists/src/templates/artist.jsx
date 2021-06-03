@@ -59,7 +59,7 @@ const ArtistPage = ({ data }) => {
           imageProps[idx];
         return (
           <PictureBox className={addClass(ratio)} style={{ ...props }} key={key}>
-            <SEO title={title} imageSrc={image.asset.url} />
+            <SEO title={data.title.artist} imageSrc={image.asset.url} />
             <Image
               {...image}
               width={imgWidth * span2 * 10} // no span3 now

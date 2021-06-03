@@ -52,12 +52,12 @@ const FrontPage = styled.article`
   }
 `;
 
-function ArtistLink({ artist }) {
+function ArtistLink({ artist, title }) {
   const { id, name, slug, mug } = artist;
   return (
     <li>
       <Link key={id} className="artistLink" to={`/biography/${slug.current}`}>
-        <SEO title={name} imageSrc={mug.asset.url} />
+        <SEO title={title} imageSrc={mug.asset.url} />
         <GatsbyImage image={mug.asset.gatsbyImageData} alt={name} />
         <h3>{name}</h3>
       </Link>
@@ -78,10 +78,7 @@ export default function Homepage({ pageContext }) {
     <FrontPage>
       <SEO title={title} />
       <section style={{ padding: '3rem 0' }}>
-        <SEO
-          title="Sally Scott Studio"
-          imageSrc={studio.childImageSharp.original.src}
-        />
+        <SEO title={title} imageSrc={studio.childImageSharp.original.src} />
         <GatsbyImage
           image={studio.childImageSharp.gatsbyImageData}
           title="Sally Scott Studio"
@@ -106,7 +103,7 @@ export default function Homepage({ pageContext }) {
 
       <ul>
         {mugs.map(({ node }) => (
-          <ArtistLink key={node.id} artist={node} />
+          <ArtistLink key={node.id} artist={node} title={title} />
         ))}
       </ul>
     </FrontPage>

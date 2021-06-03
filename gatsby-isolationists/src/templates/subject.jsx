@@ -72,7 +72,7 @@ const SubjectPage = ({ data }) => {
               transform: xy.to((x, y) => `translate(${x}rem, ${y}rem)`),
               ...rest,
             }}>
-            <SEO title={title} imageSrc={image.asset.url} />
+            <SEO title={data.title.subject} imageSrc={image.asset.url} />
             <Image
               {...image}
               width={imgWidth * span2 * 10} // no span3
