@@ -87,9 +87,9 @@ export default function Homepage({ pageContext }) {
       </section>
       <p>
         Prior to the Lockdown of 2020 a small group of friends in Putney met regularly
-        on Wednesdays in each other//&aposs houses, or weather permitting in Richmond
-        Park or on the Thames tow path to paint, and subsequently go for a pub lunch.
-        This had been working fine for years.
+        on Wednesdays in each other's houses, or weather permitting in Richmond Park or
+        on the Thames tow path to paint, and subsequently go for a pub lunch. This had
+        been working fine for years.
       </p>
       <p>Lockdown put a stop to this.</p>
       <p>
