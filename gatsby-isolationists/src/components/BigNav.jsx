@@ -47,38 +47,52 @@ const Li = styled.li`
   }
 `;
 
-const FullWidth = styled.div`
-  width: 100%;
+const Navbar = styled.nav`
+  display: none;
   position: fixed;
   z-index: 10;
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
   background: var(--bg);
   height: 11.5rem;
-`;
 
-const Navbar = styled.nav`
-  max-width: var(--pageWidth);
-  margin: 0 auto;
-  display: grid;
-  padding: 1rem;
-  padding-bottom: 2rem;
-  grid-template-columns: repeat(4, auto);
-  grid-template-rows: repeat(2, auto);
-  place-items: center center;
-  column-gap: 2rem;
-  row-gap: 2rem;
-  line-height: 2.2rem;
-  text-align: center;
+  ${mediaQuery('md')`
+    display: grid;
+    max-width: var(--pageWidth);
+    margin: 0 auto;
+    background: var(--bg);
+    padding: 1rem;
+    padding-bottom: 2rem;
+    grid-template-columns: repeat(4, auto);
+    grid-template-rows: repeat(2, auto);
+    place-items: center center;
+    column-gap: 2rem;
+    row-gap: 2rem;
+    line-height: 2.2rem;
+    text-align: center;
+    font-size: 2.6rem;
+    letter-spacing: 1px;
+    color: var(--offWhite);
+    font-weight: 400;
+  `};
 
-  h3 {
-    margin: 0;
-    padding: 0;
-  }
+  ${mediaQuery('lg')`
+    font-size: 3rem;
+    letter-spacing: 1.1px;
+  `};
+
+  ${mediaQuery('xl')`
+    font-size: 3.6rem;
+  `};
 
   .heading {
     font-family: var(--playfair);
+    margin: 0.7rem;
+    padding: 0 1rem;
+    padding-top: 0.7rem;
+
     grid-column: ${({ subTitle }) => {
       if (subTitle) {
         return '1 / 3';
@@ -92,23 +106,6 @@ const Navbar = styled.nav`
       }
       return 'center';
     }};
-
-    font-size: 2.6rem;
-    letter-spacing: 1px;
-    color: var(--offWhite);
-    font-weight: 400;
-    margin: 0.7rem;
-    padding: 0 1rem;
-    padding-top: 0.7rem;
-
-    ${mediaQuery('lg')`
-      font-size: 3rem;
-      letter-spacing: 1.1px;
-    `};
-
-    ${mediaQuery('xl')`
-      font-size: 3.6rem;
-    `};
   }
 
   p {
@@ -167,14 +164,6 @@ const NavButtons = styled.div`
   gap: 2rem;
 `;
 
-const Nav = ({ children, subTitle }) => {
-  return (
-    <FullWidth>
-      <Navbar subTitle={subTitle}>{children}</Navbar>
-    </FullWidth>
-  );
-};
-
 function BigNav({ title, subTitle, artists, subjects }) {
   const dropRef1 = useRef();
   const dropRef2 = useRef();
@@ -225,7 +214,7 @@ function BigNav({ title, subTitle, artists, subjects }) {
   });
 
   return (
-    <Nav id="navigation" aria-labelledby="site-navigation" subTitle={subTitle}>
+    <Navbar id="navigation" aria-labelledby="site-navigation" subTitle={subTitle}>
       <div className="heading">{title}</div>
       {subTitle && (
         <p>
@@ -324,7 +313,7 @@ function BigNav({ title, subTitle, artists, subjects }) {
           </button>
         </NavDropdown>
       </NavButtons>
-    </Nav>
+    </Navbar>
   );
 }
 

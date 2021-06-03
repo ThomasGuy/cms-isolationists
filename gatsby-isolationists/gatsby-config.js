@@ -1,14 +1,20 @@
+// const sanityClient = require('@sanity/client');
 const dotenv = require('dotenv');
 
 dotenv.config({
   path: `.env.${process.env.NODE_ENV || 'development'}`,
 });
 
-// eslint-disable-next-line import/first
-const clientConfig = require('./client-config');
-
 const token = process.env.SANITY_READ_TOKEN;
 const isProd = process.env.NODE_ENV === 'production';
+
+const sanity = {
+  projectId: process.env.SANITY_PROJECT_ID,
+  dataset: process.env.SANITY_DATASET || 'production',
+  apiVersion: '2021-05-01',
+  useCdn: isProd,
+  token,
+};
 
 module.exports = {
   siteMetadata: {
@@ -29,18 +35,15 @@ module.exports = {
     {
       resolve: `gatsby-source-sanity`,
       options: {
-        ...clientConfig.sanity,
-        token,
+        ...sanity,
         watchMode: !isProd,
-        useCdn: isProd,
         overlayDrafts: !isProd && token,
       },
     },
     {
       resolve: 'gatsby-plugin-sanity-image',
       options: {
-        ...clientConfig.sanity,
-        token,
+        ...sanity,
       },
     },
     {
@@ -56,6 +59,19 @@ module.exports = {
         pathToConfigModule: `${__dirname}/src/utils/typography`,
       },
     },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Wednesday Isolationists`,
+        short_name: `WednesdayIsolationists`,
+        start_url: `/`,
+        background_color: `#282c34`,
+        theme_color: `#282c34`,
+        display: `standalone`,
+        icon: 'src/icons/gatsby-icon.png',
+      },
+    },
+    `gatsby-plugin-offline`,
     'gatsby-plugin-gatsby-cloud',
   ],
   flags: {

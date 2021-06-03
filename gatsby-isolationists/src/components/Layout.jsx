@@ -28,9 +28,6 @@ const ContentStyles = styled.div`
 
 // these should maybe be synced up with mediaQueries
 const queries = {
-  // or: '(orientation: portrait)', // we can check orientation also
-  navChange: '(min-width: 680px)',
-
   // md: '(max-width: 668px)',
   galleryMd: '(min-width: 450px)',
   galleryLg: '(min-width: 968px)',
