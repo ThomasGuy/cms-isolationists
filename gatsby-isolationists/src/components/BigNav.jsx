@@ -54,13 +54,13 @@ const Navbar = styled.nav`
   top: 0;
   left: 0;
   right: 0;
-  width: 100%;
   background: var(--bg);
   height: 11.5rem;
+  max-width: ${({ subTitle }) => (subTitle ? 'var(--maxWidth)' : 'var(--pageWidth)')};
+  margin: 0 auto;
 
   ${mediaQuery('md')`
     display: grid;
-    max-width: var(--pageWidth);
     margin: 0 auto;
     background: var(--bg);
     padding: 1rem;
@@ -92,20 +92,8 @@ const Navbar = styled.nav`
     margin: 0.7rem;
     padding: 0 1rem;
     padding-top: 0.7rem;
-
-    grid-column: ${({ subTitle }) => {
-      if (subTitle) {
-        return '1 / 3';
-      }
-      return '1 / -1';
-    }};
-
-    justify-self: ${({ subTitle }) => {
-      if (subTitle) {
-        return 'end';
-      }
-      return 'center';
-    }};
+    grid-column: ${({ subTitle }) => (subTitle ? '1 / 3' : '1 / -1')};
+    justify-self: ${({ subTitle }) => (subTitle ? 'end' : 'center')};
   }
 
   p {
