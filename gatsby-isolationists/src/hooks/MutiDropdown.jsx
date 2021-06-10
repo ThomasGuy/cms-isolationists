@@ -8,7 +8,7 @@ import ChevronIcon from '../components/icons/svg/chevron.svg';
 import ArrowIcon from '../components/icons/svg/arrow.svg';
 import HomeIcon from '../components/icons/svg/house.svg';
 
-function MutiDropdownMenu({ artists, subjects }) {
+function MutiDropdown({ artists, subjects, dropref }) {
   const [activeMenu, setActiveMenu] = useState('main');
 
   function DropdownItem({ goToMenu, leftIcon, rightIcon, children }) {
@@ -23,7 +23,7 @@ function MutiDropdownMenu({ artists, subjects }) {
   }
 
   return (
-    <Dropdown>
+    <Dropdown ref={dropref}>
       <AnimatePresence>
         {activeMenu === 'main' && (
           <Menu
@@ -105,4 +105,4 @@ function MutiDropdownMenu({ artists, subjects }) {
   );
 }
 
-export default MutiDropdownMenu;
+export default MutiDropdown;

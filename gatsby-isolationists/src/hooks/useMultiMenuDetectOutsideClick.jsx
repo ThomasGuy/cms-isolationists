@@ -7,7 +7,6 @@ const useDetectOutsideClick = (el, initialState) => {
   useEffect(() => {
     const pageClickEvent = evt => {
       // console.log('event.target', evt.target);
-      // evt.stopPropagation();
       // If the active element exists and is clicked outside of
       if (
         el.current !== null &&
@@ -16,7 +15,7 @@ const useDetectOutsideClick = (el, initialState) => {
           evt.target.getAttribute('aria-label') === 'home-icon')
       ) {
         setIsActive(state => !state);
-        if (el.current.hasAttribute('aria-expanded')) ariaExpanded(el.current);
+        ariaExpanded(document.querySelector('#burger-menu-button'));
         // console.log('el.current', el.current);
         // console.log('event target node', evt.target.nodeName);
       }

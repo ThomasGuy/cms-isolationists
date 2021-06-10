@@ -1,5 +1,5 @@
 import { animated, useSpring } from 'react-spring';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import useDetectOutsideClick from '../hooks/useDetectOutsideClick';
@@ -58,24 +58,22 @@ const Navbar = styled.nav`
   height: 11.5rem;
   max-width: ${({ subTitle }) => (subTitle ? 'var(--maxWidth)' : 'var(--pageWidth)')};
   margin: 0 auto;
+  padding: 1rem;
+  padding-bottom: 2rem;
+  grid-template-columns: repeat(4, auto);
+  grid-template-rows: repeat(2, auto);
+  place-items: center center;
+  column-gap: 2rem;
+  row-gap: 2rem;
+  line-height: 2.2rem;
+  text-align: center;
+  font-size: 2.6rem;
+  letter-spacing: 1px;
+  color: var(--offWhite);
+  font-weight: 400;
 
   ${mediaQuery('md')`
     display: grid;
-    margin: 0 auto;
-    background: var(--bg);
-    padding: 1rem;
-    padding-bottom: 2rem;
-    grid-template-columns: repeat(4, auto);
-    grid-template-rows: repeat(2, auto);
-    place-items: center center;
-    column-gap: 2rem;
-    row-gap: 2rem;
-    line-height: 2.2rem;
-    text-align: center;
-    font-size: 2.6rem;
-    letter-spacing: 1px;
-    color: var(--offWhite);
-    font-weight: 400;
   `};
 
   ${mediaQuery('lg')`
@@ -175,23 +173,6 @@ function BigNav({ title, subTitle, artists, subjects }) {
     setOpen3(state => !state);
   }
 
-  useEffect(() => {
-    const artistButton = document.querySelector('#artist-menu-button');
-    artistButton.addEventListener('click', handleArtistMenu);
-
-    const subjectButton = document.querySelector('#subject-menu-button');
-    subjectButton.addEventListener('click', handleSubjectMenu);
-
-    const aboutButton = document.querySelector('#about-menu-button');
-    aboutButton.addEventListener('click', handleAboutMenu);
-
-    return () => {
-      artistButton.removeEventListener('click', handleArtistMenu);
-      subjectButton.removeEventListener('click', handleSubjectMenu);
-      aboutButton.removeEventListener('click', handleAboutMenu);
-    };
-  }, []);
-
   // abit of animation for thr non visually impared
   const config = { mass: 20, tension: 100, friction: 76 };
   const springProps = useSpring({
@@ -211,37 +192,38 @@ function BigNav({ title, subTitle, artists, subjects }) {
       )}
       <NavButtons>
         <NavDropdown>
-          <button type="button" role="link" aria-label="link homepage">
+          <button type="button" role="link" aria-label="homepage">
             <Link to="/">Home</Link>
           </button>
         </NavDropdown>
+
         {/* artists dropdown menu */}
         <NavDropdown>
           <button
             ref={dropRef1}
             id="artist-menu-button"
             type="button"
-            onClick={() => handleArtistMenu}
+            onClick={handleArtistMenu}
             aria-label="artist gallery menu"
             aria-haspopup="true"
             aria-expanded="false"
             aria-controls="menu-list">
             Artists
-            {open1 && (
-              <Dropdown id="artist-menu-list" roll="menu" style={{ ...springProps }}>
-                {artists.nodes.map(node => {
-                  const { id, name, slug } = node;
-                  return (
-                    <Li key={id}>
-                      <Link role="menuitem" to={`/gallery/artist/${slug.current}`}>
-                        {name}
-                      </Link>
-                    </Li>
-                  );
-                })}
-              </Dropdown>
-            )}
           </button>
+          {open1 && (
+            <Dropdown id="artist-menu-list" roll="menu" style={{ ...springProps }}>
+              {artists.nodes.map(node => {
+                const { id, name, slug } = node;
+                return (
+                  <Li key={id}>
+                    <Link role="menuitem" to={`/gallery/artist/${slug.current}`}>
+                      {name}
+                    </Link>
+                  </Li>
+                );
+              })}
+            </Dropdown>
+          )}
         </NavDropdown>
 
         {/* subjects dropdown menu */}
@@ -250,55 +232,56 @@ function BigNav({ title, subTitle, artists, subjects }) {
             ref={dropRef2}
             id="subject-menu-button"
             type="button"
-            onClick={() => handleSubjectMenu}
+            onClick={handleSubjectMenu}
             aria-label="subject gallery menu"
             aria-haspopup="true"
             aria-expanded="false"
             aria-controls="menu-list">
             Subjects
-            {open2 && (
-              <Dropdown id="subject-menu-list" roll="menu" style={{ ...springProps }}>
-                {subjects.nodes.map(node => {
-                  const { id, name, week, slug } = node;
-                  return (
-                    <Li key={id}>
-                      <Link role="menuitem" to={`/gallery/subject/${slug.current}`}>
-                        {`${week}. ${name}`}
-                      </Link>
-                    </Li>
-                  );
-                })}
-              </Dropdown>
-            )}
           </button>
+          {open2 && (
+            <Dropdown id="subject-menu-list" roll="menu" style={{ ...springProps }}>
+              {subjects.nodes.map(node => {
+                const { id, name, week, slug } = node;
+                return (
+                  <Li key={id}>
+                    <Link role="menuitem" to={`/gallery/subject/${slug.current}`}>
+                      {`${week}. ${name}`}
+                    </Link>
+                  </Li>
+                );
+              })}
+            </Dropdown>
+          )}
         </NavDropdown>
+
         {/* about artists dropdown menu */}
         <NavDropdown>
           <button
             ref={dropRef3}
             id="about-menu-button"
             type="button"
-            onClick={() => handleAboutMenu}
+            onClick={handleAboutMenu}
             aria-label="about artist menu"
             aria-haspopup="true"
             aria-expanded="false"
             aria-controls="menu-list">
             About
-            {open3 && (
-              <Dropdown id="about-menu-list" roll="menu" style={{ ...springProps }}>
-                {artists.nodes.map(node => {
-                  const { id, name, slug } = node;
-                  return (
-                    <Li key={id}>
-                      <Link role="menuitem" to={`/biography/${slug.current}`}>
-                        {name}
-                      </Link>
-                    </Li>
-                  );
-                })}
-              </Dropdown>
-            )}
           </button>
+          {open3 && (
+            <Dropdown id="about-menu-list" roll="menu" style={{ ...springProps }}>
+              {artists.nodes.map(node => {
+                const { id, name, slug } = node;
+                return (
+                  <Li key={id}>
+                    <Link role="menuitem" to={`/biography/${slug.current}`}>
+                      {name}
+                    </Link>
+                  </Li>
+                );
+              })}
+            </Dropdown>
+          )}
         </NavDropdown>
       </NavButtons>
     </Navbar>

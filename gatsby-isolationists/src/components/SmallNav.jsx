@@ -1,22 +1,21 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 
 import styled from 'styled-components';
 import { mediaQuery } from '../styles/mediaQuery';
 import Icon from './icons';
-import useDetectOutsideClick from '../hooks/useDetectOutsideClick';
-import MultiDropdownMenu from '../hooks/AniMutiDropdown';
+import useMultiMenuDetectOutsideClick from '../hooks/useMultiMenuDetectOutsideClick';
+import MultiDropdown from '../hooks/MutiDropdown';
 import { ariaExpanded } from '../utils/helpers';
 
 const NavButton = styled.div`
   position: relative;
 
   .icon-button {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 3.8rem;
+    height: 3.8rem;
     border-radius: 50%;
-    padding: 5px;
-    padding-left: 2px;
-    margin: 2px;
+    padding: 0.5rem;
+    margin: 0.2rem;
     display: grid;
     align-items: center;
     justify-content: center;
@@ -27,9 +26,9 @@ const NavButton = styled.div`
     background-color: var(--button);
 
     svg {
-      color: var(--offWhite);
-      width: 25px;
-      height: 25px;
+      fill: var(--offWhite);
+      width: 30px;
+      height: 30px;
     }
 
     &:hover {
@@ -114,20 +113,13 @@ const TitleArea = styled.div`
 
 export default function SmallNav({ title, subTitle, artists, subjects }) {
   const dropdownRef = useRef(null);
-  const [open, setOpen] = useDetectOutsideClick(dropdownRef, false);
+  const [open, setOpen] = useMultiMenuDetectOutsideClick(dropdownRef, false);
 
   function handleMenu(evt) {
     const eventTarget = evt.currentTarget;
     ariaExpanded(eventTarget);
-    setOpen(true);
+    setOpen(state => !state);
   }
-
-  useEffect(() => {
-    const navButton = document.querySelector('#burger-menu-button');
-    navButton.addEventListener('click', handleMenu);
-
-    return () => navButton.removeEventListener('click', handleMenu);
-  }, []);
 
   return (
     <>
@@ -142,25 +134,25 @@ export default function SmallNav({ title, subTitle, artists, subjects }) {
         </TitleArea>
         <NavButton>
           <button
-            ref={dropdownRef}
             id="burger-menu-button"
             className="icon-button"
             type="button"
-            onClick={() => handleMenu}
+            onClick={handleMenu}
             aria-label="menu button"
             aria-haspopup="true"
             aria-expanded="false"
             aria-controls="menu-list">
             <Icon symbol="list" aria-hidden="true" />
-            {open && (
-              <MultiDropdownMenu
-                id="menu-list"
-                roll="menu"
-                artists={artists}
-                subjects={subjects}
-              />
-            )}
           </button>
+          {open && (
+            <MultiDropdown
+              id="menu-list"
+              roll="menu"
+              dropref={dropdownRef}
+              artists={artists}
+              subjects={subjects}
+            />
+          )}
         </NavButton>
       </Navbar>
     </>
