@@ -14,5 +14,5 @@
   "singleQuote": true,
   "tabWidth": 2,
   "trailingComma": "all",
-  "useTabs": false
+  "no-tabs": ["error", { "allowIndentationTabs": true }]
 }

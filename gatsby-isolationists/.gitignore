@@ -21,3 +21,4 @@ typings/
 .cache/
 public
 dist
+.vscode

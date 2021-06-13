@@ -5,7 +5,7 @@ import { FaEnvelope } from 'react-icons/fa';
 import { TitleContext } from '../components/Layout';
 import SanityImageBox from '../components/SanityImageBox';
 import SEO from '../components/seo';
-import { Image, Grid, Row, Col, Title, Bio } from '../styles';
+import { Image, Grid, Row, Col, Title, Bio, OutsideLink, Comment } from '../styles';
 
 const BioPage = ({ pageContext }) => {
   const { id, name, social, links, email, education, biography, mug, mainImage } =
@@ -65,21 +65,21 @@ const BioPage = ({ pageContext }) => {
               biography.map((bio, idx) => <Bio key={makeId('bio', idx)}>{bio}</Bio>)}
           </Col>
         </Row>
-
+        <br />
+        <hr />
         <Row>
           <Col>
             {links && links.length > 0 && (
               <>
-                <p className="comment">
-                  {`${firstName}'s paintings & other work can be found on the following websites and social media`}
-                </p>
-                <ul>
-                  {links.map((link, idx) => (
-                    <li key={makeId('link', idx)}>
-                      <a href={`${link.href}`}>{link.name}</a>
-                    </li>
-                  ))}
-                </ul>
+                <Comment>
+                  My other work can be found on the following websites and social media
+                </Comment>
+
+                {links.map((link, idx) => (
+                  <OutsideLink key={makeId('link', idx)} href={`${link.href}`}>
+                    {link.name}
+                  </OutsideLink>
+                ))}
               </>
             )}
 

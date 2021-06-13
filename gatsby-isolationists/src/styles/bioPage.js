@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { mediaQuery } from './mediaQuery';
 
 export const Grid = styled.div`
   display: flex;
@@ -6,6 +7,11 @@ export const Grid = styled.div`
   max-width: var(--pageWidth);
   margin: 0 auto;
   padding: 2rem;
+
+  hr {
+    background: var(--title);
+    opacity: 0.8;
+  }
 `;
 
 export const Title = styled.div`
@@ -16,29 +22,29 @@ export const Title = styled.div`
     font-weight: 400;
   }
 
-  @media screen and (min-width: 368px) {
+  ${mediaQuery('xs')`
     font-size: 1.8rem;
     font-weight: 600;
     #cert {
       font-size: 1.5rem;
     }
-  }
+  `};
 
-  @media screen and (min-width: 480px) {
+  ${mediaQuery('sm')`
     font-size: 2.5rem;
     font-weight: 600;
     #cert {
       font-size: 1.5rem;
     }
-  }
+  `};
 
-  @media screen and (min-width: 668px) {
+  ${mediaQuery('md')`
     font-size: 3.8rem;
     font-weight: 900;
     #cert {
       font-size: 1.9rem;
     }
-  }
+  `};
 `;
 
 export const Row = styled.div`
@@ -59,21 +65,21 @@ export const Col = styled.div`
   display: flex;
   flex-direction: column;
 
-  .comment {
-    font-size: 1.8rem;
-  }
-
   .social {
-    margin-right: 2rem;
+    margin-left: 2rem;
+
+    ${mediaQuery('sm')`
+      margin-left: 3rem;
+  `};
   }
 
   .email {
     margin-top: auto;
     font-size: 1.6rem;
 
-    @media screen and (min-width: 368px) {
+    ${mediaQuery('xs')`
       font-size: 2rem;
-    }
+    `};
   }
 
   a {
@@ -96,20 +102,61 @@ export const Col = styled.div`
   }
 `;
 
+export const OutsideLink = styled.a`
+  font-size: 1.6rem;
+  padding: 8px;
+  padding-left: 2rem;
+  width: 100%;
+  margin-bottom: 7px;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  &:hover {
+    background-color: #242424;
+  }
+
+  ${mediaQuery('sm')`
+    font-size: 2rem;
+    padding-left: 4rem;
+  `};
+`;
+
 export const Image = styled.div`
   max-width: ${props => props.width};
   height: auto;
 `;
 
 export const Bio = styled.p`
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   line-height: 1.4;
   padding: 0 0.5rem;
   margin-top: 0.5rem;
 
-  @media screen and (min-width: 480px) {
-    font-size: 2rem;
+  ${mediaQuery('xs')`
+    font-size: 1.6rem;
     line-height: 1.5;
+    `};
+
+  ${mediaQuery('sm')`
+    font-size: 1.8rem;
+    line-height: 1.6;
     padding: 0 1rem;
-  }
+    `};
+`;
+
+export const Comment = styled.p`
+  font-size: 1.4rem;
+  line-height: 1.4;
+  padding: 0 0.5rem;
+  margin-top: 0.5rem;
+
+  ${mediaQuery('xs')`
+    font-size: 1.6rem;
+    line-height: 1.5;
+  `};
+
+  ${mediaQuery('sm')`
+    font-size: 1.8rem;
+    line-height: 1.6;
+    padding: 0 1rem;
+  `};
 `;

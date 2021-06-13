@@ -13,6 +13,7 @@ const Dropdown = styled(animated.ul)`
   width: 28rem;
   max-height: 55rem;
   display: grid;
+  gap: 0.4rem;
   place-items: center center;
   justify-content: start;
   list-style: none;
@@ -22,7 +23,7 @@ const Dropdown = styled(animated.ul)`
   overflow-y: auto;
 `;
 
-const Li = styled.li`
+const Linkto = styled(Link)`
   display: grid;
   place-items: center center;
   justify-content: start;
@@ -33,7 +34,7 @@ const Li = styled.li`
   min-width: 26rem;
   min-height: 3rem;
   background: #821888;
-  border-radius: 0 0 1rem 1rem;
+  border-radius: 1rem;
   border: 1px solid black;
   box-shadow: 0 2px 4px 0 rgba(202, 173, 173, 0.288);
   a {
@@ -215,11 +216,12 @@ function BigNav({ title, subTitle, artists, subjects }) {
               {artists.nodes.map(node => {
                 const { id, name, slug } = node;
                 return (
-                  <Li key={id}>
-                    <Link role="menuitem" to={`/gallery/artist/${slug.current}`}>
-                      {name}
-                    </Link>
-                  </Li>
+                  <Linkto
+                    key={id}
+                    role="menuitem"
+                    to={`/gallery/artist/${slug.current}`}>
+                    {name}
+                  </Linkto>
                 );
               })}
             </Dropdown>
@@ -244,11 +246,12 @@ function BigNav({ title, subTitle, artists, subjects }) {
               {subjects.nodes.map(node => {
                 const { id, name, week, slug } = node;
                 return (
-                  <Li key={id}>
-                    <Link role="menuitem" to={`/gallery/subject/${slug.current}`}>
-                      {`${week}. ${name}`}
-                    </Link>
-                  </Li>
+                  <Linkto
+                    key={id}
+                    role="menuitem"
+                    to={`/gallery/subject/${slug.current}`}>
+                    {`${week}. ${name}`}
+                  </Linkto>
                 );
               })}
             </Dropdown>
@@ -273,11 +276,9 @@ function BigNav({ title, subTitle, artists, subjects }) {
               {artists.nodes.map(node => {
                 const { id, name, slug } = node;
                 return (
-                  <Li key={id}>
-                    <Link role="menuitem" to={`/biography/${slug.current}`}>
-                      {name}
-                    </Link>
-                  </Li>
+                  <Linkto key={id} role="menuitem" to={`/biography/${slug.current}`}>
+                    {name}
+                  </Linkto>
                 );
               })}
             </Dropdown>

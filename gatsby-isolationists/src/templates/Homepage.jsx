@@ -38,18 +38,18 @@ const FrontPage = styled.article`
     }
   }
 
-  span {
-    font-size: 2.4rem;
-    text-align: center;
-    color: var(--title);
-  }
-
   h3 {
     color: inherit;
     opacity: 0.85;
     font-weight: 400;
     font-size: 2.8.rem;
   }
+`;
+
+const MiniTitle = styled.div`
+  font-size: 2.4rem;
+  text-align: center;
+  color: var(--title);
 `;
 
 function ArtistLink({ artist, title }) {
@@ -97,9 +97,8 @@ export default function Homepage({ pageContext }) {
         week and they all should post their results on Wednesdays. They had no
         collective name before Lockdown, but with this new way of working from home they
         became the...
-        <br />
-        <span>Wednesday Isolationists</span>
       </p>
+      <MiniTitle>Wednesday Isolationists</MiniTitle>
 
       <ul>
         {mugs.map(({ node }) => (

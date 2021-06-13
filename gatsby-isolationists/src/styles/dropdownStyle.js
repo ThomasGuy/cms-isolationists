@@ -1,3 +1,4 @@
+import { Link } from 'gatsby';
 import { animated } from 'react-spring';
 import styled from 'styled-components';
 import { mediaQuery } from './mediaQuery';
@@ -23,6 +24,41 @@ export const Dropdown = styled.div`
 `;
 
 export const MenuItemStyled = styled.div`
+  font-size: 1.8rem;
+  height: 5rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: end;
+  border-radius: var(--border-radius);
+  color: var(--offWhite);
+
+  &:hover {
+    background-color: #525357;
+  }
+
+  .icon-button {
+    margin-right: 0.5rem;
+  }
+
+  .icon-button:hover {
+    filter: none;
+  }
+
+  .icon-right {
+    margin-left: auto;
+  }
+
+  .pad {
+    padding: 0 0.5rem;
+  }
+
+  svg {
+    fill: var(--offWhite);
+  }
+`;
+
+export const Linkto = styled(Link)`
   font-size: 1.8rem;
   height: 5rem;
   display: flex;

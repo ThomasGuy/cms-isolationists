@@ -1,7 +1,7 @@
 import { AnimatePresence } from 'framer-motion';
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
-import { Dropdown, MenuItemStyled, Menu } from '../styles';
+import { Dropdown, MenuItemStyled, Menu, Linkto } from '../styles';
 
 import CogIcon from '../components/icons/svg/cog.svg';
 import ChevronIcon from '../components/icons/svg/chevron.svg';
@@ -92,10 +92,12 @@ function MutiDropdown({ artists, subjects, dropref }) {
             {subjects.nodes.map(subject => {
               const { name, week, id, slug } = subject;
               return (
-                <MenuItemStyled key={id} role="menuitem">
-                  <Link
-                    to={`/gallery/subject/${slug.current}`}>{`${week}. ${name}`}</Link>
-                </MenuItemStyled>
+                <Linkto
+                  key={id}
+                  role="menuitem"
+                  to={`/gallery/subject/${slug.current}`}>
+                  {`${week}. ${name}`}
+                </Linkto>
               );
             })}
           </Menu>
