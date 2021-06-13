@@ -77,6 +77,7 @@ const TitleArea = styled.div`
     padding-top: 0.7rem;
     line-height: 2rem;
     text-align: center;
+    letter-spacing: 1.1px;
 
     ${mediaQuery('xs')`
       font-size: 2rem;

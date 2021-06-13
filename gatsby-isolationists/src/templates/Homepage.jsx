@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { TitleContext } from '../components/Layout';
 import SEO from '../components/seo';
+import { mediaQuery } from '../styles/mediaQuery';
 
 const FrontPage = styled.article`
   max-width: var(--pageWidth);
@@ -19,9 +20,14 @@ const FrontPage = styled.article`
     align-items: center;
     justify-content: flex-start;
     gap: 1rem;
+
+    ${mediaQuery('sm')`
+      gap: 2rem;
+      padding-left: 4rem;
+    `};
   }
 
-  ul > li {
+  li {
     padding: 8px;
     margin-bottom: 7px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -30,11 +36,17 @@ const FrontPage = styled.article`
       background-color: #242424;
     }
 
-    h3 {
+    h2 {
       color: inherit;
       opacity: 0.85;
       font-weight: 400;
-      font-size: 2.8.rem;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+
+      ${mediaQuery('sm')`
+        font-size: 2.2rem;
+        letter-spacing: 1.2px;
+      `};
     }
   }
 
@@ -59,7 +71,7 @@ function ArtistLink({ artist, title }) {
       <Link key={id} className="artistLink" to={`/biography/${slug.current}`}>
         <SEO title={title} imageSrc={mug.asset.url} />
         <GatsbyImage image={mug.asset.gatsbyImageData} alt={name} />
-        <h3>{name}</h3>
+        <h2>{name}</h2>
       </Link>
     </li>
   );

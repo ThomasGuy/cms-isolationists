@@ -93,6 +93,7 @@ const Navbar = styled.nav`
     padding-top: 0.7rem;
     grid-column: ${({ subTitle }) => (subTitle ? '1 / 3' : '1 / -1')};
     justify-self: ${({ subTitle }) => (subTitle ? 'end' : 'center')};
+    letter-spacing: 1.4px;
   }
 
   p {
