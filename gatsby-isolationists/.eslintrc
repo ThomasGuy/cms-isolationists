@@ -1,15 +1,16 @@
 {
-  "globals": {
-    "__PATH_PREFIX__": true
-  },
-  "extends": ["airbnb", "prettier", "prettier/react"],
+  // "globals": {
+  //   "__PATH_PREFIX__": true
+  // },
+  "extends": ["airbnb", "plugin:prettier/recommended"],
   "env": {
     "browser": true,
     "node": true,
     "jest": true,
     "es6": true
   },
-  "plugins": ["prettier", "html"],
+  "parser": "@babel/eslint-parser",
+  "plugins": ["@babel", "prettier", "html", "react-hooks"],
   "parserOptions": {
     "ecmaVersion": 2021,
     "sourceType": "module",
@@ -22,6 +23,6 @@
     "react/prop-types": 0,
     "react/jsx-props-no-spreading": 0,
     "import/prefer-default-export": 0,
-    "no-console": 0
+    "no-console": 1
   }
 }
