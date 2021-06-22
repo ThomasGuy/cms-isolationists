@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import React, { useContext, useEffect } from 'react';
 
 import { FaEnvelope } from 'react-icons/fa';
@@ -20,7 +19,6 @@ const BioPage = ({ pageContext }) => {
   function makeId(slug, idx) {
     return `${slug}-${idx}`;
   }
-  const firstName = name.split(' ')[0];
 
   return (
     <>
@@ -44,17 +42,10 @@ const BioPage = ({ pageContext }) => {
             </Title>
 
             <div className="email">
-              {firstName !== 'Suzanne' ? (
-                <a href={`mailto:${email}`}>
-                  Email&nbsp;&nbsp;&nbsp;
-                  <FaEnvelope />
-                </a>
-              ) : (
-                <a href={email}>
-                  Email&nbsp;&nbsp;&nbsp;
-                  <FaEnvelope />
-                </a>
-              )}
+              <a href={`mailto:${email}`}>
+                Email&nbsp;&nbsp;&nbsp;
+                <FaEnvelope />
+              </a>
             </div>
           </Col>
         </Row>
@@ -67,14 +58,19 @@ const BioPage = ({ pageContext }) => {
         </Row>
         <br />
         <hr />
+        {(links?.length > 0 || social) && (
+          <Row>
+            <Col>
+              <Comment>
+                My other work can be found on the following websites and social media
+              </Comment>
+            </Col>
+          </Row>
+        )}
         <Row>
           <Col>
-            {links && links.length > 0 && (
+            {links?.length > 0 && (
               <>
-                <Comment>
-                  My other work can be found on the following websites and social media
-                </Comment>
-
                 {links.map((link, idx) => (
                   <OutsideLink key={makeId('link', idx)} href={`${link.href}`}>
                     {link.name}
@@ -105,7 +101,6 @@ const BioPage = ({ pageContext }) => {
                       title="follow me on Instagram"
                       href={social.instagram}>
                       <img
-                        style={{ marginBottom: '0' }}
                         alt="follow me on instagram"
                         src="https://img.icons8.com/office/30/000000/instagram-new.png"
                         border={0}

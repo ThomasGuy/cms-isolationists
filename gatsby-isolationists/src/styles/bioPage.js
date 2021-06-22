@@ -68,6 +68,10 @@ export const Col = styled.div`
   .social {
     margin-left: 2rem;
 
+    img {
+      margin-bottom: 0;
+    }
+
     ${mediaQuery('sm')`
       margin-left: 3rem;
   `};
