@@ -1,8 +1,5 @@
 {
-  // "globals": {
-  //   "__PATH_PREFIX__": true
-  // },
-  "extends": ["airbnb", "prettier", "prettier/react"],
+  "extends": ["airbnb", "plugin:prettier/recommended"],
   "env": {
     "browser": true,
     "node": true,
