@@ -29,7 +29,7 @@ export const MenuItemStyled = styled.div`
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  justify-content: end;
+  justify-content: start;
   border-radius: var(--border-radius);
   color: var(--offWhite);
 
@@ -43,6 +43,10 @@ export const MenuItemStyled = styled.div`
 
   .icon-button:hover {
     filter: none;
+  }
+
+  .icon-left {
+    margin-right: auto;
   }
 
   .icon-right {
@@ -64,7 +68,7 @@ export const Linkto = styled(Link)`
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  justify-content: end;
+  justify-content: start;
   border-radius: var(--border-radius);
   color: var(--offWhite);
 

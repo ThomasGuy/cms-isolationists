@@ -94,6 +94,7 @@ function MutiDropdown({ artists, subjects, dropref }) {
               return (
                 <Linkto
                   key={id}
+                  className="icon-left"
                   role="menuitem"
                   to={`/gallery/subject/${slug.current}`}>
                   {`${week}. ${name}`}

@@ -1,19 +1,26 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable radix */
 /* eslint-disable no-unused-expressions */
 import { useSpring } from 'react-spring';
 import { graphql } from 'gatsby';
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import Image from 'gatsby-plugin-sanity-image';
-import { TitleContext } from '../components/Layout';
 
-import SEO from '../components/seo';
+import { TitleContext } from '../components/Layout';
 import { GalleryLayout, PictureBox, SoldTag } from '../styles';
-import { addClass } from '../utils/helpers';
+import SEO from '../components/seo';
 import { useBreakpoint } from '../hooks/useBreakpoint';
+import { addClass } from '../utils/helpers';
+import { Modal } from '../components/SimpleModal';
+import ModalImg from '../components/ModalImg';
 
 let span2 = 1;
 let imgWidth = 18;
 
 const SubjectPage = ({ data }) => {
+  const [openModal, setOpen] = useState(false);
+  const [index, _setIndex] = useState(-1);
+  const indexRef = useRef(index);
   const { galleryLg, mobile } = useBreakpoint();
   const { setTitle, setSubtitle } = useContext(TitleContext);
   const { subject } = data.title;
@@ -22,11 +29,6 @@ const SubjectPage = ({ data }) => {
     setTitle(subject);
     setSubtitle(true);
   }, [subject]);
-
-  // useLayoutEffect(() => {
-  //   galleryLg ? (imgWidth = 23) : (imgWidth = 18);
-  //   mobile ? (span2 = 1) : (span2 = 2);
-  // }, [galleryLg, mobile]);
 
   galleryLg ? (imgWidth = 23) : (imgWidth = 18);
   mobile ? (span2 = 1) : (span2 = 2);
@@ -50,6 +52,49 @@ const SubjectPage = ({ data }) => {
       imgStyle: { objectFit: 'contain', width: '100%', height: '100%' },
     };
   });
+
+  const pictures = propsArray.map(props => {
+    const { image, key, sold, title, imgTitle, ...rest } = props;
+    return (
+      <ModalImg
+        image={image}
+        key={key}
+        title={title}
+        sold={sold}
+        caption={imgTitle}
+        {...rest}
+      />
+    );
+  });
+
+  const setIndex = useCallback(
+    idx => {
+      idx += propsArray.length;
+      idx %= propsArray.length;
+      indexRef.current = idx;
+      _setIndex(idx);
+    },
+    [propsArray.length],
+  );
+
+  const clickHandler = useCallback(
+    evt => {
+      if (evt.target.nodeName !== 'IMG') {
+        return;
+      }
+      setIndex(parseInt(evt.target.attributes.idx.value));
+      setOpen(true);
+    },
+    [setIndex, setOpen],
+  );
+
+  useEffect(() => {
+    window.addEventListener('click', clickHandler, false);
+
+    return () => {
+      window.removeEventListener('click', clickHandler, false);
+    };
+  }, [clickHandler]);
 
   const { xy, ...rest } = useSpring({
     xy: [0, 0],
@@ -85,6 +130,9 @@ const SubjectPage = ({ data }) => {
           </PictureBox>
         );
       })}
+      {openModal && (
+        <Modal onCloseRequest={() => setOpen(false)}>{pictures[index]}</Modal>
+      )}
     </GalleryLayout>
   );
 };
@@ -108,6 +156,7 @@ export const SUBJECT_QUERY = graphql`
           image {
             ...ImageWithPreview
             asset {
+              gatsbyImageData(placeholder: BLURRED)
               url
               metadata {
                 dimensions {

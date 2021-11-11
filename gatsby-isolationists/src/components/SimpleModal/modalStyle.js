@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { mediaQuery } from '../../styles/mediaQuery';
+// import { mediaQuery } from '../../styles/mediaQuery';
 
 export const Button = styled.button`
   position: absolute;
@@ -47,12 +47,12 @@ export const ModalWrapper = styled.div`
 `;
 
 export const ModalBox = styled.div`
-  width: 100%;
+  width: auto;
+  max-height: 840px;
+  img {
+    object-fit: contain;
+  }
   background-color: #1a1a1a;
   padding: 1rem;
   overflow-y: auto;
-
-  ${mediaQuery('md')`
-    width: 600px;
-  `};
 `;
