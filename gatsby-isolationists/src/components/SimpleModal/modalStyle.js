@@ -4,14 +4,15 @@ import styled from 'styled-components';
 export const Button = styled.button`
   position: absolute;
   z-index: 1;
-  top: 4px;
-  right: 4px;
+  top: 10px;
+  right: 10px;
 
   --button-size: calc(var(--nav-size) * 0.5);
   width: var(--button-size);
   height: var(--button-size);
   background-color: var(--black);
   color: var(--offWhite);
+  font-size: 3rem;
   border: none;
   border-radius: 50%;
   /* display: flex;
@@ -44,15 +45,4 @@ export const ModalWrapper = styled.div`
   z-index: 200;
   opacity: 1;
   background-color: #1a1a1a;
-`;
-
-export const ModalBox = styled.div`
-  width: auto;
-  max-height: 840px;
-  img {
-    object-fit: contain;
-  }
-  background-color: #1a1a1a;
-  padding: 1rem;
-  overflow-y: auto;
 `;

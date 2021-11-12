@@ -25,7 +25,7 @@ export const SoldTagModal = styled.span`
   display: inline-block;
   padding: 5px 8px;
   top: 58px;
-  right: -5px;
+  right: 15px;
   font-size: 2.5rem;
   line-height: 1;
 

@@ -9,6 +9,8 @@ import {
   ChevronIcon,
   ArrowIcon,
   CloseIcon,
+  LeftArrow,
+  RightArrow,
 } from './icons';
 
 function Icon({ symbol }) {
@@ -31,6 +33,10 @@ function Icon({ symbol }) {
       return <ArrowIcon />;
     case 'close':
       return <CloseIcon />;
+    case 'Larrow':
+      return <LeftArrow />;
+    case 'Rarrow':
+      return <RightArrow />;
     default:
       return <span>Unknown icon: {symbol}</span>;
   }
