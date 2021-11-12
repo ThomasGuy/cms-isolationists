@@ -104,3 +104,49 @@ export const CloseIcon = () => {
     <path d="M18 7L7 18M7 7L18 18" />
   </svg>;
 };
+
+export const LeftArrow = () => {
+  <svg
+    enableBackground="new 0 0 26 26"
+    height="26px"
+    id="Layer_1"
+    version="1.1"
+    viewBox="0 0 26 26"
+    width="26px"
+    xmlSpace="preserve"
+    xmlns="http://www.w3.org/2000/svg">
+    <g>
+      <polygon
+        fill="#ededed"
+        points="23.885,0.58 25.969,2.664 15.133,13.5 25.969,24.336 23.885,26.42 10.965,13.5  "
+      />
+      <polygon
+        fill="#ededed"
+        points="12.885,0.58 14.969,2.664 4.133,13.5 14.969,24.336 12.885,26.42 -0.035,13.5  "
+      />
+    </g>
+  </svg>;
+};
+
+export const RightArrow = () => {
+  <svg
+    enableBackground="new 0 0 26 26"
+    height="26px"
+    id="Layer_1"
+    version="1.1"
+    viewBox="0 0 26 26"
+    width="26px"
+    xmlSpace="preserve"
+    xmlns="http://www.w3.org/2000/svg">
+    <g>
+      <polygon
+        fill="#ededed"
+        points="2.049,0.58 -0.035,2.664 10.801,13.5 -0.035,24.336 2.049,26.42 14.969,13.5  "
+      />
+      <polygon
+        fill="#ededed"
+        points="13.049,0.58 10.965,2.664 21.801,13.5 10.965,24.336 13.049,26.42 25.969,13.5  "
+      />
+    </g>
+  </svg>;
+};

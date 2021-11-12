@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-expressions */
 import { useTrail } from 'react-spring';
 import { graphql } from 'gatsby';
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import Image from 'gatsby-plugin-sanity-image';
 
 import { TitleContext } from '../components/Layout';
@@ -11,37 +11,37 @@ import { GalleryLayout, SoldTag, PictureBox } from '../styles';
 import SEO from '../components/seo';
 import { useBreakpoint } from '../hooks/useBreakpoint';
 import { addClass } from '../utils/helpers';
-import { Modal } from '../components/SimpleModal';
-import ModalImg from '../components/ModalImg';
+import { Modal } from '../components/SimpleModal/Modal';
 
 let span2 = 1;
 let imgWidth = 18;
 
 const ArtistPage = ({ data }) => {
   const [openModal, setOpen] = useState(false);
-  const [index, _setIndex] = useState(-1);
-  const indexRef = useRef(index);
+  const [index, setIndex] = useState(0);
   const { galleryLg, mobile } = useBreakpoint();
   const { setTitle, setSubtitle } = useContext(TitleContext);
-  const { artist } = data.title;
+  // const { artist } = data.title;
 
   useEffect(() => {
-    setTitle(artist);
+    setTitle(data.title.name);
     setSubtitle(true);
-  }, [artist]);
+  }, [data.title.name]);
 
   galleryLg ? (imgWidth = 23) : (imgWidth = 18);
   mobile ? (span2 = 1) : (span2 = 2);
 
-  const imageProps = data.pics.edges.map(({ node }, idx) => {
-    const { image, subject, dimensions, id, sold } = node;
+  const imgProps = data.pics.edges.map(({ node }, idx) => {
+    const { image, subject, dimensions, id, sold, artist } = node;
     const imgTitle = dimensions
-      ? `${artist} - ${dimensions.width}x${dimensions.height}cm`
-      : `${artist}`;
+      ? `${artist.name} - ${dimensions.width}x${dimensions.height}cm`
+      : `${artist.name}`;
     return {
       image,
       alt: subject.name,
       title: subject.name,
+      artist: artist.name,
+      subject: subject.name,
       imgTitle,
       key: id,
       idx,
@@ -53,30 +53,6 @@ const ArtistPage = ({ data }) => {
     };
   });
 
-  const pictures = imageProps.map(props => {
-    const { image, key, sold, subject, imgTitle, ...rest } = props;
-    return (
-      <ModalImg
-        image={image}
-        key={key}
-        title={subject}
-        sold={sold}
-        caption={imgTitle}
-        {...rest}
-      />
-    );
-  });
-
-  const setIndex = useCallback(
-    idx => {
-      idx += imageProps.length;
-      idx %= imageProps.length;
-      indexRef.current = idx;
-      _setIndex(idx);
-    },
-    [imageProps.length],
-  );
-
   const clickHandler = useCallback(
     evt => {
       if (evt.target.nodeName !== 'IMG') {
@@ -85,7 +61,7 @@ const ArtistPage = ({ data }) => {
       setIndex(parseInt(evt.target.attributes.idx.value));
       setOpen(true);
     },
-    [setIndex, setOpen],
+    [setOpen, setIndex],
   );
 
   useEffect(() => {
@@ -96,7 +72,7 @@ const ArtistPage = ({ data }) => {
     };
   }, [clickHandler]);
 
-  const trail = useTrail(imageProps.length, {
+  const trail = useTrail(imgProps.length, {
     to: { opacity: 1, transform: 'scale(1)' },
     from: { opacity: 0, transform: 'scale(0.3)' },
   });
@@ -106,7 +82,7 @@ const ArtistPage = ({ data }) => {
       <SEO title={data.title.artist} />
       {trail.map((props, idx) => {
         const { image, key, ratio, sold, title, imgStyle, imgTitle, ...others } =
-          imageProps[idx];
+          imgProps[idx];
         return (
           <PictureBox className={addClass(ratio)} style={{ ...props }} key={key}>
             <SEO title={data.title.artist} imageSrc={image.asset.url} />
@@ -122,8 +98,12 @@ const ArtistPage = ({ data }) => {
           </PictureBox>
         );
       })}
-      {openModal && (
-        <Modal onCloseRequest={() => setOpen(false)}>{pictures[index]}</Modal>
+      {galleryLg && openModal && (
+        <Modal
+          onCloseRequest={() => setOpen(false)}
+          index={index}
+          imgProps={imgProps}
+        />
       )}
     </GalleryLayout>
   );
@@ -136,11 +116,14 @@ export const ARTIST_QUERY = graphql`
     pics: allSanityPicture(filter: { artist: { slug: { current: { eq: $slug } } } }) {
       edges {
         node {
+          id
+          sold
           subject {
             name
           }
-          id
-          sold
+          artist {
+            name
+          }
           image {
             ...ImageWithPreview
             asset {

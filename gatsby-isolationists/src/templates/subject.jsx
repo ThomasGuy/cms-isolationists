@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-expressions */
 import { useSpring } from 'react-spring';
 import { graphql } from 'gatsby';
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import Image from 'gatsby-plugin-sanity-image';
 
 import { TitleContext } from '../components/Layout';
@@ -11,38 +11,38 @@ import { GalleryLayout, PictureBox, SoldTag } from '../styles';
 import SEO from '../components/seo';
 import { useBreakpoint } from '../hooks/useBreakpoint';
 import { addClass } from '../utils/helpers';
-import { Modal } from '../components/SimpleModal';
-import ModalImg from '../components/ModalImg';
+import { Modal } from '../components/SimpleModal/Modal';
 
 let span2 = 1;
 let imgWidth = 18;
 
 const SubjectPage = ({ data }) => {
   const [openModal, setOpen] = useState(false);
-  const [index, _setIndex] = useState(-1);
-  const indexRef = useRef(index);
   const { galleryLg, mobile } = useBreakpoint();
+  const [index, setIndex] = useState(0);
   const { setTitle, setSubtitle } = useContext(TitleContext);
-  const { subject } = data.title;
+  // const { subject } = data.title;
 
   useEffect(() => {
-    setTitle(subject);
+    setTitle(data.title.subject);
     setSubtitle(true);
-  }, [subject]);
+  }, [data.title.subject]);
 
   galleryLg ? (imgWidth = 23) : (imgWidth = 18);
   mobile ? (span2 = 1) : (span2 = 2);
 
-  const propsArray = data.pics.edges.map(({ node }, idx) => {
-    const { image, artist, dimensions, id, sold } = node;
+  const imgProps = data.pics.edges.map(({ node }, idx) => {
+    const { image, artist, subject, dimensions, id, sold } = node;
     const imgTitle = dimensions
-      ? `${subject} - ${dimensions.width}x${dimensions.height}cm`
-      : `${subject}`;
+      ? `${subject.name} - ${dimensions.width}x${dimensions.height}cm`
+      : `${subject.name}`;
     return {
       image,
       alt: artist.name,
       title: artist.name,
       imgTitle,
+      artist: artist.name,
+      subject: subject.name,
       key: id,
       idx,
       sold,
@@ -53,30 +53,6 @@ const SubjectPage = ({ data }) => {
     };
   });
 
-  const pictures = propsArray.map(props => {
-    const { image, key, sold, title, imgTitle, ...rest } = props;
-    return (
-      <ModalImg
-        image={image}
-        key={key}
-        title={title}
-        sold={sold}
-        caption={imgTitle}
-        {...rest}
-      />
-    );
-  });
-
-  const setIndex = useCallback(
-    idx => {
-      idx += propsArray.length;
-      idx %= propsArray.length;
-      indexRef.current = idx;
-      _setIndex(idx);
-    },
-    [propsArray.length],
-  );
-
   const clickHandler = useCallback(
     evt => {
       if (evt.target.nodeName !== 'IMG') {
@@ -85,7 +61,7 @@ const SubjectPage = ({ data }) => {
       setIndex(parseInt(evt.target.attributes.idx.value));
       setOpen(true);
     },
-    [setIndex, setOpen],
+    [setOpen, setIndex],
   );
 
   useEffect(() => {
@@ -106,7 +82,7 @@ const SubjectPage = ({ data }) => {
   return (
     <GalleryLayout width={imgWidth} span2={span2}>
       <SEO title={data.title.subject} />
-      {propsArray.map(props => {
+      {imgProps.map(props => {
         const { image, title, imgStyle, ratio, sold, key, imgTitle, ...others } = props;
 
         return (
@@ -130,8 +106,12 @@ const SubjectPage = ({ data }) => {
           </PictureBox>
         );
       })}
-      {openModal && (
-        <Modal onCloseRequest={() => setOpen(false)}>{pictures[index]}</Modal>
+      {galleryLg && openModal && (
+        <Modal
+          onCloseRequest={() => setOpen(false)}
+          index={index}
+          imgProps={imgProps}
+        />
       )}
     </GalleryLayout>
   );
@@ -149,9 +129,8 @@ export const SUBJECT_QUERY = graphql`
           artist {
             name
           }
-          dimensions {
-            width
-            height
+          subject {
+            name
           }
           image {
             ...ImageWithPreview
@@ -164,6 +143,10 @@ export const SUBJECT_QUERY = graphql`
                 }
               }
             }
+          }
+          dimensions {
+            width
+            height
           }
         }
       }
