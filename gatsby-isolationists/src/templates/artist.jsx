@@ -11,12 +11,7 @@ import { GalleryLayout, SoldTag, PictureBox } from '../styles';
 import SEO from '../components/seo';
 import { useBreakpoint } from '../hooks/useBreakpoint';
 import { addClass } from '../utils/helpers';
-<<<<<<< HEAD
-import { Modal } from '../components/SimpleModal';
-import ModalImgBox from '../components/SimpleModal/ModalImgBox';
-=======
 import { Modal } from '../components/SimpleModal/Modal';
->>>>>>> modal
 
 let span2 = 1;
 let imgWidth = 18;
@@ -58,33 +53,6 @@ const ArtistPage = ({ data }) => {
     };
   });
 
-<<<<<<< HEAD
-  const pictures = imageProps.map(props => {
-    const { image, key, sold, subject, imgTitle, ...rest } = props;
-    return (
-      <ModalImgBox
-        image={image}
-        key={key}
-        title={subject}
-        sold={sold}
-        caption={imgTitle}
-        {...rest}
-      />
-    );
-  });
-
-  const setIndex = useCallback(
-    idx => {
-      idx += imageProps.length;
-      idx %= imageProps.length;
-      indexRef.current = idx;
-      _setIndex(idx);
-    },
-    [imageProps.length],
-  );
-
-=======
->>>>>>> modal
   const clickHandler = useCallback(
     evt => {
       if (evt.target.nodeName !== 'IMG') {

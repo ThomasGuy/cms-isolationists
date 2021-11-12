@@ -39,16 +39,11 @@ const Box = styled.div`
   }
 `;
 
-<<<<<<< HEAD:gatsby-isolationists/src/components/SimpleModal/ModalImgBox.jsx
-const ModalImgBox = props => {
-  const { image, key, sold, title, caption } = props;
-=======
 export const ModalImg = props => {
   const { image, sold, subject, artist, dimensions } = props;
   const caption = dimensions
     ? `${artist} - ${dimensions.width}x${dimensions.height}cm`
     : `${artist}`;
->>>>>>> modal:gatsby-isolationists/src/components/SimpleModal/ModalImg.jsx
   return (
     <Box>
       <p className="title">{subject}</p>
@@ -63,8 +58,3 @@ export const ModalImg = props => {
     </Box>
   );
 };
-<<<<<<< HEAD:gatsby-isolationists/src/components/SimpleModal/ModalImgBox.jsx
-
-export default ModalImgBox;
-=======
->>>>>>> modal:gatsby-isolationists/src/components/SimpleModal/ModalImg.jsx
