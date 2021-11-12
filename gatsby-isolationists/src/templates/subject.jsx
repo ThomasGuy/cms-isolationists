@@ -12,7 +12,7 @@ import SEO from '../components/seo';
 import { useBreakpoint } from '../hooks/useBreakpoint';
 import { addClass } from '../utils/helpers';
 import { Modal } from '../components/SimpleModal';
-import ModalImg from '../components/ModalImg';
+import ModalImgBox from '../components/SimpleModal/ModalImgBox';
 
 let span2 = 1;
 let imgWidth = 18;
@@ -56,7 +56,7 @@ const SubjectPage = ({ data }) => {
   const pictures = propsArray.map(props => {
     const { image, key, sold, title, imgTitle, ...rest } = props;
     return (
-      <ModalImg
+      <ModalImgBox
         image={image}
         key={key}
         title={title}

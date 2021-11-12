@@ -1,8 +1,7 @@
 import React from 'react';
-// import Image from 'gatsby-plugin-sanity-image';
 import styled from 'styled-components';
 import { GatsbyImage } from 'gatsby-plugin-image';
-import { SoldTagModal } from '../styles';
+import { SoldTagModal } from '../../styles';
 
 const Box = styled.div`
   position: relative;
@@ -27,7 +26,7 @@ const Box = styled.div`
   }
 `;
 
-const ModalImg = props => {
+const ModalImgBox = props => {
   const { image, key, sold, title, caption } = props;
   return (
     <Box key={key}>
@@ -44,4 +43,4 @@ const ModalImg = props => {
   );
 };
 
-export default ModalImg;
+export default ModalImgBox;
