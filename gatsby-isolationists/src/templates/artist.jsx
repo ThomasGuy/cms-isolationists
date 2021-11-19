@@ -22,11 +22,12 @@ const ArtistPage = ({ data }) => {
   const { galleryLg, mobile } = useBreakpoint();
   const { setTitle, setSubtitle } = useContext(TitleContext);
   // const { artist } = data.title;
+  console.log(data.title.artist);
 
   useEffect(() => {
-    setTitle(data.title.name);
+    setTitle(data.title.artist);
     setSubtitle(true);
-  }, [data.title.name]);
+  }, [data.title.artist]);
 
   galleryLg ? (imgWidth = 23) : (imgWidth = 18);
   mobile ? (span2 = 1) : (span2 = 2);
