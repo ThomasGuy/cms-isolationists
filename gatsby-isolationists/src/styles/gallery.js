@@ -10,6 +10,8 @@ export const GalleryLayout = styled.div`
   grid-auto-flow: dense;
   padding: 2rem 0.7rem;
   align-items: flex-start;
+  /* overflow: hidden; */
+  overflow: ${props => (props.modal ? 'hidden' : 'auto')};
 
   .tall2 {
     grid-row: ${({ span2 }) => `span ${span2}`};

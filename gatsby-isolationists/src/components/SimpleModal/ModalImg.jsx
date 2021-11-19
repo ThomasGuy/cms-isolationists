@@ -1,59 +1,53 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+import { animated, useSpring, config } from 'react-spring';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import { SoldTagModal } from '../../styles';
 
-export const ModalBox = styled.div`
-  position: relative;
-  margin: 0 auto;
+const Box = styled(animated.div)`
+  height: calc(110vh - 5rem);
   width: auto;
-  height: 850px;
-  background-color: #131111;
-`;
+  padding: 1rem 5rem;
 
-const Box = styled.div`
-  max-height: 760px;
-  width: auto;
-  padding: 0 3rem;
-  /* display: grid;
-  justify-content: center center;
-  grid-template-rows: 2fr 12fr 1fr; */
   p {
     text-align: center;
-    color: var(--offWhite);
-    opacity: 0.8;
     margin: 0;
-    margin-top: 0.3rem;
-    padding-bottom: 1rem;
-    font-size: 3rem;
-    line-height: 1.6;
-  }
-  .dim {
+    height: 3rem;
     padding-top: 1rem;
-    font-size: 1.4rem;
+    font-size: 1.8rem;
+    opacity: 0.8;
   }
+
   img {
-    max-height: 740px;
+    max-height: calc(100vh - 10rem);
     width: auto;
     object-fit: contain;
   }
 `;
 
-export const ModalImg = props => {
-  const { image, sold, subject, artist, dimensions } = props;
+export const ModalImg = ({ imgProp }) => {
+  const { image, sold, subject, artist, dimensions } = imgProp;
   const caption = dimensions
-    ? `${artist} - ${dimensions.width}x${dimensions.height}cm`
-    : `${artist}`;
+    ? `${subject} - ${dimensions.width}x${dimensions.height}cm`
+    : `${subject}`;
+
+  const api = useSpring({
+    opacity: 1,
+    from: { opacity: 0 },
+    delay: 100,
+    config: config.molasses,
+  });
+
   return (
-    <Box>
-      <p className="title">{subject}</p>
+    <Box style={api}>
       <GatsbyImage
         image={image.asset.gatsbyImageData}
         alt={subject}
-        title={caption}
+        title={`${subject} - ${artist}`}
         loading="eager"
       />
-      <p className="dim">{caption}</p>
+      <p>{caption}</p>
       {sold && <SoldTagModal>SOLD</SoldTagModal>}
     </Box>
   );

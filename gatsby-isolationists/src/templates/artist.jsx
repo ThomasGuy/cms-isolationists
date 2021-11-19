@@ -58,8 +58,10 @@ const ArtistPage = ({ data }) => {
       if (evt.target.nodeName !== 'IMG') {
         return;
       }
-      setIndex(parseInt(evt.target.attributes.idx.value));
-      setOpen(true);
+      if (evt.target.attributes.idx) {
+        setIndex(parseInt(evt.target.attributes.idx.value));
+        setOpen(true);
+      }
     },
     [setOpen, setIndex],
   );
@@ -78,10 +80,10 @@ const ArtistPage = ({ data }) => {
   });
 
   return (
-    <GalleryLayout width={imgWidth} span2={span2}>
+    <GalleryLayout width={imgWidth} span2={span2} modal={openModal}>
       <SEO title={data.title.artist} />
       {trail.map((props, idx) => {
-        const { image, key, ratio, sold, title, imgStyle, imgTitle, ...others } =
+        const { image, key, ratio, sold, alt, title, imgStyle, imgTitle, ...others } =
           imgProps[idx];
         return (
           <PictureBox className={addClass(ratio)} style={{ ...props }} key={key}>
@@ -91,6 +93,7 @@ const ArtistPage = ({ data }) => {
               width={imgWidth * span2 * 10} // no span3 now
               title={imgTitle}
               style={imgStyle}
+              alt={alt}
               {...others}
             />
             {sold && <SoldTag>SOLD</SoldTag>}
