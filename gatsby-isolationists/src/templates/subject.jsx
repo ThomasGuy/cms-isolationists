@@ -40,9 +40,9 @@ const SubjectPage = ({ data }) => {
       image,
       alt: artist.name,
       title: artist.name,
-      imgTitle,
       artist: artist.name,
       subject: subject.name,
+      imgTitle,
       key: id,
       idx,
       sold,
@@ -58,8 +58,10 @@ const SubjectPage = ({ data }) => {
       if (evt.target.nodeName !== 'IMG') {
         return;
       }
-      setIndex(parseInt(evt.target.attributes.idx.value));
-      setOpen(true);
+      if (evt.target.attributes.idx) {
+        setIndex(parseInt(evt.target.attributes.idx.value));
+        setOpen(true);
+      }
     },
     [setOpen, setIndex],
   );
@@ -80,10 +82,11 @@ const SubjectPage = ({ data }) => {
   });
 
   return (
-    <GalleryLayout width={imgWidth} span2={span2}>
+    <GalleryLayout width={imgWidth} span2={span2} modal={openModal}>
       <SEO title={data.title.subject} />
       {imgProps.map(props => {
-        const { image, title, imgStyle, ratio, sold, key, imgTitle, ...others } = props;
+        const { image, key, ratio, sold, alt, title, imgStyle, imgTitle, ...others } =
+          props;
 
         return (
           <PictureBox
@@ -99,6 +102,7 @@ const SubjectPage = ({ data }) => {
               width={imgWidth * span2 * 10} // no span3
               title={imgTitle}
               style={imgStyle}
+              alt={alt}
               {...others}
             />
             {sold && <SoldTag>SOLD</SoldTag>}
