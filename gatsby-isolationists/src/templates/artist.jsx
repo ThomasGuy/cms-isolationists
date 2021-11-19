@@ -21,8 +21,6 @@ const ArtistPage = ({ data }) => {
   const [index, setIndex] = useState(0);
   const { galleryLg, mobile } = useBreakpoint();
   const { setTitle, setSubtitle } = useContext(TitleContext);
-  // const { artist } = data.title;
-  console.log(data.title.artist);
 
   useEffect(() => {
     setTitle(data.title.artist);
@@ -131,7 +129,7 @@ export const ARTIST_QUERY = graphql`
           image {
             ...ImageWithPreview
             asset {
-              gatsbyImageData(placeholder: BLURRED)
+              gatsbyImageData(placeholder: BLURRED, height: 800)
               url
               metadata {
                 dimensions {

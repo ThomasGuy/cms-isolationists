@@ -21,7 +21,6 @@ const SubjectPage = ({ data }) => {
   const { galleryLg, mobile } = useBreakpoint();
   const [index, setIndex] = useState(0);
   const { setTitle, setSubtitle } = useContext(TitleContext);
-  // const { subject } = data.title;
 
   useEffect(() => {
     setTitle(data.title.subject);
@@ -139,7 +138,7 @@ export const SUBJECT_QUERY = graphql`
           image {
             ...ImageWithPreview
             asset {
-              gatsbyImageData(placeholder: BLURRED)
+              gatsbyImageData(placeholder: BLURRED, height: 800)
               url
               metadata {
                 dimensions {
