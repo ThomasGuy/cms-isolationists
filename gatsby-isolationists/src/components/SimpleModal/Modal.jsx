@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
-import { config, useSpring } from 'react-spring';
+
 import React, { useRef, useCallback, useState } from 'react';
 import styled from 'styled-components';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import { ModalImg } from './ModalImg';
 import { Previous, Next } from './Buttons';
 import { CloseModal } from './CloseModal';
@@ -47,6 +48,20 @@ export function Modal({ onCloseRequest, index, imgProps }) {
   const idxRef = useRef(index);
   const [_index, _setIndex] = useState(index);
 
+  const pictures = imgProps.map(props => {
+    const { image, sold, subject, artist, dimensions } = props;
+    return (
+      <GatsbyImage
+        image={image.asset.gatsbyImageData}
+        loading="eager"
+        alt={subject}
+        title={`${subject} - ${artist}`}
+        sold={sold}
+        dimensions={dimensions}
+      />
+    );
+  });
+
   const setIndex = useCallback(
     idx => {
       idx += imgProps.length;
@@ -57,20 +72,20 @@ export function Modal({ onCloseRequest, index, imgProps }) {
     [imgProps.length],
   );
 
-  const api = useSpring({
-    opacity: 1,
-    from: { opacity: 0 },
-    delay: 200,
-    config: config.molasses,
-  });
+  // const api = useSpring({
+  //   opacity: 1,
+  //   from: { opacity: 0 },
+  //   delay: 200,
+  //   config: config.molasses,
+  // });
 
   return (
     <ModalWrapper>
       <Title>{imgProps[_index].artist}</Title>
       <CloseModal close={() => onCloseRequest()} />
       <Previous slider={() => setIndex(idxRef.current - 1)} />
-      <ModalBox style={api}>
-        <ModalImg imgProp={imgProps[_index]} />
+      <ModalBox>
+        <ModalImg imgProp={imgProps[_index]}>{pictures[_index]}</ModalImg>
       </ModalBox>
       <Next slider={() => setIndex(idxRef.current + 1)} />
     </ModalWrapper>

@@ -2,7 +2,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { animated, useSpring, config } from 'react-spring';
-import { GatsbyImage } from 'gatsby-plugin-image';
 import { SoldTagModal } from '../../styles';
 
 const Box = styled(animated.div)`
@@ -26,8 +25,8 @@ const Box = styled(animated.div)`
   }
 `;
 
-export const ModalImg = ({ imgProp }) => {
-  const { image, sold, subject, artist, dimensions } = imgProp;
+export const ModalImg = ({ imgProp, children }) => {
+  const { sold, subject, dimensions } = imgProp;
   const caption = dimensions
     ? `${subject} - ${dimensions.width}x${dimensions.height}cm`
     : `${subject}`;
@@ -35,18 +34,13 @@ export const ModalImg = ({ imgProp }) => {
   const api = useSpring({
     opacity: 1,
     from: { opacity: 0 },
-    delay: 100,
+    delay: 200,
     config: config.molasses,
   });
 
   return (
     <Box style={api}>
-      <GatsbyImage
-        image={image.asset.gatsbyImageData}
-        alt={subject}
-        title={`${subject} - ${artist}`}
-        loading="eager"
-      />
+      {children}
       <p>{caption}</p>
       {sold && <SoldTagModal>SOLD</SoldTagModal>}
     </Box>
