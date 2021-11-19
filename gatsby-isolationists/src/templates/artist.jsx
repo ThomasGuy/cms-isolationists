@@ -24,9 +24,9 @@ const ArtistPage = ({ data }) => {
   // const { artist } = data.title;
 
   useEffect(() => {
-    setTitle(data.title.name);
+    setTitle(data.title.artist);
     setSubtitle(true);
-  }, [data.title.name]);
+  }, [data.title.artist]);
 
   galleryLg ? (imgWidth = 23) : (imgWidth = 18);
   mobile ? (span2 = 1) : (span2 = 2);
