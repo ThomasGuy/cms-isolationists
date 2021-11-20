@@ -5,7 +5,7 @@ import { animated, useSpring, config } from 'react-spring';
 import { SoldTagModal } from '../../styles';
 
 const Box = styled(animated.div)`
-  height: calc(110vh - 5rem);
+  height: calc(100vh - 5rem);
   width: auto;
   padding: 1rem 5rem;
 

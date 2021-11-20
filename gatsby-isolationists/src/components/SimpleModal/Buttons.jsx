@@ -6,7 +6,7 @@ import RightArrow from './icons/svg/arrow_double_right.svg';
 
 const Button = styled.div`
   position: absolute;
-  top: 400px;
+  top: calc(100vh / 2);
   z-index: 15;
 
   display: grid;

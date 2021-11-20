@@ -26,7 +26,7 @@ const ModalWrapper = styled.div`
 const ModalBox = styled.div`
   position: relative;
   width: auto;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 5rem);
   background-color: #131111;
 `;
 
@@ -71,13 +71,6 @@ export function Modal({ onCloseRequest, index, imgProps }) {
     },
     [imgProps.length],
   );
-
-  // const api = useSpring({
-  //   opacity: 1,
-  //   from: { opacity: 0 },
-  //   delay: 200,
-  //   config: config.molasses,
-  // });
 
   return (
     <ModalWrapper>
