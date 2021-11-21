@@ -30,14 +30,14 @@ const Button = styled.div`
   }
 `;
 
-export const Previous = ({ slider }) => (
-  <Button style={{ left: '20px' }} onClick={slider}>
+export const Previous = () => (
+  <Button id="previous" style={{ left: '20px' }}>
     <LeftArrow />
   </Button>
 );
 
-export const Next = ({ slider }) => (
-  <Button style={{ right: '20px' }} onClick={slider}>
+export const Next = () => (
+  <Button id="next" style={{ right: '20px' }}>
     <RightArrow />
   </Button>
 );

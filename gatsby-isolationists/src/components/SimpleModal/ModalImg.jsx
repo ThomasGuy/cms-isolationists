@@ -1,29 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import styled from 'styled-components';
-import { animated, useSpring, config } from 'react-spring';
+import { useSpring, config } from 'react-spring';
 import { SoldTagModal } from '../../styles';
-
-const Box = styled(animated.div)`
-  height: calc(100vh - 5rem);
-  width: auto;
-  padding: 1rem 5rem;
-
-  p {
-    text-align: center;
-    margin: 0;
-    height: 3rem;
-    padding-top: 1rem;
-    font-size: 1.8rem;
-    opacity: 0.8;
-  }
-
-  img {
-    max-height: calc(100vh - 10rem);
-    width: auto;
-    object-fit: contain;
-  }
-`;
+import { Box } from './modalStyles';
 
 export const ModalImg = ({ imgProp, children }) => {
   const { sold, subject, dimensions } = imgProp;
