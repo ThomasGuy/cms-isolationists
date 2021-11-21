@@ -11,8 +11,8 @@ const Button = styled.div`
 
   display: grid;
   place-content: center center;
-  width: 3.8rem;
-  height: 3.8rem;
+  width: 5rem;
+  height: 5rem;
   margin: 0 2rem;
   opacity: 0.6;
   transition: filter 300ms;
@@ -32,12 +32,12 @@ const Button = styled.div`
 
 export const Previous = () => (
   <Button id="previous" style={{ left: '20px' }}>
-    <LeftArrow />
+    <LeftArrow id="i-previous" />
   </Button>
 );
 
 export const Next = () => (
   <Button id="next" style={{ right: '20px' }}>
-    <RightArrow />
+    <RightArrow id="i-next" />
   </Button>
 );

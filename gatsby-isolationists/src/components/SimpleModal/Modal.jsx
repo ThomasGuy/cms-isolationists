@@ -44,8 +44,21 @@ export function Modal({ onCloseRequest, index, imgProps }) {
   }, []);
 
   const handleClick = useCallback(evt => {
-    if (evt.target.parentElement.id === 'next') setIndex(idxRef.current + 1);
-    if (evt.target.parentElement.id === 'previous') setIndex(idxRef.current - 1);
+    // console.log('target', evt.target.id);
+    if (
+      evt.target.id === 'i-next' ||
+      evt.target.id === 'next' ||
+      evt.target.parentElement.id === 'next'
+    ) {
+      setIndex(idxRef.current + 1);
+    }
+    if (
+      evt.target.id === 'i-previous' ||
+      evt.target.id === 'previous' ||
+      evt.target.parentElement.id === 'previous'
+    ) {
+      setIndex(idxRef.current - 1);
+    }
   }, []);
 
   useEffect(() => {
