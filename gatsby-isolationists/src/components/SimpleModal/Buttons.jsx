@@ -6,7 +6,7 @@ import RightArrow from './icons/svg/arrow_double_right.svg';
 
 const Button = styled.div`
   position: absolute;
-  top: 400px;
+  top: calc(100vh / 2);
   z-index: 15;
 
   display: grid;
@@ -30,14 +30,14 @@ const Button = styled.div`
   }
 `;
 
-export const Previous = ({ slider }) => (
-  <Button style={{ left: '20px' }} onClick={slider}>
+export const Previous = () => (
+  <Button id="previous" style={{ left: '20px' }}>
     <LeftArrow />
   </Button>
 );
 
-export const Next = ({ slider }) => (
-  <Button style={{ right: '20px' }} onClick={slider}>
+export const Next = () => (
+  <Button id="next" style={{ right: '20px' }}>
     <RightArrow />
   </Button>
 );
