@@ -12,34 +12,31 @@ export const ModalWrapper = styled.div`
   bottom: 0;
   z-index: 200;
   opacity: 1;
-  background-color: #1a1a1a;
-`;
-
-export const ModalBox = styled.div`
-  position: relative;
-  width: auto;
-  height: calc(100vh - 5rem);
-  background-color: #131111;
+  background-color: var(--modal-bg);
 `;
 
 export const Title = styled.h1`
-  text-align: center;
+  display: grid;
+  place-content: center center;
   color: var(--offWhite);
-  background-color: #131111;
+  background-color: var(--modal-black);
   opacity: 0.8;
-  padding: 0.3rem 3rem;
-  padding-bottom: 1rem;
+  padding: 1rem 3rem;
   margin-bottom: 0;
   height: 5rem;
   font-size: 3rem;
-  line-height: 1.6;
+  line-height: 1.5;
   letter-spacing: 0.12rem;
 `;
 
 export const Box = styled(animated.div)`
+  position: relative;
   height: calc(100vh - 5rem);
   width: auto;
   padding: 1rem 5rem;
+  background-color: var(--modal-black);
+  display: grid;
+  place-content: center center;
 
   p {
     text-align: center;

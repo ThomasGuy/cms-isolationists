@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable radix */
 /* eslint-disable no-unused-expressions */
 import { useTrail } from 'react-spring';
 import { graphql } from 'gatsby';
@@ -52,13 +51,24 @@ const ArtistPage = ({ data }) => {
     };
   });
 
+  const modalGallery = data.pics.edges.map(({ node }) => {
+    const { image, subject, artist, sold, dimensions } = node;
+    return {
+      image,
+      artist: artist.name,
+      subject: subject.name,
+      sold,
+      dimensions,
+    };
+  });
+
   const clickHandler = useCallback(
     evt => {
       if (evt.target.nodeName !== 'IMG') {
         return;
       }
       if (evt.target.attributes.idx) {
-        setIndex(parseInt(evt.target.attributes.idx.value));
+        setIndex(parseInt(evt.target.attributes.idx.value, 10));
         setOpen(true);
       }
     },
@@ -103,8 +113,8 @@ const ArtistPage = ({ data }) => {
       {galleryLg && openModal && (
         <Modal
           onCloseRequest={() => setOpen(false)}
-          index={index}
-          imgProps={imgProps}
+          uiIndex={index}
+          imgProps={modalGallery}
         />
       )}
     </GalleryLayout>

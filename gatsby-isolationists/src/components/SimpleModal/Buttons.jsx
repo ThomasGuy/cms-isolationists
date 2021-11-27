@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
 import LeftArrow from './icons/svg/arrow_double_left.svg';
@@ -21,8 +20,8 @@ const Button = styled.div`
 
   svg {
     fill: var(--offWhite);
-    width: 40px;
-    height: 40px;
+    width: 4rem;
+    height: 4rem;
   }
 
   &:hover {

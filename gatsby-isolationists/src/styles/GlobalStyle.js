@@ -4,6 +4,8 @@ export const GlobalStyle = createGlobalStyle`
   :root {
     --red: #ff0000;
     --black: #393939;
+    --modal-black: #131111;
+    --modal-bg: #1a1a1a;
     --grey: #3A3A3A;
     --gray: var(--grey);
     --lightGrey: #e1e1e1;
