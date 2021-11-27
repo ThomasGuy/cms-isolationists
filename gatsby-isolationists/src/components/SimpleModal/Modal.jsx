@@ -1,8 +1,7 @@
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-underscore-dangle */
 import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { config, useSpring } from 'react-spring';
-import { GatsbyImage } from 'gatsby-plugin-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { Previous, Next } from './Buttons';
 import { CloseModal } from './CloseModal';
 import { Box, ModalWrapper, Title } from './modalStyles';
@@ -14,9 +13,10 @@ export function Modal({ onCloseRequest, uiIndex, imgProps }) {
 
   const pictures = imgProps.map(props => {
     const { image, subject, artist } = props;
+    const sanityImg = getImage(image.asset.gatsbyImageData);
     return (
       <GatsbyImage
-        image={image}
+        image={sanityImg}
         loading="eager"
         alt={subject}
         title={`${subject} - ${artist}`}
@@ -58,7 +58,6 @@ export function Modal({ onCloseRequest, uiIndex, imgProps }) {
   const animate = useSpring({
     opacity: 1,
     from: { opacity: 0 },
-    delay: 200,
     config: config.molasses,
   });
 

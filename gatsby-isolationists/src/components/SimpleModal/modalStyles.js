@@ -33,10 +33,10 @@ export const Box = styled(animated.div)`
   position: relative;
   height: calc(100vh - 5rem);
   width: auto;
-  padding: 1rem 5rem;
-  background-color: var(--modal-black);
   display: grid;
   place-content: center center;
+  padding: 1rem 5rem;
+  background-color: var(--modal-black);
 
   p {
     text-align: center;

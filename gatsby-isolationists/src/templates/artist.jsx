@@ -54,7 +54,7 @@ const ArtistPage = ({ data }) => {
   const modalGalleryProps = data.pics.edges.map(({ node }) => {
     const { image, subject, artist, sold, dimensions } = node;
     return {
-      image: image.asset.gatsbyImageData,
+      image,
       artist: artist.name,
       subject: subject.name,
       sold,
@@ -139,7 +139,7 @@ export const ARTIST_QUERY = graphql`
           image {
             ...ImageWithPreview
             asset {
-              gatsbyImageData(placeholder: BLURRED, height: 800)
+              gatsbyImageData(height: 800, layout: CONSTRAINED, placeholder: BLURRED)
               url
               metadata {
                 dimensions {
