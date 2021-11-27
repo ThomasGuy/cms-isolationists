@@ -18,7 +18,7 @@ let imgWidth = 18;
 const ArtistPage = ({ data }) => {
   const [openModal, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
-  const { galleryLg, mobile } = useBreakpoint();
+  const { galleryLg, galleryMd, mobile } = useBreakpoint();
   const { setTitle, setSubtitle } = useContext(TitleContext);
 
   useEffect(() => {
@@ -51,10 +51,10 @@ const ArtistPage = ({ data }) => {
     };
   });
 
-  const modalGallery = data.pics.edges.map(({ node }) => {
+  const modalGalleryProps = data.pics.edges.map(({ node }) => {
     const { image, subject, artist, sold, dimensions } = node;
     return {
-      image,
+      image: image.asset.gatsbyImageData,
       artist: artist.name,
       subject: subject.name,
       sold,
@@ -110,11 +110,11 @@ const ArtistPage = ({ data }) => {
           </PictureBox>
         );
       })}
-      {galleryLg && openModal && (
+      {galleryMd && openModal && (
         <Modal
           onCloseRequest={() => setOpen(false)}
           uiIndex={index}
-          imgProps={modalGallery}
+          imgProps={modalGalleryProps}
         />
       )}
     </GalleryLayout>

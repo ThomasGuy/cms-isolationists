@@ -16,7 +16,7 @@ export function Modal({ onCloseRequest, uiIndex, imgProps }) {
     const { image, subject, artist } = props;
     return (
       <GatsbyImage
-        image={image.asset.gatsbyImageData}
+        image={image}
         loading="eager"
         alt={subject}
         title={`${subject} - ${artist}`}
@@ -26,12 +26,12 @@ export function Modal({ onCloseRequest, uiIndex, imgProps }) {
 
   const setIndex = useCallback(
     idx => {
-      idx += imgProps.length;
-      idx %= imgProps.length;
+      idx += pictures.length;
+      idx %= pictures.length;
       idxRef.current = idx;
       _setIndex(idx);
     },
-    [imgProps.length],
+    [pictures.length],
   );
 
   const handleKeypress = useCallback(
@@ -55,7 +55,7 @@ export function Modal({ onCloseRequest, uiIndex, imgProps }) {
     ? `${subject} - ${dimensions.width}x${dimensions.height}cm`
     : `${subject}`;
 
-  const api = useSpring({
+  const animate = useSpring({
     opacity: 1,
     from: { opacity: 0 },
     delay: 200,
@@ -67,7 +67,7 @@ export function Modal({ onCloseRequest, uiIndex, imgProps }) {
       <Title>{artist}</Title>
       <CloseModal close={() => onCloseRequest()} />
       <Previous slider={() => setIndex(idxRef.current - 1)} />
-      <Box style={api}>
+      <Box style={animate}>
         {pictures[index]}
         <p>{caption}</p>
         {sold && <SoldTagModal>SOLD</SoldTagModal>}

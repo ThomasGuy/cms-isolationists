@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { mediaQuery } from '../../styles/mediaQuery';
 import LeftArrow from './icons/svg/arrow_double_left.svg';
 import RightArrow from './icons/svg/arrow_double_right.svg';
 
@@ -10,18 +11,29 @@ const Button = styled.div`
 
   display: grid;
   place-content: center center;
-  width: 5rem;
-  height: 5rem;
-  margin: 0 2rem;
+  width: 3rem;
+  height: 3rem;
+  margin: 0;
   opacity: 0.6;
   transition: filter 300ms;
   cursor: pointer;
   background-color: #222020;
 
-  svg {
-    fill: var(--offWhite);
+  ${mediaQuery('md')`
     width: 4rem;
     height: 4rem;
+    margin: 0 1rem;
+  `};
+
+  svg {
+    fill: var(--offWhite);
+    width: 2rem;
+    height: 2rem;
+
+    ${mediaQuery('md')`
+      width: 3rem;
+      height: 3rem;
+    `}
   }
 
   &:hover {
