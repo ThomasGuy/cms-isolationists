@@ -19,7 +19,7 @@ const Button = styled.div`
   cursor: pointer;
   background-color: #222020;
 
-  ${mediaQuery('md')`
+  ${mediaQuery('lg')`
     width: 4rem;
     height: 4rem;
     margin: 0 1rem;
@@ -30,7 +30,7 @@ const Button = styled.div`
     width: 2rem;
     height: 2rem;
 
-    ${mediaQuery('md')`
+    ${mediaQuery('lg')`
       width: 3rem;
       height: 3rem;
     `}

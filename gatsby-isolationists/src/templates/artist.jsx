@@ -17,8 +17,8 @@ let imgWidth = 18;
 
 const ArtistPage = ({ data }) => {
   const [openModal, setOpen] = useState(false);
+  const { galleryLg, portrait, mobile } = useBreakpoint();
   const [index, setIndex] = useState(0);
-  const { galleryLg, galleryMd, mobile } = useBreakpoint();
   const { setTitle, setSubtitle } = useContext(TitleContext);
 
   useEffect(() => {
@@ -110,7 +110,7 @@ const ArtistPage = ({ data }) => {
           </PictureBox>
         );
       })}
-      {galleryMd && openModal && (
+      {portrait && openModal && (
         <Modal
           onCloseRequest={() => setOpen(false)}
           uiIndex={index}

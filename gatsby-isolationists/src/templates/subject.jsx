@@ -17,7 +17,7 @@ let imgWidth = 18;
 
 const SubjectPage = ({ data }) => {
   const [openModal, setOpen] = useState(false);
-  const { galleryLg, galleryMd, mobile } = useBreakpoint();
+  const { galleryLg, portrait, mobile } = useBreakpoint();
   const [index, setIndex] = useState(0);
   const { setTitle, setSubtitle } = useContext(TitleContext);
 
@@ -119,7 +119,7 @@ const SubjectPage = ({ data }) => {
           </PictureBox>
         );
       })}
-      {galleryMd && openModal && (
+      {portrait && openModal && (
         <Modal
           onCloseRequest={() => setOpen(false)}
           uiIndex={index}

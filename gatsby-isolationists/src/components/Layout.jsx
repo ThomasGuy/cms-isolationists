@@ -30,7 +30,7 @@ const queries = {
   // md: '(max-width: 668px)',
   galleryMd: '(min-width: 450px)',
   galleryLg: '(min-width: 968px)',
-  // span: '(min-width: 840px)',
+  portrait: '(min-width: 650px)',
   mobile: '(max-width: 400px)',
 };
 
