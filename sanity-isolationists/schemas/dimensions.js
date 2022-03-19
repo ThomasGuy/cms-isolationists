@@ -10,7 +10,7 @@ export default {
   fields: [
     {
       name: 'width',
-      title: 'Width',
+      title: 'Width cm',
       type: 'number',
       validation: Rule => Rule.required(),
     },
