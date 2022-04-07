@@ -32,12 +32,13 @@ const subjectPages = async ({ graphql, actions, reporter }) => {
   result.data.subjects.edges.forEach(({ node }) => {
     const slug = node.slug.current;
     const pagePath = `/gallery/subject/${slug}`;
+    // const ownerNodeId = node.id;
     createPage({
       path: pagePath,
       component: subjectTemplate,
-      // In your blog post template's graphql query, you can use pagePath
-      // as a GraphQL variable to query for data from the markdown file.
+      // ownerNode: ownerNodeId,
       context: {
+        // id: ownerNodeId,
         pagePath,
         slug,
       },
@@ -72,12 +73,13 @@ const artistPages = async ({ graphql, actions, reporter }) => {
   result.data.artists.edges.forEach(({ node }) => {
     const slug = node.slug.current;
     const pagePath = `/gallery/artist/${slug}`;
+    // const ownerNodeId = node.id;
     createPage({
       path: pagePath,
       component: artistTemplate,
-      // In your blog post template's graphql query, you can use pagePath
-      // as a GraphQL variable to query for data from the markdown file.
+      // ownerNode: ownerNodeId,
       context: {
+        // id: ownerNodeId,
         pagePath,
         slug,
       },
@@ -141,8 +143,6 @@ const bioPages = async ({ graphql, actions, reporter }) => {
     createPage({
       path: pagePath,
       component: bioTemplate,
-      // In your blog post template's graphql query, you can use pagePath
-      // as a GraphQL variable to query for data from the markdown file.
       context: {
         pagePath,
         node,
