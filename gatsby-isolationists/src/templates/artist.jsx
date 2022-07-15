@@ -3,7 +3,7 @@
 import { useTrail } from 'react-spring';
 import { graphql } from 'gatsby';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import Image from 'gatsby-plugin-sanity-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 import { TitleContext } from '../components/Layout';
 import { GalleryLayout, SoldTag, PictureBox } from '../styles';
@@ -30,7 +30,7 @@ const ArtistPage = ({ data }) => {
   mobile ? (span2 = 1) : (span2 = 2);
 
   const imgProps = data.pics.edges.map(({ node }, idx) => {
-    const { image, subject, dimensions, id, sold, artist } = node;
+    const { image, artist, subject, dimensions, id, sold } = node;
     const imgTitle = dimensions
       ? `${artist.name} - ${dimensions.width}x${dimensions.height}cm`
       : `${artist.name}`;
@@ -94,11 +94,12 @@ const ArtistPage = ({ data }) => {
       {trail.map((props, idx) => {
         const { image, key, ratio, sold, alt, title, imgStyle, imgTitle, ...others } =
           imgProps[idx];
+        const imageData = getImage(image.asset);
         return (
           <PictureBox className={addClass(ratio)} style={{ ...props }} key={key}>
             <SEO title={data.title.artist} imageSrc={image.asset.url} />
-            <Image
-              {...image}
+            <GatsbyImage
+              image={imageData}
               width={imgWidth * span2 * 10} // no span3 now
               title={imgTitle}
               style={imgStyle}
@@ -137,7 +138,6 @@ export const ARTIST_QUERY = graphql`
             name
           }
           image {
-            ...ImageWithPreview
             asset {
               gatsbyImageData(height: 800, layout: CONSTRAINED, placeholder: BLURRED)
               url

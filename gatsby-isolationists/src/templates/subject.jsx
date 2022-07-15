@@ -3,7 +3,7 @@
 import { useSpring } from 'react-spring';
 import { graphql } from 'gatsby';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import Image from 'gatsby-plugin-sanity-image';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 import { TitleContext } from '../components/Layout';
 import { GalleryLayout, PictureBox, SoldTag } from '../styles';
@@ -96,7 +96,7 @@ const SubjectPage = ({ data }) => {
       {imgProps.map(props => {
         const { image, key, ratio, sold, alt, title, imgStyle, imgTitle, ...others } =
           props;
-
+        const imageData = getImage(image.asset);
         return (
           <PictureBox
             key={key}
@@ -106,8 +106,8 @@ const SubjectPage = ({ data }) => {
               ...rest,
             }}>
             <SEO title={data.title.subject} imageSrc={image.asset.url} />
-            <Image
-              {...image}
+            <GatsbyImage
+              image={imageData}
               width={imgWidth * span2 * 10} // no span3
               title={imgTitle}
               style={imgStyle}
@@ -132,8 +132,8 @@ const SubjectPage = ({ data }) => {
 
 export default SubjectPage;
 
-export const SUBJECT_QUERY = graphql`
-  query SUBJECT_QUERY($slug: String!) {
+export const query = graphql`
+  query SubjectPageQuery($slug: String!) {
     pics: allSanityPicture(filter: { subject: { slug: { current: { eq: $slug } } } }) {
       edges {
         node {
@@ -146,7 +146,6 @@ export const SUBJECT_QUERY = graphql`
             name
           }
           image {
-            ...ImageWithPreview
             asset {
               gatsbyImageData(height: 800, layout: CONSTRAINED, placeholder: BLURRED)
               url

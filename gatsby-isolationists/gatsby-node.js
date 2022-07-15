@@ -6,10 +6,11 @@ exports.onPostBuild = ({ reporter }) => {
 };
 
 const subjectPages = async ({ graphql, actions, reporter }) => {
+  const subjectTemplate = path.resolve(`src/templates/subject.jsx`);
   const { createPage } = actions;
   const result = await graphql(`
-    query {
-      subjects: allSanitySubject {
+    {
+      subjects: allSanitySubject(filter: { slug: { current: { ne: null } } }) {
         edges {
           node {
             slug {
@@ -27,18 +28,15 @@ const subjectPages = async ({ graphql, actions, reporter }) => {
     return;
   }
 
-  // Create pages for each markdown file.
-  const subjectTemplate = path.resolve(`src/templates/subject.jsx`);
-  result.data.subjects.edges.forEach(({ node }) => {
+  // Create pages for each graphql query result
+  const subjects = result.data.subjects.edges || [];
+  subjects.forEach(({ node }) => {
     const slug = node.slug.current;
     const pagePath = `/gallery/subject/${slug}`;
-    // const ownerNodeId = node.id;
     createPage({
       path: pagePath,
       component: subjectTemplate,
-      // ownerNode: ownerNodeId,
       context: {
-        // id: ownerNodeId,
         pagePath,
         slug,
       },
@@ -47,10 +45,11 @@ const subjectPages = async ({ graphql, actions, reporter }) => {
 };
 
 const artistPages = async ({ graphql, actions, reporter }) => {
+  const artistTemplate = path.resolve(`src/templates/artist.jsx`);
   const { createPage } = actions;
   const result = await graphql(`
-    query {
-      artists: allSanityArtist {
+    {
+      artists: allSanityArtist(filter: { slug: { current: { ne: null } } }) {
         edges {
           node {
             slug {
@@ -68,18 +67,15 @@ const artistPages = async ({ graphql, actions, reporter }) => {
     return;
   }
 
-  // Create pages for each markdown file.
-  const artistTemplate = path.resolve(`src/templates/artist.jsx`);
-  result.data.artists.edges.forEach(({ node }) => {
+  // Create pages for each graphql query result
+  const artists = result.data.artists.edges || [];
+  artists.forEach(({ node }) => {
     const slug = node.slug.current;
     const pagePath = `/gallery/artist/${slug}`;
-    // const ownerNodeId = node.id;
     createPage({
       path: pagePath,
       component: artistTemplate,
-      // ownerNode: ownerNodeId,
       context: {
-        // id: ownerNodeId,
         pagePath,
         slug,
       },
@@ -88,9 +84,10 @@ const artistPages = async ({ graphql, actions, reporter }) => {
 };
 
 const bioPages = async ({ graphql, actions, reporter }) => {
+  const bioTemplate = path.resolve(`src/templates/biography.jsx`);
   const { createPage } = actions;
   const result = await graphql(`
-    query {
+    {
       bio: allSanityArtist {
         edges {
           node {
@@ -134,7 +131,6 @@ const bioPages = async ({ graphql, actions, reporter }) => {
     return;
   }
 
-  const bioTemplate = path.resolve(`src/templates/biography.jsx`);
   const biographies = (result.data.bio || {}).edges || [];
 
   biographies.forEach(({ node }) => {
@@ -153,9 +149,10 @@ const bioPages = async ({ graphql, actions, reporter }) => {
 };
 
 const homePage = async ({ graphql, actions, reporter }) => {
+  const homepageTemplate = path.resolve(`src/templates/Homepage.jsx`);
   const { createPage } = actions;
   const result = await graphql(`
-    query {
+    {
       mugs: allSanityArtist {
         edges {
           node {
@@ -205,7 +202,6 @@ const homePage = async ({ graphql, actions, reporter }) => {
     return;
   }
 
-  const homepageTemplate = path.resolve(`src/templates/Homepage.jsx`);
   const { mugs, studio, site } = result.data;
   const pagePath = '/home/';
   createPage({
@@ -222,9 +218,9 @@ const homePage = async ({ graphql, actions, reporter }) => {
 
 exports.createPages = async params => {
   await Promise.all([
+    homePage(params),
+    bioPages(params),
     subjectPages(params),
     artistPages(params),
-    bioPages(params),
-    homePage(params),
   ]);
 };
