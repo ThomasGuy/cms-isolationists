@@ -42,12 +42,6 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-sanity-image',
-      options: {
-        ...sanity,
-      },
-    },
-    {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'images',

@@ -3,7 +3,7 @@
 import { useTrail } from 'react-spring';
 import { graphql } from 'gatsby';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import Image from 'gatsby-plugin-sanity-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 
 import { TitleContext } from '../components/Layout';
 import { GalleryLayout, SoldTag, PictureBox } from '../styles';
@@ -97,8 +97,8 @@ const ArtistPage = ({ data }) => {
         return (
           <PictureBox className={addClass(ratio)} style={{ ...props }} key={key}>
             <SEO title={data.title.artist} imageSrc={image.asset.url} />
-            <Image
-              {...image}
+            <GatsbyImage
+              image={image.asset.gatsbyImageData}
               width={imgWidth * span2 * 10} // no span3 now
               title={imgTitle}
               style={imgStyle}
@@ -137,7 +137,6 @@ export const ARTIST_QUERY = graphql`
             name
           }
           image {
-            ...ImageWithPreview
             asset {
               gatsbyImageData(height: 800, layout: CONSTRAINED, placeholder: BLURRED)
               url

@@ -3,7 +3,7 @@
 import { useSpring } from 'react-spring';
 import { graphql } from 'gatsby';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import Image from 'gatsby-plugin-sanity-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 
 import { TitleContext } from '../components/Layout';
 import { GalleryLayout, PictureBox, SoldTag } from '../styles';
@@ -106,8 +106,8 @@ const SubjectPage = ({ data }) => {
               ...rest,
             }}>
             <SEO title={data.title.subject} imageSrc={image.asset.url} />
-            <Image
-              {...image}
+            <GatsbyImage
+              image={image.asset.gatsbyImageData}
               width={imgWidth * span2 * 10} // no span3
               title={imgTitle}
               style={imgStyle}
@@ -146,7 +146,6 @@ export const SUBJECT_QUERY = graphql`
             name
           }
           image {
-            ...ImageWithPreview
             asset {
               gatsbyImageData(height: 800, layout: CONSTRAINED, placeholder: BLURRED)
               url
