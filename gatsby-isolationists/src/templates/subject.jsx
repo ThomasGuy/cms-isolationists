@@ -96,7 +96,6 @@ const SubjectPage = ({ data }) => {
       {imgProps.map(props => {
         const { image, key, ratio, sold, alt, title, imgStyle, imgTitle, ...others } =
           props;
-        const imageData = getImage(image.asset);
         return (
           <PictureBox
             key={key}
