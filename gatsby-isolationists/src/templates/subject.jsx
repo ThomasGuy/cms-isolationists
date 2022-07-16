@@ -96,7 +96,7 @@ const SubjectPage = ({ data }) => {
       {imgProps.map(props => {
         const { image, key, ratio, sold, alt, title, imgStyle, imgTitle, ...others } =
           props;
-
+        const imageData = getImage(image.asset);
         return (
           <PictureBox
             key={key}
@@ -132,8 +132,8 @@ const SubjectPage = ({ data }) => {
 
 export default SubjectPage;
 
-export const SUBJECT_QUERY = graphql`
-  query SUBJECT_QUERY($slug: String!) {
+export const query = graphql`
+  query SubjectPageQuery($slug: String!) {
     pics: allSanityPicture(filter: { subject: { slug: { current: { eq: $slug } } } }) {
       edges {
         node {

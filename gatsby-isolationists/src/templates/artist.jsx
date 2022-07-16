@@ -30,7 +30,7 @@ const ArtistPage = ({ data }) => {
   mobile ? (span2 = 1) : (span2 = 2);
 
   const imgProps = data.pics.edges.map(({ node }, idx) => {
-    const { image, subject, dimensions, id, sold, artist } = node;
+    const { image, artist, subject, dimensions, id, sold } = node;
     const imgTitle = dimensions
       ? `${artist.name} - ${dimensions.width}x${dimensions.height}cm`
       : `${artist.name}`;

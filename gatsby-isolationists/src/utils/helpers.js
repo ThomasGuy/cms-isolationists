@@ -56,8 +56,6 @@ function shuffle2(arr) {
   return arr;
 }
 
-const shuffle3 = array => {
-  return array.slice().sort(() => Math.random() - 0.5);
-};
+const shuffle3 = array => array.slice().sort(() => Math.random() - 0.5);
 
 export { addClass, ariaExpanded, shuffle, shuffle2, shuffle3 };

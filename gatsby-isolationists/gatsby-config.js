@@ -7,11 +7,13 @@ dotenv.config({
 
 const token = process.env.SANITY_READ_TOKEN;
 const isProd = process.env.NODE_ENV === 'production';
+const previewEnabled =
+  (process.env.GATSBY_IS_PREVIEW || 'false').toLowerCase() === 'true';
 
 const sanity = {
   projectId: process.env.SANITY_PROJECT_ID,
   dataset: process.env.SANITY_DATASET || 'production',
-  apiVersion: '2021-05-01',
+  // apiVersion: '2021-05-01',
   useCdn: isProd,
   token,
 };
@@ -38,7 +40,8 @@ module.exports = {
       options: {
         ...sanity,
         watchMode: !isProd,
-        overlayDrafts: !isProd && token,
+        overlayDrafts: !isProd || previewEnabled, // drafts in dev & Gatsby Cloud Preview
+        watchModeBuffer: 200,
       },
     },
     {
