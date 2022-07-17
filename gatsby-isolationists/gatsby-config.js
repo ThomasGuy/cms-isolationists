@@ -5,6 +5,7 @@ dotenv.config({
   path: `.env.${process.env.NODE_ENV || 'development'}`,
 });
 
+// process.env.VERBOSE_NODE_MANIFEST == (process.env.NODE_ENV == 'development');
 const token = process.env.SANITY_READ_TOKEN;
 const isProd = process.env.NODE_ENV === 'production';
 const previewEnabled =
