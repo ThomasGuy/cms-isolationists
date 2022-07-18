@@ -42,7 +42,6 @@ module.exports = {
         ...sanity,
         watchMode: !isProd,
         overlayDrafts: !isProd || previewEnabled, // drafts in dev & Gatsby Cloud Preview
-        watchModeBuffer: 200,
       },
     },
     {

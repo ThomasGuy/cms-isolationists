@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-expressions */
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useTrail } from 'react-spring';
 import { graphql } from 'gatsby';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
 import { TitleContext } from '../components/Layout';
@@ -59,6 +59,7 @@ const ArtistPage = ({ data }) => {
       subject: subject.name,
       sold,
       dimensions,
+      loading: 'eager',
     };
   });
 
@@ -124,7 +125,7 @@ const ArtistPage = ({ data }) => {
 export default ArtistPage;
 
 export const ARTIST_QUERY = graphql`
-  query ARTIST_QUERY($slug: String!) {
+  query ($slug: String!) {
     pics: allSanityPicture(filter: { artist: { slug: { current: { eq: $slug } } } }) {
       edges {
         node {

@@ -67,7 +67,7 @@ const artistPages = async ({ graphql, actions, reporter }) => {
     return;
   }
 
-  // Create pages for each graphql query result
+  // Create a page for each graphql query result...
   const artists = result.data.artists.edges || [];
   artists.forEach(({ node }) => {
     const slug = node.slug.current;
@@ -148,79 +148,6 @@ const bioPages = async ({ graphql, actions, reporter }) => {
   });
 };
 
-const homePage = async ({ graphql, actions, reporter }) => {
-  const homepageTemplate = path.resolve(`src/templates/Homepage.jsx`);
-  const { createPage } = actions;
-  const result = await graphql(`
-    {
-      mugs: allSanityArtist {
-        edges {
-          node {
-            id
-            name
-            slug {
-              current
-            }
-            mug {
-              asset {
-                url
-                gatsbyImageData(
-                  layout: FIXED
-                  placeholder: NONE
-                  width: 50
-                  aspectRatio: 1
-                  fit: CROP
-                )
-              }
-            }
-          }
-        }
-      }
-      studio: file(relativePath: { regex: "/studio/" }) {
-        childImageSharp {
-          gatsbyImageData(
-            layout: FULL_WIDTH
-            placeholder: TRACED_SVG
-            tracedSVGOptions: { alphaMax: 1.8 }
-          )
-          original {
-            src
-          }
-        }
-      }
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `);
-
-  // Handle errors
-  if (result.errors) {
-    reporter.panicOnBuild(`Error while running homepage GraphQL query.`);
-    return;
-  }
-
-  const { mugs, studio, site } = result.data;
-  const pagePath = '/home/';
-  createPage({
-    path: pagePath,
-    component: homepageTemplate,
-    context: {
-      pagePath,
-      mugs: mugs.edges,
-      studio,
-      title: site.siteMetadata.title,
-    },
-  });
-};
-
 exports.createPages = async params => {
-  await Promise.all([
-    homePage(params),
-    bioPages(params),
-    subjectPages(params),
-    artistPages(params),
-  ]);
+  await Promise.all([bioPages(params), subjectPages(params), artistPages(params)]);
 };
