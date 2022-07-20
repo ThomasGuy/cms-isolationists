@@ -13,6 +13,7 @@ const subjectPages = async ({ graphql, actions, reporter }) => {
       subjects: allSanitySubject(filter: { slug: { current: { ne: null } } }) {
         edges {
           node {
+            id
             slug {
               current
             }
@@ -32,12 +33,13 @@ const subjectPages = async ({ graphql, actions, reporter }) => {
   const subjects = result.data.subjects.edges || [];
   subjects.forEach(({ node }) => {
     const slug = node.slug.current;
+    const ownerNodeId = node.id;
     const pagePath = `/gallery/subject/${slug}`;
     createPage({
       path: pagePath,
+      ownerNodeId,
       component: subjectTemplate,
       context: {
-        pagePath,
         slug,
       },
     });
@@ -52,6 +54,7 @@ const artistPages = async ({ graphql, actions, reporter }) => {
       artists: allSanityArtist(filter: { slug: { current: { ne: null } } }) {
         edges {
           node {
+            id
             slug {
               current
             }
@@ -71,12 +74,13 @@ const artistPages = async ({ graphql, actions, reporter }) => {
   const artists = result.data.artists.edges || [];
   artists.forEach(({ node }) => {
     const slug = node.slug.current;
+    const ownerNodeId = node.id;
     const pagePath = `/gallery/artist/${slug}`;
     createPage({
       path: pagePath,
       component: artistTemplate,
+      ownerNodeId,
       context: {
-        pagePath,
         slug,
       },
     });
@@ -135,10 +139,12 @@ const bioPages = async ({ graphql, actions, reporter }) => {
 
   biographies.forEach(({ node }) => {
     const slug = node.slug.current;
+    const ownerNodeId = node.id;
     const pagePath = `/biography/${slug}`;
     createPage({
       path: pagePath,
       component: bioTemplate,
+      ownerNodeId,
       context: {
         pagePath,
         node,
