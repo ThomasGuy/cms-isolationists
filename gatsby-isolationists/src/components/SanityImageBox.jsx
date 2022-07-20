@@ -36,29 +36,27 @@ const SanityImageBox = ({
   show = false,
   dimensions = null,
   sold = false,
-}) => {
-  return (
-    <Box>
-      <GatsbyImage
-        image={image.asset.gatsbyImageData}
-        alt={alt}
-        idx={idx}
-        title={alt}
-        loading="eager"
-        imgStyle={show && { border: '25px solid rgb(237, 237, 237)' }}
-      />
-      {name && (
-        <p>
-          {name}
-          {'  '}
-          <span className="dim">
-            {dimensions ? `  ${dimensions.height}x${dimensions.width}cm` : ``}
-          </span>
-        </p>
-      )}
-      {sold && <SoldTag>SOLD</SoldTag>}
-    </Box>
-  );
-};
+}) => (
+  <Box>
+    <GatsbyImage
+      image={image.asset.gatsbyImageData}
+      alt={alt}
+      idx={idx}
+      title={alt}
+      loading="eager"
+      imgStyle={show && { border: '25px solid rgb(237, 237, 237)' }}
+    />
+    {name && (
+      <p>
+        {name}
+        {'  '}
+        <span className="dim">
+          {dimensions ? `  ${dimensions.height}x${dimensions.width}cm` : ``}
+        </span>
+      </p>
+    )}
+    {sold && <SoldTag>SOLD</SoldTag>}
+  </Box>
+);
 
 export default SanityImageBox;

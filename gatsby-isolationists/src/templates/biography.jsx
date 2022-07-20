@@ -1,14 +1,14 @@
 import React, { useContext, useEffect } from 'react';
-
+import { graphql } from 'gatsby';
 import { FaEnvelope } from 'react-icons/fa';
 import { TitleContext } from '../components/Layout';
 import SanityImageBox from '../components/SanityImageBox';
 import SEO from '../components/seo';
 import { Image, Grid, Row, Col, Title, Bio, OutsideLink, Comment } from '../styles';
 
-const BioPage = ({ pageContext }) => {
-  const { id, name, social, links, email, education, biography, mug, mainImage } =
-    pageContext.node;
+const BioPage = ({ data }) => {
+  const { id, biography, education, email, name, links, social, mainImage, mug } =
+    data.bio.edges[0].node;
   const { setTitle, setSubtitle } = useContext(TitleContext);
 
   useEffect(() => {
@@ -119,3 +119,39 @@ const BioPage = ({ pageContext }) => {
 };
 
 export default BioPage;
+
+export const query = graphql`
+  query ($slug: String!) {
+    bio: allSanityArtist(filter: { slug: { current: { eq: $slug } } }) {
+      edges {
+        node {
+          id
+          biography
+          education
+          email
+          name
+          links {
+            href
+            name
+          }
+          social {
+            instagram
+            facebook
+          }
+          mainImage {
+            asset {
+              url
+              gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED)
+            }
+          }
+          mug {
+            asset {
+              url
+              gatsbyImageData(layout: CONSTRAINED, width: 200, placeholder: BLURRED)
+            }
+          }
+        }
+      }
+    }
+  }
+`;

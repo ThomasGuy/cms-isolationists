@@ -15,8 +15,8 @@
     "@sanity/default-login",
     "@sanity/desk-tool",
     "order-documents",
-    "@sanity/dashboard",
-    "dashboard-widget-gatsby"
+    "dashboard-widget-gatsby",
+    "@sanity/dashboard"
   ],
   "env": {
     "development": {
@@ -31,8 +31,8 @@
       "path": "./schemas/schema"
     },
     {
-      "implements": "part:@sanity/base/document-actions/resolver",
-      "path": "src/resolveDocumentActions.js"
+      "implements": "part:@sanity/dashboard/config",
+      "path": "src/dashboardConfig.js"
     }
   ]
 }
