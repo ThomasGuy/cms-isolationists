@@ -11,12 +11,11 @@
   "plugins": [
     "@sanity/base",
     "@sanity/components",
+    "@sanity/dashboard",
     "@sanity/default-layout",
     "@sanity/default-login",
     "@sanity/desk-tool",
-    "order-documents",
-    "dashboard-widget-gatsby",
-    "@sanity/dashboard"
+    "order-documents"
   ],
   "env": {
     "development": {
@@ -31,8 +30,8 @@
       "path": "./schemas/schema"
     },
     {
-      "implements": "part:@sanity/dashboard/config",
-      "path": "src/dashboardConfig.js"
+      "implements": "part:@sanity/base/document-actions/resolver",
+      "path": "src/resolveDocumentActions.js"
     }
   ]
 }

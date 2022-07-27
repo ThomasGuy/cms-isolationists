@@ -9,7 +9,7 @@
   "scripts": {
     "start": "sanity start",
     "test": "sanity check",
-    "deploy": "sanity deploy && sanity graphql deploy --playground",
+    "deploy": "sanity graphql deploy && sanity deploy",
     "format": "prettier --write \"s*/*.{js,jsx,ts,tsx,json,md}\"",
     "lint": "eslint . --fix"
   },
@@ -17,6 +17,7 @@
     "sanity"
   ],
   "dependencies": {
+    "@babel/preset-react": "^7.18.6",
     "@sanity/base": "^2.30.1",
     "@sanity/components": "^2.14.0",
     "@sanity/core": "^2.30.2",
@@ -37,7 +38,6 @@
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "@babel/eslint-parser": "^7.17.0",
-    "@babel/preset-react": "^7.16.7",
     "@types/node": "^16.11.28",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",

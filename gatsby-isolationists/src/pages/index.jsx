@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import { TitleContext } from '../components/Layout';
-import SEO from '../components/seo';
+import SEO from '../components/Seo';
 import { FrontPage, MiniTitle } from '../styles';
 
 function ArtistLink({ artist, title }) {

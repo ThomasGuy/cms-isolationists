@@ -5,8 +5,6 @@ dotenv.config({
   path: `.env.${process.env.NODE_ENV || 'development'}`,
 });
 
-// process.env.VERBOSE_NODE_MANIFEST == (process.env.NODE_ENV == 'development');
-const token = process.env.SANITY_READ_TOKEN;
 const isProd = process.env.NODE_ENV === 'production';
 const previewEnabled =
   (process.env.GATSBY_IS_PREVIEW || 'false').toLowerCase() === 'true';
@@ -14,9 +12,7 @@ const previewEnabled =
 const sanity = {
   projectId: process.env.SANITY_PROJECT_ID,
   dataset: process.env.SANITY_DATASET || 'production',
-  // apiVersion: '2021-05-01',
-  useCdn: isProd,
-  token,
+  token: process.env.SANITY_READ_TOKEN,
 };
 
 module.exports = {
@@ -31,11 +27,18 @@ module.exports = {
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-    'gatsby-plugin-robots-txt',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
     'gatsby-plugin-sitemap',
     'gatsby-plugin-react-svg',
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://wednesday-isolationists.co.uk',
+        sitemap: 'https://wednesday-isolationists.co.uk/sitemap.xml',
+        policy: [{ userAgent: '*', allow: '/' }],
+      },
+    },
     {
       resolve: 'gatsby-source-sanity',
       options: {

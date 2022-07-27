@@ -36,6 +36,7 @@ function SEO({ children, location, description, title, imageSrc }) {
 
 SEO.defaultProps = {
   lang: `en`,
+  // eslint-disable-next-line react/default-props-match-prop-types
   meta: [],
   description: ``,
 };
@@ -43,7 +44,7 @@ SEO.defaultProps = {
 SEO.propTypes = {
   description: PropTypes.string,
   lang: PropTypes.string,
-  meta: PropTypes.arrayOf(PropTypes.object),
+  // meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
 };
 

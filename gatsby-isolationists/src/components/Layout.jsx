@@ -5,7 +5,7 @@ import { GlobalStyle } from '../styles';
 import Footer from './Footer';
 import Nav from './Nav';
 import useSiteMetadata from '../hooks/useSiteMetadata';
-import SEO from './seo';
+import SEO from './Seo';
 import { BreakpointProvider } from '../hooks/useBreakpoint';
 import { mediaQuery } from '../styles/mediaQuery';
 

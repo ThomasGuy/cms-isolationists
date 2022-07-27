@@ -3,7 +3,7 @@ import { graphql } from 'gatsby';
 import { FaEnvelope } from 'react-icons/fa';
 import { TitleContext } from '../components/Layout';
 import SanityImageBox from '../components/SanityImageBox';
-import SEO from '../components/seo';
+import SEO from '../components/Seo';
 import { Image, Grid, Row, Col, Title, Bio, OutsideLink, Comment } from '../styles';
 
 const BioPage = ({ data }) => {

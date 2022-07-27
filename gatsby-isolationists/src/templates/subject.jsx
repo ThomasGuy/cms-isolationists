@@ -7,7 +7,7 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 
 import { TitleContext } from '../components/Layout';
 import { GalleryLayout, PictureBox, SoldTag } from '../styles';
-import SEO from '../components/seo';
+import SEO from '../components/Seo';
 import { useBreakpoint } from '../hooks/useBreakpoint';
 import { addClass } from '../utils/helpers';
 import { Modal } from '../components/SimpleModal/Modal';
@@ -15,16 +15,17 @@ import { Modal } from '../components/SimpleModal/Modal';
 let span2 = 1;
 let imgWidth = 18;
 
-const SubjectPage = ({ data }) => {
+const SubjectPage = ({ data, pageContext }) => {
+  const { pageTitle } = pageContext;
   const [openModal, setOpen] = useState(false);
   const { galleryLg, portrait, mobile } = useBreakpoint();
   const [index, setIndex] = useState(0);
   const { setTitle, setSubtitle } = useContext(TitleContext);
 
   useEffect(() => {
-    setTitle(data.title.subject);
+    setTitle(pageTitle);
     setSubtitle(true);
-  }, [data.title.subject]);
+  }, [pageTitle]);
 
   galleryLg ? (imgWidth = 23) : (imgWidth = 18);
   mobile ? (span2 = 1) : (span2 = 2);
@@ -93,7 +94,7 @@ const SubjectPage = ({ data }) => {
 
   return (
     <GalleryLayout width={imgWidth} span2={span2} modal={openModal}>
-      <SEO title={data.title.subject} />
+      <SEO title={pageTitle} />
       {imgProps.map(props => {
         const { image, key, ratio, sold, alt, title, imgStyle, imgTitle, ...others } =
           props;
@@ -105,7 +106,7 @@ const SubjectPage = ({ data }) => {
               transform: xy.to((x, y) => `translate(${x}rem, ${y}rem)`),
               ...rest,
             }}>
-            <SEO title={data.title.subject} imageSrc={image.asset.url} />
+            <SEO title={pageTitle} imageSrc={image.asset.url} />
             <GatsbyImage
               image={image.asset.gatsbyImageData}
               width={imgWidth * span2 * 10} // no span3
@@ -162,9 +163,6 @@ export const query = graphql`
           }
         }
       }
-    }
-    title: sanitySubject(slug: { current: { eq: $slug } }) {
-      subject: name
     }
   }
 `;

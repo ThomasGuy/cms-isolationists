@@ -15,6 +15,7 @@ const subjectPages = async ({ graphql, actions, reporter }) => {
         edges {
           node {
             id
+            name
             slug {
               current
             }
@@ -31,8 +32,8 @@ const subjectPages = async ({ graphql, actions, reporter }) => {
   }
 
   // Create pages for each graphql query result
-  // const subjects = result.data?.subjects.edges || [];
-  result.data.subjects.edges.forEach(({ node }) => {
+  const subjects = result.data.subjects.edges || [];
+  subjects.forEach(({ node }) => {
     const slug = node.slug.current;
     const ownerNodeId = node.id;
     const pagePath = `/gallery/subject/${slug}`;
@@ -42,6 +43,7 @@ const subjectPages = async ({ graphql, actions, reporter }) => {
       component: subjectTemplate,
       context: {
         slug,
+        pageTitle: node.name,
       },
     });
   });
@@ -56,6 +58,7 @@ const artistPages = async ({ graphql, actions, reporter }) => {
         edges {
           node {
             id
+            name
             slug {
               current
             }
@@ -72,8 +75,8 @@ const artistPages = async ({ graphql, actions, reporter }) => {
   }
 
   // Create a page for each graphql query result...
-  // const artists = result.data.artists.edges || [];
-  result.data.artists.edges.forEach(({ node }) => {
+  const artists = result.data.artists.edges || [];
+  artists.forEach(({ node }) => {
     const slug = node.slug.current;
     const ownerNodeId = node.id;
     const pagePath = `/gallery/artist/${slug}`;
@@ -83,6 +86,7 @@ const artistPages = async ({ graphql, actions, reporter }) => {
       ownerNodeId,
       context: {
         slug,
+        pageTitle: node.name,
       },
     });
   });
@@ -112,8 +116,8 @@ const bioPages = async ({ graphql, actions, reporter }) => {
     return;
   }
 
-  // const biographies =  || [];
-  result.data.bio.edges.forEach(({ node }) => {
+  const biographies = result.data.bio.edges || [];
+  biographies.forEach(({ node }) => {
     const slug = node.slug.current;
     const ownerNodeId = node.id;
     const pagePath = `/biography/${slug}`;
