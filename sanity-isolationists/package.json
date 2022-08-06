@@ -8,7 +8,6 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "sanity start",
-    "test": "sanity check",
     "deploy": "sanity graphql deploy && sanity deploy",
     "format": "prettier --write \"s*/*.{js,jsx,ts,tsx,json,md}\"",
     "lint": "eslint . --fix"
@@ -17,15 +16,16 @@
     "sanity"
   ],
   "dependencies": {
-    "@babel/preset-react": "^7.18.6",
-    "@sanity/base": "^2.30.1",
+    "@sanity/base": "^2.30.3",
     "@sanity/components": "^2.14.0",
-    "@sanity/core": "^2.30.2",
-    "@sanity/dashboard": "^2.30.1",
-    "@sanity/default-layout": "^2.30.1",
-    "@sanity/default-login": "^2.30.1",
-    "@sanity/desk-tool": "^2.30.1",
-    "@sanity/vision": "^2.30.1",
+    "@sanity/core": "^2.30.3",
+    "@sanity/dashboard": "^2.30.3",
+    "@sanity/default-layout": "^2.30.3",
+    "@sanity/default-login": "^2.30.3",
+    "@sanity/desk-tool": "^2.30.3",
+    "@sanity/types": "^2.30.3",
+    "@sanity/vision": "^2.30.3",
+    "dotenv": "^16.0.1",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -36,24 +36,22 @@
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.9",
+    "@babel/core": "^7.18.9",
     "@babel/eslint-parser": "^7.17.0",
-    "@types/node": "^16.11.28",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
+    "@babel/preset-env": "^7.18.9",
+    "@babel/preset-react": "^7.18.6",
+    "@types/node": "^18.6.3",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-airbnb-typescript": "^14.0.2",
+    "eslint": "^8.20.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-config-wesbos": "^2.1.0",
     "eslint-plugin-html": "^6.2.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.29.4",
-    "eslint-plugin-react-hooks": "^4.4.0",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.6.2",
-    "typescript": "^4.6.3"
+    "typescript": "^4.7.4"
   }
 }

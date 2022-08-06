@@ -36,6 +36,11 @@ export default {
       validation: Rule => Rule.required(),
     },
     {
+      name: 'pictureTitle',
+      title: 'Picture Title (optional)',
+      type: 'string',
+    },
+    {
       name: 'sold',
       title: 'Sold',
       type: 'boolean',

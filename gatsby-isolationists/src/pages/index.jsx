@@ -5,18 +5,18 @@ import { TitleContext } from '../components/Layout';
 import SEO from '../components/Seo';
 import { FrontPage, MiniTitle } from '../styles';
 
-function ArtistLink({ artist, title }) {
-  const { id, name, slug, mug } = artist;
-  return (
-    <li>
-      <Link key={id} className="artistLink" to={`/biography/${slug.current}`}>
-        <SEO title={title} imageSrc={mug.asset.url} />
-        <GatsbyImage image={mug.asset.gatsbyImageData} alt={name} />
-        <h2>{name}</h2>
-      </Link>
-    </li>
-  );
-}
+// function ArtistLink({ artist }) {
+//   const { id, name, slug, mug } = artist;
+//   return (
+//     <li>
+//       <Link key={id} className="artistLink" to={`/biography/${slug.current}`}>
+//         <SEO title={name} imageSrc={mug.asset.url} />
+//         <GatsbyImage image={mug.asset.gatsbyImageData} alt={name} />
+//         <h2>{name}</h2>
+//       </Link>
+//     </li>
+//   );
+// }
 
 export default function Homepage() {
   const { setTitle, setSubtitle } = useContext(TitleContext);
@@ -101,9 +101,18 @@ export default function Homepage() {
       <MiniTitle>Wednesday Isolationists</MiniTitle>
 
       <ul>
-        {mugs.edges.map(({ node }) => (
-          <ArtistLink key={node.id} artist={node} title={pageTitle} />
-        ))}
+        {mugs.edges.map(({ node }) => {
+          const { id, name, slug, mug } = node;
+          return (
+            <li>
+              <Link key={id} className="artistLink" to={`/biography/${slug.current}`}>
+                <SEO title={name} imageSrc={mug.asset.url} />
+                <GatsbyImage image={mug.asset.gatsbyImageData} alt={name} />
+                <h2>{name}</h2>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </FrontPage>
   );
