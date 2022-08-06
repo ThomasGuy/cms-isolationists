@@ -74,7 +74,7 @@ const SubjectPage = ({ data, pageContext }) => {
         setOpen(true);
       }
     },
-    [setOpen, setIndex],
+    [setOpen, setIndex]
   );
 
   useEffect(() => {

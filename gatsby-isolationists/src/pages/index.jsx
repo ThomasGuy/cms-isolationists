@@ -64,7 +64,7 @@ export default function Homepage() {
           }
         }
       }
-    `,
+    `
   );
 
   const pageTitle = title.siteMetadata.title;

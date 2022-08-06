@@ -15,6 +15,7 @@ import { Modal } from '../components/SimpleModal/Modal';
 let span2 = 1;
 let imgWidth = 18;
 
+// eslint-disable-next-line react/function-component-definition
 const ArtistPage = ({ data, pageContext }) => {
   const { pageTitle } = pageContext;
   const [openModal, setOpen] = useState(false);
@@ -74,7 +75,7 @@ const ArtistPage = ({ data, pageContext }) => {
         setOpen(true);
       }
     },
-    [setOpen, setIndex],
+    [setOpen, setIndex]
   );
 
   useEffect(() => {
