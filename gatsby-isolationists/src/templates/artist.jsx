@@ -75,7 +75,7 @@ const ArtistPage = ({ data, pageContext }) => {
         setOpen(true);
       }
     },
-    [setOpen, setIndex]
+    [setOpen, setIndex],
   );
 
   useEffect(() => {

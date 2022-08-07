@@ -21,7 +21,6 @@ const BioPage = ({ data }) => {
   }
 
   return (
-    <>
       <Grid>
         <SEO title={name} />
         <Row>
@@ -114,7 +113,6 @@ const BioPage = ({ data }) => {
         </Row>
         <Row />
       </Grid>
-    </>
   );
 };
 
