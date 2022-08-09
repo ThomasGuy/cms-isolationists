@@ -1,25 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
-import { TitleContext } from '../components/Layout';
 import SEO from '../components/Seo';
 import { FrontPage, MiniTitle } from '../styles';
-
-// function ArtistLink({ artist }) {
-//   const { id, name, slug, mug } = artist;
-//   return (
-//     <li>
-//       <Link key={id} className="artistLink" to={`/biography/${slug.current}`}>
-//         <SEO title={name} imageSrc={mug.asset.url} />
-//         <GatsbyImage image={mug.asset.gatsbyImageData} alt={name} />
-//         <h2>{name}</h2>
-//       </Link>
-//     </li>
-//   );
-// }
+import { useTitleContext } from '../hooks/TitleContext';
 
 export default function Homepage() {
-  const { setTitle, setSubtitle } = useContext(TitleContext);
+  const { setPageTitle, setSubtitle } = useTitleContext();
   const { studio, mugs, title } = useStaticQuery(
     graphql`
       query {
@@ -70,13 +57,12 @@ export default function Homepage() {
   const pageTitle = title.siteMetadata.title;
 
   useEffect(() => {
-    setTitle(pageTitle);
+    setPageTitle(pageTitle);
     setSubtitle(false);
   }, [pageTitle]);
 
   return (
     <FrontPage>
-      <SEO title={pageTitle} />
       <section style={{ padding: '3rem 0' }}>
         <SEO title={pageTitle} imageSrc={studio.childImageSharp.original.src} />
         <GatsbyImage
@@ -117,3 +103,5 @@ export default function Homepage() {
     </FrontPage>
   );
 }
+
+export const Head = () => <SEO />;

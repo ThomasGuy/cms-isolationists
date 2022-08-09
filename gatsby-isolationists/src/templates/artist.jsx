@@ -1,16 +1,16 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-expressions */
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTrail } from 'react-spring';
 import { graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
-import { TitleContext } from '../components/Layout';
 import { GalleryLayout, SoldTag, PictureBox } from '../styles';
 import SEO from '../components/Seo';
 import { useBreakpoint } from '../hooks/useBreakpoint';
 import { addClass } from '../utils/helpers';
 import { Modal } from '../components/SimpleModal/Modal';
+import { useTitleContext } from '../hooks/TitleContext';
 
 let span2 = 1;
 let imgWidth = 18;
@@ -21,10 +21,10 @@ const ArtistPage = ({ data, pageContext }) => {
   const [openModal, setOpen] = useState(false);
   const { galleryLg, portrait, mobile } = useBreakpoint();
   const [index, setIndex] = useState(0);
-  const { setTitle, setSubtitle } = useContext(TitleContext);
+  const { setPageTitle, setSubtitle } = useTitleContext();
 
   useEffect(() => {
-    setTitle(pageTitle);
+    setPageTitle(pageTitle);
     setSubtitle(true);
   }, [pageTitle]);
 
@@ -75,7 +75,7 @@ const ArtistPage = ({ data, pageContext }) => {
         setOpen(true);
       }
     },
-    [setOpen, setIndex],
+    [setOpen, setIndex]
   );
 
   useEffect(() => {
@@ -93,7 +93,6 @@ const ArtistPage = ({ data, pageContext }) => {
 
   return (
     <GalleryLayout width={imgWidth} span2={span2} modal={openModal}>
-      <SEO title={pageTitle} />
       {trail.map((props, idx) => {
         const { image, key, ratio, sold, alt, title, imgStyle, imgTitle, ...others } =
           imgProps[idx];
@@ -125,6 +124,8 @@ const ArtistPage = ({ data, pageContext }) => {
 };
 
 export default ArtistPage;
+
+export const Head = () => <SEO />;
 
 export const ARTIST_QUERY = graphql`
   query ($slug: String!) {

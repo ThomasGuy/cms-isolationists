@@ -1,9 +1,12 @@
 import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
+
+import { useTitleContext } from '../hooks/TitleContext';
 import BigNav from './BigNav';
 import SmallNav from './SmallNav';
 
-export default function Nav({ title, subTitle }) {
+export default function Nav() {
+  const { title, subTitle } = useTitleContext();
   const { artists, subjects } = useStaticQuery(graphql`
     query {
       artists: allSanityArtist(sort: { fields: name, order: ASC }) {

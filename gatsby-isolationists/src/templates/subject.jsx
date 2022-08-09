@@ -1,16 +1,16 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-expressions */
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSpring } from 'react-spring';
 import { graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
-import { TitleContext } from '../components/Layout';
 import { GalleryLayout, PictureBox, SoldTag } from '../styles';
 import SEO from '../components/Seo';
 import { useBreakpoint } from '../hooks/useBreakpoint';
 import { addClass } from '../utils/helpers';
 import { Modal } from '../components/SimpleModal/Modal';
+import { useTitleContext } from '../hooks/TitleContext';
 
 let span2 = 1;
 let imgWidth = 18;
@@ -20,10 +20,10 @@ const SubjectPage = ({ data, pageContext }) => {
   const [openModal, setOpen] = useState(false);
   const { galleryLg, portrait, mobile } = useBreakpoint();
   const [index, setIndex] = useState(0);
-  const { setTitle, setSubtitle } = useContext(TitleContext);
+  const { setPageTitle, setSubtitle } = useTitleContext();
 
   useEffect(() => {
-    setTitle(pageTitle);
+    setPageTitle(pageTitle);
     setSubtitle(true);
   }, [pageTitle]);
 
@@ -74,7 +74,7 @@ const SubjectPage = ({ data, pageContext }) => {
         setOpen(true);
       }
     },
-    [setOpen, setIndex],
+    [setOpen, setIndex]
   );
 
   useEffect(() => {
@@ -94,7 +94,6 @@ const SubjectPage = ({ data, pageContext }) => {
 
   return (
     <GalleryLayout width={imgWidth} span2={span2} modal={openModal}>
-      <SEO title={pageTitle} />
       {imgProps.map(props => {
         const { image, key, ratio, sold, alt, title, imgStyle, imgTitle, ...others } =
           props;
@@ -132,6 +131,8 @@ const SubjectPage = ({ data, pageContext }) => {
 };
 
 export default SubjectPage;
+
+export const Head = () => <SEO />;
 
 export const query = graphql`
   query ($slug: String!) {

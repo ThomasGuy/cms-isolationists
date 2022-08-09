@@ -1,36 +1,48 @@
 /* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
-import useSiteMetadata from '../hooks/useSiteMetadata';
+import useSiteMetadata from '../hooks/use-site-metadata';
 
-function SEO({ children, location, description, title, imageSrc }) {
-  const { siteTitle, siteDescription, siteUrl } = useSiteMetadata();
+function SEO({ children, location, pathname, description, title, imageSrc }) {
+  const {
+    title: siteTitle,
+    description: siteDescription,
+    siteUrl,
+    image,
+    author,
+  } = useSiteMetadata();
+
+  const seo = {
+    title: title || siteTitle,
+    description: description || siteDescription,
+    image: `${siteUrl}${image}`,
+    url: `${siteUrl}${pathname || ``}`,
+    author,
+  };
 
   return (
-    <Helmet titleTemplate={`%s - ${siteTitle}`}>
+    <>
+      <title>{seo.title}</title>
       <html lang="en" />
-      <title>{title || siteTitle}</title>
-      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      <link rel="icon" type="image/png" href="/favicon.ico" />
       <link rel="alternate icon" href="/favicon.ico" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta charSet="utf-8" />
-      <meta name="description" content={siteDescription} />
+      <meta name="description" content={seo.description} />
+      <meta name="author" content={seo.author} />
+      <meta name="image" content={imageSrc || seo.image} />
       {location ? (
         <meta property="og:url" content={location.href} />
       ) : (
-        <meta property="og:url" content={siteUrl} />
+        <meta property="og:url" content={seo.url} />
       )}
-      <meta property="og:image" content={imageSrc || 'bell.svg'} />
-      <meta property="og:title" content={title} key="ogtitle" />
-      <meta property="og:site_name" content={siteTitle} key="ogsitename" />
-      <meta
-        property="og:description"
-        content={description || siteDescription}
-        key="ogdescription"
-      />
+      <meta property="og:image" content={imageSrc || seo.image} />
+      <meta property="og:title" content={seo.title} key="ogtitle" />
+      <meta property="og:site_name" content={seo.title} key="ogsitename" />
+      <meta property="og:description" content={seo.description} key="ogdescription" />
+      <meta property="og:author" content={seo.author} key="ogauthor" />
       {children}
-    </Helmet>
+    </>
   );
 }
 

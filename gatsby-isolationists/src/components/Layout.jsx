@@ -1,13 +1,14 @@
-import React, { useState, createContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { GlobalStyle } from '../styles';
 import Footer from './Footer';
 import Nav from './Nav';
-import useSiteMetadata from '../hooks/useSiteMetadata';
+// import useSiteMetadata from '../hooks/use-site-metadata';
 import SEO from './Seo';
 import { BreakpointProvider } from '../hooks/useBreakpoint';
 import { mediaQuery } from '../styles/mediaQuery';
+import { TitleContextProvider } from '../hooks/TitleContext';
 
 const ContentStyles = styled.div`
   max-width: var(--maxWidth);
@@ -34,27 +35,17 @@ const queries = {
   mobile: '(max-width: 400px)',
 };
 
-export const TitleContext = createContext({
-  title: 'Sporty',
-  subTitle: false,
-  setTitle: () => {},
-  setSubtitle: () => {},
-});
-
 const Layout = ({ children }) => {
-  const [title, setTitle] = useState();
-  const [subTitle, setSubtitle] = useState(false);
-  const { siteTitle, siteDescription } = useSiteMetadata();
+  // const { title, description } = useSiteMetadata();
   return (
     <>
       <GlobalStyle />
-      <SEO title={siteTitle} decription={siteDescription} />
       <ContentStyles>
         <BreakpointProvider queries={queries}>
-          <Nav title={title} subTitle={subTitle} />
-          <TitleContext.Provider value={{ title, setTitle, subTitle, setSubtitle }}>
+          <TitleContextProvider>
+            <Nav />
             {children}
-          </TitleContext.Provider>
+          </TitleContextProvider>
         </BreakpointProvider>
         <Footer />
       </ContentStyles>
@@ -63,3 +54,4 @@ const Layout = ({ children }) => {
 };
 
 export default Layout;
+export const Head = () => <SEO />;
