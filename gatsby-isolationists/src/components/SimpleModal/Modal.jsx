@@ -20,6 +20,7 @@ export function Modal({ onCloseRequest, uiIndex, imgProps }) {
         loading="eager"
         alt={subject}
         title={`${subject} - ${artist}`}
+        picTitle
       />
     );
   });
@@ -50,10 +51,12 @@ export function Modal({ onCloseRequest, uiIndex, imgProps }) {
     };
   }, [handleKeypress]);
 
-  const { sold, dimensions, subject, artist } = imgProps[index];
+  const { sold, dimensions, subject, artist, picTitle } = imgProps[index];
   const caption = dimensions
     ? `${subject} - ${dimensions.width}x${dimensions.height}cm`
     : `${subject}`;
+
+  const modalTitle = picTitle == null ? `${artist}` : `${picTitle} - ${artist}`;
 
   const animate = useSpring({
     opacity: 1,
@@ -63,7 +66,7 @@ export function Modal({ onCloseRequest, uiIndex, imgProps }) {
 
   return (
     <ModalWrapper>
-      <Title>{artist}</Title>
+      <Title>{modalTitle}</Title>
       <CloseModal close={() => onCloseRequest()} />
       <Previous slider={() => setIndex(idxRef.current - 1)} />
       <Box style={animate}>

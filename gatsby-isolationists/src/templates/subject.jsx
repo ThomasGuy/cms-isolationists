@@ -31,7 +31,7 @@ const SubjectPage = ({ data, pageContext }) => {
   mobile ? (span2 = 1) : (span2 = 2);
 
   const imgProps = data.pics.edges.map(({ node }, idx) => {
-    const { image, artist, subject, dimensions, id, sold } = node;
+    const { image, artist, subject, title, dimensions, id, sold } = node;
     const imgTitle = dimensions
       ? `${subject.name} - ${dimensions.width}x${dimensions.height}cm`
       : `${subject.name}`;
@@ -42,6 +42,7 @@ const SubjectPage = ({ data, pageContext }) => {
       artist: artist.name,
       subject: subject.name,
       imgTitle,
+      picTitle: title,
       key: id,
       idx,
       sold,
@@ -53,12 +54,13 @@ const SubjectPage = ({ data, pageContext }) => {
   });
 
   const modalGalleryProps = data.pics.edges.map(({ node }) => {
-    const { image, subject, artist, sold, dimensions } = node;
+    const { image, subject, artist, title, sold, dimensions } = node;
     return {
       image,
       artist: artist.name,
       subject: subject.name,
       sold,
+      picTitle: title,
       dimensions,
       loading: 'eager',
     };
@@ -95,8 +97,18 @@ const SubjectPage = ({ data, pageContext }) => {
   return (
     <GalleryLayout width={imgWidth} span2={span2} modal={openModal}>
       {imgProps.map(props => {
-        const { image, key, ratio, sold, alt, title, imgStyle, imgTitle, ...others } =
-          props;
+        const {
+          image,
+          key,
+          ratio,
+          sold,
+          alt,
+          title,
+          picTitle,
+          imgStyle,
+          imgTitle,
+          ...others
+        } = props;
         return (
           <PictureBox
             key={key}
@@ -114,6 +126,7 @@ const SubjectPage = ({ data, pageContext }) => {
               {...others}
             />
             {sold && <SoldTag>SOLD</SoldTag>}
+            <p className="picTitle">{picTitle}</p>
             <p>{title}</p>
           </PictureBox>
         );
@@ -146,6 +159,7 @@ export const query = graphql`
           subject {
             name
           }
+          title
           image {
             asset {
               gatsbyImageData(height: 800, layout: CONSTRAINED, placeholder: BLURRED)

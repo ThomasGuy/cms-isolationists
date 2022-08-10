@@ -48,6 +48,12 @@ export const PictureBox = styled(animated.div)`
     margin-top: 0rem;
     text-align: center;
     font-size: 1.6rem;
+    opacity: 0.8;
+  }
+
+  .picTitle {
     opacity: 0.9;
+    margin-top: 0.7rem;
+    font-size: 2rem;
   }
 `;

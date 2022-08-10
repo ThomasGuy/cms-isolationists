@@ -30,12 +30,12 @@ const Box = styled.div`
 
 const SanityImageBox = ({
   image,
-  name,
+  title,
   alt,
   idx,
-  show = false,
   dimensions = null,
   sold = false,
+  ...rest
 }) => (
   <Box>
     <GatsbyImage
@@ -43,12 +43,11 @@ const SanityImageBox = ({
       alt={alt}
       idx={idx}
       title={alt}
-      loading="eager"
-      imgStyle={show && { border: '25px solid rgb(237, 237, 237)' }}
+      {...rest}
     />
-    {name && (
+    {title && (
       <p>
-        {name}
+        {title}
         {'  '}
         <span className="dim">
           {dimensions ? `  ${dimensions.height}x${dimensions.width}cm` : ``}

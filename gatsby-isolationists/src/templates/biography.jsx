@@ -7,14 +7,23 @@ import { Image, Grid, Row, Col, Title, Bio, OutsideLink, Comment } from '../styl
 import { useTitleContext } from '../hooks/TitleContext';
 
 const BioPage = ({ data }) => {
-  const { id, biography, education, email, name, links, social, mainImage, mug } =
-    data.bio.edges[0].node;
+  const {
+    id,
+    biography,
+    education,
+    email,
+    name: title,
+    links,
+    social,
+    mainImage,
+    mug,
+  } = data.bio.edges[0].node;
   const { setPageTitle, setSubtitle } = useTitleContext();
 
   useEffect(() => {
-    setPageTitle(name);
+    setPageTitle(title);
     setSubtitle(false);
-  }, [name]);
+  }, [title]);
 
   function makeId(slug, idx) {
     return `${slug}-${idx}`;
@@ -23,16 +32,16 @@ const BioPage = ({ data }) => {
   return (
     <Grid>
       <Row>
-        <SanityImageBox name="" key={id} image={mainImage} alt={name} />
+        <SanityImageBox title="" key={id} image={mainImage} alt={title} />
       </Row>
 
       <Row>
         <Image width="200px">
-          <SanityImageBox name="" image={mug} alt={name} />
+          <SanityImageBox title="" image={mug} alt={title} />
         </Image>
         <Col>
           <Title>
-            {name}
+            {title}
             {'  '}
             <div id="cert">{education}</div>
           </Title>

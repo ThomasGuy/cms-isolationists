@@ -7,7 +7,7 @@ import { useTitleContext } from '../hooks/TitleContext';
 
 export default function Homepage() {
   const { setPageTitle, setSubtitle } = useTitleContext();
-  const { studio, mugs, title } = useStaticQuery(
+  const { studio, mugs } = useStaticQuery(
     graphql`
       query {
         mugs: allSanityArtist {
@@ -39,16 +39,11 @@ export default function Homepage() {
             }
           }
         }
-        title: site {
-          siteMetadata {
-            title
-          }
-        }
       }
     `,
   );
 
-  const pageTitle = title.siteMetadata.title;
+  const pageTitle = 'Wednesday Isolationists';
 
   useEffect(() => {
     setPageTitle(pageTitle);
@@ -77,7 +72,7 @@ export default function Homepage() {
         collective name before Lockdown, but with this new way of working from home they
         became the...
       </p>
-      <MiniTitle>Wednesday Isolationists</MiniTitle>
+      <MiniTitle>{pageTitle}</MiniTitle>
 
       <ul>
         {mugs.edges.map(({ node }) => {

@@ -32,7 +32,7 @@ const ArtistPage = ({ data, pageContext }) => {
   mobile ? (span2 = 1) : (span2 = 2);
 
   const imgProps = data.pics.edges.map(({ node }, idx) => {
-    const { image, artist, subject, dimensions, id, sold } = node;
+    const { image, artist, subject, title, dimensions, id, sold } = node;
     const imgTitle = dimensions
       ? `${artist.name} - ${dimensions.width}x${dimensions.height}cm`
       : `${artist.name}`;
@@ -43,6 +43,7 @@ const ArtistPage = ({ data, pageContext }) => {
       artist: artist.name,
       subject: subject.name,
       imgTitle,
+      picTitle: title,
       key: id,
       idx,
       sold,
@@ -54,12 +55,13 @@ const ArtistPage = ({ data, pageContext }) => {
   });
 
   const modalGalleryProps = data.pics.edges.map(({ node }) => {
-    const { image, subject, artist, sold, dimensions } = node;
+    const { image, subject, artist, title, sold, dimensions } = node;
     return {
       image,
       artist: artist.name,
       subject: subject.name,
       sold,
+      picTitle: title,
       dimensions,
       loading: 'eager',
     };
@@ -94,8 +96,18 @@ const ArtistPage = ({ data, pageContext }) => {
   return (
     <GalleryLayout width={imgWidth} span2={span2} modal={openModal}>
       {trail.map((props, idx) => {
-        const { image, key, ratio, sold, alt, title, imgStyle, imgTitle, ...others } =
-          imgProps[idx];
+        const {
+          image,
+          key,
+          ratio,
+          sold,
+          alt,
+          title,
+          picTitle,
+          imgStyle,
+          imgTitle,
+          ...others
+        } = imgProps[idx];
         return (
           <PictureBox className={addClass(ratio)} style={{ ...props }} key={key}>
             <GatsbyImage
@@ -107,6 +119,7 @@ const ArtistPage = ({ data, pageContext }) => {
               {...others}
             />
             {sold && <SoldTag>SOLD</SoldTag>}
+            <p className="picTitle">{picTitle}</p>
             <p>{title}</p>
           </PictureBox>
         );
@@ -139,6 +152,7 @@ export const ARTIST_QUERY = graphql`
           artist {
             name
           }
+          title
           image {
             asset {
               gatsbyImageData(height: 800, layout: CONSTRAINED, placeholder: BLURRED)

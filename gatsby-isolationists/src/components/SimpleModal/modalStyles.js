@@ -20,12 +20,12 @@ export const Title = styled.h1`
   place-content: center center;
   color: var(--offWhite);
   background-color: var(--modal-black);
-  opacity: 0.8;
+  opacity: 0.9;
   padding: 1rem 3rem;
   margin-bottom: 0;
   height: 5rem;
-  font-size: 3rem;
-  line-height: 1.5;
+  font-size: 2.7rem;
+  line-height: 1.2;
   letter-spacing: 0.12rem;
 `;
 
