@@ -20,7 +20,6 @@ export default function Homepage() {
               }
               mug {
                 asset {
-                  url
                   gatsbyImageData(
                     layout: FIXED
                     placeholder: NONE
@@ -33,15 +32,10 @@ export default function Homepage() {
             }
           }
         }
-        studio: file(relativePath: { regex: "/studio/" }) {
-          childImageSharp {
-            gatsbyImageData(
-              layout: FULL_WIDTH
-              placeholder: TRACED_SVG
-              tracedSVGOptions: { alphaMax: 1.8 }
-            )
-            original {
-              src
+        studio: sanitySoloImg(slug: { current: { eq: "studio" } }) {
+          image {
+            asset {
+              gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED)
             }
           }
         }
@@ -66,7 +60,7 @@ export default function Homepage() {
       <section style={{ padding: '3rem 0' }}>
         <SEO title={pageTitle} imageSrc={studio.childImageSharp.original.src} />
         <GatsbyImage
-          image={studio.childImageSharp.gatsbyImageData}
+          image={studio.image.asset.gatsbyImageData}
           title="Sally Scott Studio"
           alt="Sally Scott Studio"
         />
@@ -92,7 +86,7 @@ export default function Homepage() {
           return (
             <li>
               <Link key={id} className="artistLink" to={`/biography/${slug.current}`}>
-                <SEO title={name} imageSrc={mug.asset.url} />
+                <SEO title={name} imageSrc={mug.asset} />
                 <GatsbyImage image={mug.asset.gatsbyImageData} alt={name} />
                 <h2>{name}</h2>
               </Link>

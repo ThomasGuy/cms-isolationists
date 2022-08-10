@@ -75,7 +75,7 @@ const ArtistPage = ({ data, pageContext }) => {
         setOpen(true);
       }
     },
-    [setOpen, setIndex]
+    [setOpen, setIndex],
   );
 
   useEffect(() => {
@@ -98,7 +98,6 @@ const ArtistPage = ({ data, pageContext }) => {
           imgProps[idx];
         return (
           <PictureBox className={addClass(ratio)} style={{ ...props }} key={key}>
-            <SEO title={pageTitle} imageSrc={image.asset.url} />
             <GatsbyImage
               image={image.asset.gatsbyImageData}
               width={imgWidth * span2 * 10} // no span3 now
@@ -143,7 +142,6 @@ export const ARTIST_QUERY = graphql`
           image {
             asset {
               gatsbyImageData(height: 800, layout: CONSTRAINED, placeholder: BLURRED)
-              url
               metadata {
                 dimensions {
                   aspectRatio

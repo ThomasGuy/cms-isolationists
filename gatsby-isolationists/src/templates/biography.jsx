@@ -137,13 +137,11 @@ export const query = graphql`
           }
           mainImage {
             asset {
-              url
               gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED)
             }
           }
           mug {
             asset {
-              url
               gatsbyImageData(layout: CONSTRAINED, width: 200, placeholder: BLURRED)
             }
           }

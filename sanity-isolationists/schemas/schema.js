@@ -9,6 +9,7 @@ import subject from './subject';
 import link from './link';
 import social from './social';
 import dimensions from './dimensions';
+import soloImg from './soloImg';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -16,5 +17,13 @@ export default createSchema({
   name: 'default',
   // Then proceed to concatenate our document type
   // to the ones provided by any plugins that are installed
-  types: schemaTypes.concat([artist, subject, picture, link, social, dimensions]),
+  types: schemaTypes.concat([
+    artist,
+    subject,
+    picture,
+    link,
+    social,
+    dimensions,
+    soloImg,
+  ]),
 });

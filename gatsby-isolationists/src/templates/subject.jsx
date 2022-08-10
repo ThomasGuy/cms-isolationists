@@ -74,7 +74,7 @@ const SubjectPage = ({ data, pageContext }) => {
         setOpen(true);
       }
     },
-    [setOpen, setIndex]
+    [setOpen, setIndex],
   );
 
   useEffect(() => {
@@ -105,7 +105,6 @@ const SubjectPage = ({ data, pageContext }) => {
               transform: xy.to((x, y) => `translate(${x}rem, ${y}rem)`),
               ...rest,
             }}>
-            <SEO title={pageTitle} imageSrc={image.asset.url} />
             <GatsbyImage
               image={image.asset.gatsbyImageData}
               width={imgWidth * span2 * 10} // no span3
@@ -150,7 +149,6 @@ export const query = graphql`
           image {
             asset {
               gatsbyImageData(height: 800, layout: CONSTRAINED, placeholder: BLURRED)
-              url
               metadata {
                 dimensions {
                   aspectRatio
