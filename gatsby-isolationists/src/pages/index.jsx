@@ -78,8 +78,8 @@ export default function Homepage() {
         {mugs.edges.map(({ node }) => {
           const { id, name, slug, mug } = node;
           return (
-            <li>
-              <Link key={id} className="artistLink" to={`/biography/${slug.current}`}>
+            <li key={id}>
+              <Link className="artistLink" to={`/biography/${slug.current}`}>
                 <GatsbyImage image={mug.asset.gatsbyImageData} alt={name} />
                 <h2>{name}</h2>
               </Link>

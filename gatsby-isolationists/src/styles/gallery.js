@@ -45,15 +45,15 @@ export const GalleryLayout = styled.div`
 export const PictureBox = styled(animated.div)`
   position: relative;
   p {
-    margin-top: 0rem;
+    margin: 0;
     text-align: center;
     font-size: 1.6rem;
     opacity: 0.8;
   }
 
   .picTitle {
+    margin-top: 0.5rem;
     opacity: 0.9;
-    margin-top: 0.7rem;
-    font-size: 2rem;
+    font-size: 1.9rem;
   }
 `;

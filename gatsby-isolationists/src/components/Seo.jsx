@@ -23,7 +23,6 @@ function SEO({ children, location, pathname, description, title, imageSrc }) {
   return (
     <>
       <title>{seo.title}</title>
-      <meta lang="en" />
       <link rel="icon" type="image/png" href="/favicon.ico" />
       <link rel="alternate icon" href="/favicon.ico" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
