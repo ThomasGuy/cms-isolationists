@@ -58,7 +58,6 @@ export default function Homepage() {
   return (
     <FrontPage>
       <section style={{ padding: '3rem 0' }}>
-        <SEO title={pageTitle} imageSrc={studio.childImageSharp.original.src} />
         <GatsbyImage
           image={studio.image.asset.gatsbyImageData}
           title="Sally Scott Studio"
@@ -86,7 +85,6 @@ export default function Homepage() {
           return (
             <li>
               <Link key={id} className="artistLink" to={`/biography/${slug.current}`}>
-                <SEO title={name} imageSrc={mug.asset} />
                 <GatsbyImage image={mug.asset.gatsbyImageData} alt={name} />
                 <h2>{name}</h2>
               </Link>
