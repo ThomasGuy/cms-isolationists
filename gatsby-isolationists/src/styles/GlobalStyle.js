@@ -39,6 +39,9 @@ export const GlobalStyle = createGlobalStyle`
   body {
     color: var(--text-color);
     background-color: var(--background);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
   ul {

@@ -9,11 +9,8 @@ import { mediaQuery } from '../styles/mediaQuery';
 import { TitleContextProvider } from '../hooks/TitleContext';
 
 const ContentStyles = styled.div`
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
   max-width: var(--maxWidth);
+  margin: 0 auto;
   margin-top: 8rem;
   padding: 0.8rem;
 
