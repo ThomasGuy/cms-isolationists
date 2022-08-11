@@ -12,6 +12,7 @@ const ContentStyles = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
   max-width: var(--maxWidth);
   margin-top: 8rem;
   padding: 0.8rem;
