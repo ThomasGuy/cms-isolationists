@@ -4,7 +4,7 @@ const defaultValue = {};
 const TitleContext = createContext(defaultValue);
 
 const TitleContextProvider = ({ children }) => {
-  const [title, setPageTitle] = useState('Wednesday Isoationists');
+  const [title, setPageTitle] = useState('Wednesday Isolationists');
   const [subTitle, setSubtitle] = useState(false);
   const value = useMemo(
     () => ({

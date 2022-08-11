@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import useSiteMetadata from '../hooks/use-site-metadata';
+import useSiteMetadata from '../hooks/useSiteMetadata';
 
-function SEO({ children, location, pathname, description, title, imageSrc }) {
+function SEO({ children, location, description, title, imageSrc }) {
   const {
     title: siteTitle,
     description: siteDescription,
@@ -13,10 +13,10 @@ function SEO({ children, location, pathname, description, title, imageSrc }) {
   } = useSiteMetadata();
 
   const seo = {
-    title: title || siteTitle,
+    title: title || siteTitle || 'Wednesday Isolationists',
     description: description || siteDescription,
     image: `${siteUrl}${image}`,
-    url: `${siteUrl}${pathname || ``}`,
+    url: `${siteUrl}${location?.pathname || ``}`,
     author,
   };
 
@@ -30,11 +30,8 @@ function SEO({ children, location, pathname, description, title, imageSrc }) {
       <meta name="description" content={seo.description} />
       <meta name="author" content={seo.author} />
       <meta name="image" content={imageSrc || seo.image} />
-      {location ? (
-        <meta property="og:url" content={location.href} />
-      ) : (
-        <meta property="og:url" content={seo.url} />
-      )}
+      <meta name="url" content={seo.url} />
+      <meta property="og:url" content={seo.url} />
       <meta property="og:image" content={imageSrc || seo.image} />
       <meta property="og:title" content={seo.title} key="ogtitle" />
       <meta property="og:site_name" content={seo.title} key="ogsitename" />

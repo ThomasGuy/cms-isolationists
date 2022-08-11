@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import { GlobalStyle } from '../styles';
 import Footer from './Footer';
 import Nav from './Nav';
-// import useSiteMetadata from '../hooks/use-site-metadata';
-import SEO from './Seo';
 import { BreakpointProvider } from '../hooks/useBreakpoint';
 import { mediaQuery } from '../styles/mediaQuery';
 import { TitleContextProvider } from '../hooks/TitleContext';
@@ -22,7 +20,7 @@ const ContentStyles = styled.div`
  `};
 
   ${mediaQuery('md')`
-    margin-top: 13rem;
+    margin-top: 11rem;
  `};
 `;
 
@@ -35,23 +33,19 @@ const queries = {
   mobile: '(max-width: 400px)',
 };
 
-const Layout = ({ children }) => {
-  // const { title, description } = useSiteMetadata();
-  return (
-    <>
-      <GlobalStyle />
-      <ContentStyles>
-        <BreakpointProvider queries={queries}>
-          <TitleContextProvider>
-            <Nav />
-            {children}
-          </TitleContextProvider>
-        </BreakpointProvider>
-        <Footer />
-      </ContentStyles>
-    </>
-  );
-};
+const Layout = ({ children }) => (
+  <>
+    <GlobalStyle />
+    <ContentStyles>
+      <BreakpointProvider queries={queries}>
+        <TitleContextProvider>
+          <Nav />
+          {children}
+        </TitleContextProvider>
+      </BreakpointProvider>
+      <Footer />
+    </ContentStyles>
+  </>
+);
 
 export default Layout;
-export const Head = () => <SEO />;
