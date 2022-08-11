@@ -9,11 +9,12 @@ import { mediaQuery } from '../styles/mediaQuery';
 import { TitleContextProvider } from '../hooks/TitleContext';
 
 const ContentStyles = styled.div`
-  max-width: var(--maxWidth);
   min-height: 100vh;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  max-width: var(--maxWidth);
   margin-top: 8rem;
-  padding: 0;
+  padding: 0.8rem;
 
   ${mediaQuery('sm')`
     margin-top: var(--navHeight);
@@ -41,9 +42,9 @@ const Layout = ({ children }) => (
         <TitleContextProvider>
           <Nav />
           {children}
+          <Footer />
         </TitleContextProvider>
       </BreakpointProvider>
-      <Footer />
     </ContentStyles>
   </>
 );

@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
+import Icon from '../components/icons';
 import { useTitleContext } from '../hooks/TitleContext';
 import SEO from '../components/Seo';
 
 const Spaced = styled.div`
-  min-height: 20rem;
-  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
   h1 {
-    color: aliceblue;
+    color: #8ba0f2;
   }
 
   p {
@@ -22,6 +21,8 @@ const Spaced = styled.div`
 
   span {
     font-size: 2rem;
+    color: #f7b532;
+    margin-right: 1rem;
   }
 `;
 
@@ -39,6 +40,7 @@ const NotFoundPage = () => {
       <br />
       <Link to="/">
         <span role="link">Go Home</span>
+        <Icon symbol="home" aria-label="home" />
       </Link>
     </Spaced>
   );
