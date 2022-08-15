@@ -59,6 +59,7 @@ const artistPages = async ({ graphql, actions, reporter }) => {
           node {
             id
             name
+            biography
             slug {
               current
             }
@@ -87,6 +88,7 @@ const artistPages = async ({ graphql, actions, reporter }) => {
       context: {
         slug,
         pageTitle: node.name,
+        bio: node.biography,
       },
     });
   });
@@ -101,6 +103,8 @@ const bioPages = async ({ graphql, actions, reporter }) => {
         edges {
           node {
             id
+            name
+            biography
             slug {
               current
             }
@@ -127,6 +131,8 @@ const bioPages = async ({ graphql, actions, reporter }) => {
       ownerNodeId,
       context: {
         slug,
+        title: node.name,
+        bio: node.biography,
       },
     });
   });

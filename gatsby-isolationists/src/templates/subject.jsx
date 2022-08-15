@@ -53,19 +53,6 @@ const SubjectPage = ({ data, pageContext }) => {
     };
   });
 
-  // const modalGalleryProps = data.pics.edges.map(({ node }) => {
-  //   const { image, subject, artist, title, sold, dimensions } = node;
-  //   return {
-  //     image,
-  //     artist: artist.name,
-  //     subject: subject.name,
-  //     sold,
-  //     picTitle: title,
-  //     dimensions,
-  //     loading: 'eager',
-  //   };
-  // });
-
   const clickHandler = useCallback(
     evt => {
       if (evt.target.nodeName !== 'IMG') {
@@ -144,7 +131,10 @@ const SubjectPage = ({ data, pageContext }) => {
 
 export default SubjectPage;
 
-export const Head = () => <SEO />;
+export const Head = ({ pageContext }) => {
+  const { pageTitle } = pageContext;
+  return <SEO title={pageTitle} />;
+};
 
 export const query = graphql`
   query ($slug: String!) {

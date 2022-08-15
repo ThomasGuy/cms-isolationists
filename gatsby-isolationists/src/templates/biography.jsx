@@ -6,6 +6,45 @@ import SEO from '../components/Seo';
 import { Image, Grid, Row, Col, Title, Bio, OutsideLink, Comment } from '../styles';
 import { useTitleContext } from '../hooks/TitleContext';
 
+export const query = graphql`
+  query ($slug: String!) {
+    bio: allSanityArtist(filter: { slug: { current: { eq: $slug } } }) {
+      edges {
+        node {
+          id
+          biography
+          education
+          email
+          name
+          links {
+            href
+            name
+          }
+          social {
+            instagram
+            facebook
+          }
+          mainImage {
+            asset {
+              gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED)
+            }
+          }
+          mug {
+            asset {
+              gatsbyImageData(layout: CONSTRAINED, width: 200, placeholder: BLURRED)
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const Head = ({ pageContext }) => {
+  const { bio, title } = pageContext;
+  return <SEO title={`About ${title}`} description={bio[0]} />;
+};
+
 const BioPage = ({ data }) => {
   const {
     id,
@@ -123,39 +162,3 @@ const BioPage = ({ data }) => {
 };
 
 export default BioPage;
-
-export const Head = () => <SEO />;
-
-export const query = graphql`
-  query ($slug: String!) {
-    bio: allSanityArtist(filter: { slug: { current: { eq: $slug } } }) {
-      edges {
-        node {
-          id
-          biography
-          education
-          email
-          name
-          links {
-            href
-            name
-          }
-          social {
-            instagram
-            facebook
-          }
-          mainImage {
-            asset {
-              gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED)
-            }
-          }
-          mug {
-            asset {
-              gatsbyImageData(layout: CONSTRAINED, width: 200, placeholder: BLURRED)
-            }
-          }
-        }
-      }
-    }
-  }
-`;

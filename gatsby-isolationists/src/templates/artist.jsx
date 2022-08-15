@@ -15,7 +15,45 @@ import { useTitleContext } from '../hooks/TitleContext';
 let span2 = 1;
 let imgWidth = 18;
 
-// eslint-disable-next-line react/function-component-definition
+export const ARTIST_QUERY = graphql`
+  query ($slug: String!) {
+    pics: allSanityPicture(filter: { artist: { slug: { current: { eq: $slug } } } }) {
+      edges {
+        node {
+          id
+          sold
+          subject {
+            name
+          }
+          artist {
+            name
+          }
+          title
+          image {
+            asset {
+              gatsbyImageData(height: 800, layout: CONSTRAINED, placeholder: BLURRED)
+              metadata {
+                dimensions {
+                  aspectRatio
+                }
+              }
+            }
+          }
+          dimensions {
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const Head = ({ pageContext }) => {
+  const { pageTitle, bio } = pageContext;
+  return <SEO title={`${pageTitle} Artist`} description={bio[0]} />;
+};
+
 const ArtistPage = ({ data, pageContext }) => {
   const { pageTitle } = pageContext;
   const [openModal, setOpen] = useState(false);
@@ -53,19 +91,6 @@ const ArtistPage = ({ data, pageContext }) => {
       imgStyle: { objectFit: 'contain', width: '100%', height: '100%' },
     };
   });
-
-  // const modalGalleryProps = data.pics.edges.map(({ node }) => {
-  //   const { image, subject, artist, title, sold, dimensions } = node;
-  //   return {
-  //     image,
-  //     artist: artist.name,
-  //     subject: subject.name,
-  //     sold,
-  //     picTitle: title,
-  //     dimensions,
-  //     loading: 'eager',
-  //   };
-  // });
 
   const clickHandler = useCallback(
     evt => {
@@ -136,39 +161,3 @@ const ArtistPage = ({ data, pageContext }) => {
 };
 
 export default ArtistPage;
-
-export const Head = () => <SEO />;
-
-export const ARTIST_QUERY = graphql`
-  query ($slug: String!) {
-    pics: allSanityPicture(filter: { artist: { slug: { current: { eq: $slug } } } }) {
-      edges {
-        node {
-          id
-          sold
-          subject {
-            name
-          }
-          artist {
-            name
-          }
-          title
-          image {
-            asset {
-              gatsbyImageData(height: 800, layout: CONSTRAINED, placeholder: BLURRED)
-              metadata {
-                dimensions {
-                  aspectRatio
-                }
-              }
-            }
-          }
-          dimensions {
-            width
-            height
-          }
-        }
-      }
-    }
-  }
-`;
