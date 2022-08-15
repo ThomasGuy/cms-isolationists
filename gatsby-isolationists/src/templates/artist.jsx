@@ -28,7 +28,7 @@ const ArtistPage = ({ data, pageContext }) => {
     setSubtitle(true);
   }, [pageTitle]);
 
-  galleryLg ? (imgWidth = 23) : (imgWidth = 18);
+  galleryLg ? (imgWidth = 23) : (imgWidth = 17);
   mobile ? (span2 = 1) : (span2 = 2);
 
   const imgProps = data.pics.edges.map(({ node }, idx) => {
