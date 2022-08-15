@@ -53,18 +53,18 @@ const SubjectPage = ({ data, pageContext }) => {
     };
   });
 
-  const modalGalleryProps = data.pics.edges.map(({ node }) => {
-    const { image, subject, artist, title, sold, dimensions } = node;
-    return {
-      image,
-      artist: artist.name,
-      subject: subject.name,
-      sold,
-      picTitle: title,
-      dimensions,
-      loading: 'eager',
-    };
-  });
+  // const modalGalleryProps = data.pics.edges.map(({ node }) => {
+  //   const { image, subject, artist, title, sold, dimensions } = node;
+  //   return {
+  //     image,
+  //     artist: artist.name,
+  //     subject: subject.name,
+  //     sold,
+  //     picTitle: title,
+  //     dimensions,
+  //     loading: 'eager',
+  //   };
+  // });
 
   const clickHandler = useCallback(
     evt => {
@@ -135,7 +135,7 @@ const SubjectPage = ({ data, pageContext }) => {
         <Modal
           onCloseRequest={() => setOpen(false)}
           uiIndex={index}
-          imgProps={modalGalleryProps}
+          imgProps={imgProps}
         />
       )}
     </GalleryLayout>

@@ -32,7 +32,8 @@ export default function Homepage() {
             }
           }
         }
-        studio: sanitySoloImg(slug: { current: { eq: "studio" } }) {
+        studio: sanitySoloImg(title: { eq: "Studio" }) {
+          id
           image {
             asset {
               gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED)
@@ -44,6 +45,7 @@ export default function Homepage() {
   );
 
   const pageTitle = 'Wednesday Isolationists';
+  const { id: key, image } = studio;
 
   useEffect(() => {
     setPageTitle(pageTitle);
@@ -54,7 +56,8 @@ export default function Homepage() {
     <FrontPage>
       <section style={{ padding: '3rem 0' }}>
         <GatsbyImage
-          image={studio.image.asset.gatsbyImageData}
+          key={key}
+          image={image.asset.gatsbyImageData}
           title="Sally Scott Studio"
           alt="Sally Scott Studio"
         />
