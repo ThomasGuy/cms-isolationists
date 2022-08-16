@@ -131,7 +131,7 @@ const bioPages = async ({ graphql, actions, reporter }) => {
       ownerNodeId,
       context: {
         slug,
-        title: node.name,
+        pageTitle: node.name,
         bio: node.biography,
       },
     });

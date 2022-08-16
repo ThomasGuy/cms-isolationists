@@ -41,8 +41,8 @@ export const query = graphql`
 `;
 
 export const Head = ({ pageContext }) => {
-  const { bio, title } = pageContext;
-  return <SEO title={`About ${title}`} description={bio[0]} />;
+  const { bio, pageTitle } = pageContext;
+  return <SEO title={`About ${pageTitle}`} description={bio[0]} />;
 };
 
 const BioPage = ({ data }) => {
@@ -96,7 +96,7 @@ const BioPage = ({ data }) => {
 
       <Row>
         <Col>
-          {biography &&
+          {biography.length > 0 &&
             biography.map((bio, idx) => <Bio key={makeId('bio', idx)}>{bio}</Bio>)}
         </Col>
       </Row>
