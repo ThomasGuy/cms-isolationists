@@ -13,7 +13,46 @@ import { Modal } from '../components/SimpleModal/Modal';
 import { useTitleContext } from '../hooks/TitleContext';
 
 let span2 = 1;
-let imgWidth = 18;
+let imgWidth = 17;
+
+export const query = graphql`
+  query ($slug: String!) {
+    pics: allSanityPicture(filter: { subject: { slug: { current: { eq: $slug } } } }) {
+      edges {
+        node {
+          id
+          sold
+          artist {
+            name
+          }
+          subject {
+            name
+          }
+          title
+          image {
+            asset {
+              gatsbyImageData(height: 800, layout: CONSTRAINED, placeholder: BLURRED)
+              metadata {
+                dimensions {
+                  aspectRatio
+                }
+              }
+            }
+          }
+          dimensions {
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const Head = ({ pageContext }) => {
+  const { pageTitle } = pageContext;
+  return <SEO title={pageTitle} />;
+};
 
 const SubjectPage = ({ data, pageContext }) => {
   const { pageTitle } = pageContext;
@@ -130,42 +169,3 @@ const SubjectPage = ({ data, pageContext }) => {
 };
 
 export default SubjectPage;
-
-export const Head = ({ pageContext }) => {
-  const { pageTitle } = pageContext;
-  return <SEO title={pageTitle} />;
-};
-
-export const query = graphql`
-  query ($slug: String!) {
-    pics: allSanityPicture(filter: { subject: { slug: { current: { eq: $slug } } } }) {
-      edges {
-        node {
-          id
-          sold
-          artist {
-            name
-          }
-          subject {
-            name
-          }
-          title
-          image {
-            asset {
-              gatsbyImageData(height: 800, layout: CONSTRAINED, placeholder: BLURRED)
-              metadata {
-                dimensions {
-                  aspectRatio
-                }
-              }
-            }
-          }
-          dimensions {
-            width
-            height
-          }
-        }
-      }
-    }
-  }
-`;

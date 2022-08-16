@@ -13,7 +13,7 @@ import { Modal } from '../components/SimpleModal/Modal';
 import { useTitleContext } from '../hooks/TitleContext';
 
 let span2 = 1;
-let imgWidth = 18;
+let imgWidth = 17;
 
 export const ARTIST_QUERY = graphql`
   query ($slug: String!) {
