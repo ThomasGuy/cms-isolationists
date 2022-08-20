@@ -48,4 +48,4 @@ const NotFoundPage = () => {
 
 export default NotFoundPage;
 
-export const Head = () => <SEO />;
+export const Head = ({ location }) => <SEO title="404" location={location} />;

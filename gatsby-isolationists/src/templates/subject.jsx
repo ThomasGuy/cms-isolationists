@@ -49,9 +49,9 @@ export const query = graphql`
   }
 `;
 
-export const Head = ({ pageContext }) => {
+export const Head = ({ pageContext, location }) => {
   const { pageTitle } = pageContext;
-  return <SEO title={pageTitle} />;
+  return <SEO title={pageTitle} location={location} />;
 };
 
 const SubjectPage = ({ data, pageContext }) => {

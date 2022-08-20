@@ -21,8 +21,8 @@ module.exports = {
     description:
       'A collective of UK Artists had no name before the Covid Lockdown, but with this new way of working from home they became the "Wednesday Isolationists"',
     author: 'Thomas Guy <twguy.weddev@gmail.com>',
-    siteUrl: 'https://wednesday-isolationists.co.uk',
-    image: '/Web/easle-96.png',
+    siteUrl: 'https://wednesday-isolationists.co.uk/',
+    image: 'Web/easle-96.png',
   },
   plugins: [
     'gatsby-plugin-image',

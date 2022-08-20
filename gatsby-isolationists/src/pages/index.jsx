@@ -94,4 +94,4 @@ export default function Homepage() {
   );
 }
 
-export const Head = () => <SEO />;
+export const Head = ({ location }) => <SEO location={location} />;

@@ -49,9 +49,9 @@ export const ARTIST_QUERY = graphql`
   }
 `;
 
-export const Head = ({ pageContext }) => {
+export const Head = ({ pageContext, location }) => {
   const { pageTitle, bio } = pageContext;
-  return <SEO title={`${pageTitle} Artist`} description={bio[0]} />;
+  return <SEO title={`${pageTitle} Artist`} description={bio[0]} location={location} />;
 };
 
 const ArtistPage = ({ data, pageContext }) => {

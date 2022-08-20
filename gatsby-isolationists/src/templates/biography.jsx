@@ -6,7 +6,7 @@ import SEO from '../components/Seo';
 import { Image, Grid, Row, Col, Title, Bio, OutsideLink, Comment } from '../styles';
 import { useTitleContext } from '../hooks/TitleContext';
 
-export const query = graphql`
+export const bioQuery = graphql`
   query ($slug: String!) {
     bio: allSanityArtist(filter: { slug: { current: { eq: $slug } } }) {
       edges {
@@ -40,9 +40,9 @@ export const query = graphql`
   }
 `;
 
-export const Head = ({ pageContext }) => {
+export const Head = ({ pageContext, location }) => {
   const { bio, pageTitle } = pageContext;
-  return <SEO title={`About ${pageTitle}`} description={bio[0]} />;
+  return <SEO title={`About ${pageTitle}`} description={bio[0]} location={location} />;
 };
 
 const BioPage = ({ data }) => {
