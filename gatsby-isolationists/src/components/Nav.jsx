@@ -7,29 +7,27 @@ import SmallNav from './SmallNav';
 
 export default function Nav() {
   const { title, subTitle } = useTitleContext();
-  const { artists, subjects } = useStaticQuery(graphql`
-    query {
-      artists: allSanityArtist(sort: { fields: name, order: ASC }) {
-        nodes {
-          id
-          name
-          slug {
-            current
-          }
-        }
-      }
-      subjects: allSanitySubject(sort: { fields: week, order: DESC }) {
-        nodes {
-          id
-          name
-          week
-          slug {
-            current
-          }
-        }
+  const { artists, subjects } = useStaticQuery(graphql`{
+  artists: allSanityArtist(sort: {name: ASC}) {
+    nodes {
+      id
+      name
+      slug {
+        current
       }
     }
-  `);
+  }
+  subjects: allSanitySubject(sort: {week: DESC}) {
+    nodes {
+      id
+      name
+      week
+      slug {
+        current
+      }
+    }
+  }
+}`);
 
   return (
     <>
