@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import { AnimatePresence } from 'framer-motion';
 import React, { useState } from 'react';
 import { Link } from 'gatsby';

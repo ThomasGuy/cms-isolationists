@@ -20,7 +20,6 @@ export function Modal({ onCloseRequest, uiIndex, imgProps }) {
         loading="eager"
         alt={subject}
         title={`${subject} - ${artist}`}
-        picTitle
       />
     );
   });

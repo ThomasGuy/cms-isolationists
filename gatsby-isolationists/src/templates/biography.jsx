@@ -134,7 +134,7 @@ const BioPage = ({ data }) => {
                     <img
                       style={{ marginBottom: '0' }}
                       alt="follow me on facebook"
-                      src="https://c866088.ssl.cf3.rackcdn.com/assets/facebook30x30.png"
+                      src="/icons8-facebook-48.png"
                       border={0}
                     />
                   </a>
@@ -146,7 +146,7 @@ const BioPage = ({ data }) => {
                     href={social.instagram}>
                     <img
                       alt="follow me on instagram"
-                      src="https://img.icons8.com/office/30/000000/instagram-new.png"
+                      src="/icons8-instagram-48.png"
                       border={0}
                     />
                   </a>

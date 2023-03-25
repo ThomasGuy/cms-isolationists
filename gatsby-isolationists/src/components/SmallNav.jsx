@@ -5,7 +5,6 @@ import { mediaQuery } from '../styles/mediaQuery';
 import Icon from './icons';
 import useMultiMenuDetectOutsideClick from '../hooks/useMultiMenuDetectOutsideClick';
 import MultiDropdown from '../hooks/MutiDropdown';
-import { ariaExpanded } from '../utils/helpers';
 
 const NavButton = styled.div`
   position: relative;
@@ -116,11 +115,9 @@ export default function SmallNav({ title, subTitle, artists, subjects }) {
   const dropdownRef = useRef(null);
   const [open, setOpen] = useMultiMenuDetectOutsideClick(dropdownRef, false);
 
-  function handleMenu(evt) {
-    const eventTarget = evt.currentTarget;
-    ariaExpanded(eventTarget);
-    setOpen(state => !state);
-  }
+  // function handleMenu(evt) {
+  //   setOpen(state => !state);
+  // }
 
   return (
     <Navbar id="navigation" aria-labelledby="site-navigation">
@@ -137,10 +134,10 @@ export default function SmallNav({ title, subTitle, artists, subjects }) {
           id="burger-menu-button"
           className="icon-button"
           type="button"
-          onClick={handleMenu}
-          aria-label="menu button"
+          onClick={() => setOpen(state => !state)}
+          aria-label="menu-button"
           aria-haspopup="true"
-          aria-expanded="false"
+          aria-expanded={open ? 'true' : 'false'}
           aria-controls="menu-list">
           <Icon symbol="list" aria-hidden="true" />
         </button>

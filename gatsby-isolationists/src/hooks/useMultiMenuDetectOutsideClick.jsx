@@ -24,7 +24,6 @@ const useDetectOutsideClick = (el, initialState) => {
     // If the item is active (ie open) then listen for clicks
     if (isActive) {
       window.addEventListener('click', pageClickEvent);
-      // console.log('active');
     }
 
     return () => {
