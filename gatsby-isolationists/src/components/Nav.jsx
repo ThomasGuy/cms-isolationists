@@ -2,8 +2,10 @@ import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 
 import { useTitleContext } from '../hooks/TitleContext';
-import BigNav from './BigNav';
-import SmallNav from './SmallNav';
+import MainNav from './MainNav';
+import '../styles/dropdown.css';
+// import BigNav from './BigNav';
+// import SmallNav from './SmallNav';
 
 export default function Nav() {
   const { title, subTitle } = useTitleContext();
@@ -32,14 +34,11 @@ export default function Nav() {
   `);
 
   return (
-    <>
-      <SmallNav
-        title={title}
-        subTitle={subTitle}
-        artists={artists}
-        subjects={subjects}
-      />
-      <BigNav title={title} subTitle={subTitle} artists={artists} subjects={subjects} />
-    </>
+    <MainNav
+      title={title}
+      subTitle={subTitle}
+      artists={artists.nodes}
+      subjects={subjects.nodes}
+    />
   );
 }

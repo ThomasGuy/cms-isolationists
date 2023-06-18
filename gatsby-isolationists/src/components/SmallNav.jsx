@@ -115,10 +115,6 @@ export default function SmallNav({ title, subTitle, artists, subjects }) {
   const dropdownRef = useRef(null);
   const [open, setOpen] = useMultiMenuDetectOutsideClick(dropdownRef, false);
 
-  // function handleMenu(evt) {
-  //   setOpen(state => !state);
-  // }
-
   return (
     <Navbar id="navigation" aria-labelledby="site-navigation">
       <TitleArea>

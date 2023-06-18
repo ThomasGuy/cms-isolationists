@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { mediaQuery } from './mediaQuery';
 
 // Dropdown styles
-export const Dropdown = styled.div`
+export const DropdownStyle = styled.div`
   position: absolute;
   top: calc(var(--navHeight) * 0.8);
   right: 0.4rem;
