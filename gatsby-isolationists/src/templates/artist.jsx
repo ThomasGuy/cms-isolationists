@@ -92,10 +92,10 @@ const ArtistPage = ({ data, pageContext }) => {
   return (
     <GalleryLayout width={imgWidth} span2={span2} modal={openModal}>
       {trail.map((props, idx) => {
-        const { image, id, ratio, sold, alt, title, imgStyle, imgTitle, ...others } =
+        const { image, key, ratio, sold, alt, title, imgStyle, imgTitle, ...others } =
           imgProps[idx];
         return (
-          <PictureBox className={addClass(ratio)} style={{ ...props }} key={id}>
+          <PictureBox className={addClass(ratio)} style={{ ...props }} key={key}>
             <SEO title={pageTitle} imageSrc={image.asset.url} />
             <GatsbyImage
               image={image.asset.gatsbyImageData}
