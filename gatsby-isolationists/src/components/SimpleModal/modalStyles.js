@@ -49,7 +49,7 @@ export const Box = styled(animated.div)`
 
   img {
     max-height: calc(100vh - 10rem);
-    width: auto;
     object-fit: contain;
+    margin: 0 auto;
   }
 `;

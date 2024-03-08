@@ -1,4 +1,5 @@
-import { BsLink45Deg as icon } from 'react-icons/bi';
+// import { BsLink45Deg as icon } from 'react-icons/bi';
+import { BiRuler as icon } from 'react-icons/bi';
 
 export default {
   // Computer name

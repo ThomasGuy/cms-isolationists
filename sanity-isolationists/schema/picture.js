@@ -1,18 +1,20 @@
 import { AiOutlinePicture as icon } from 'react-icons/ai';
+import {defineField, defineType} from 'sanity'
+import clientConfig from '../sanity'
 // eslint-disable-next-line import/no-unresolved
-import sanityClient from 'part:@sanity/base/client';
 
-const client = sanityClient.withConfig({
-  apiVersion: '2021-04-01',
-});
+const client = {
+  ...clientConfig,
+  apiVersion: '2021-04-01'
+}
 
-export default {
+export default defineType({
   name: 'picture',
   title: 'Picture',
   icon,
   type: 'document',
   fields: [
-    {
+    defineField({
       name: 'image',
       title: 'Image',
       type: 'image',
@@ -20,27 +22,27 @@ export default {
         hotspot: true,
       },
       validation: Rule => Rule.required(),
-    },
-    {
+    }),
+    defineField({
       name: 'artist',
       title: 'Artist',
       type: 'reference',
       to: [{ type: 'artist' }],
       validation: Rule => Rule.required(),
-    },
-    {
+    }),
+    defineField({
       name: 'subject',
       title: 'Subject',
       type: 'reference',
       to: [{ type: 'subject' }],
       validation: Rule => Rule.required(),
-    },
-    {
+    }),
+    defineField({
       name: 'pictureTitle',
       title: 'Picture Title (optional)',
       type: 'string',
-    },
-    {
+    }),
+    defineField({
       name: 'sold',
       title: 'Sold',
       type: 'boolean',
@@ -48,8 +50,8 @@ export default {
         layout: 'checkbox',
       },
       description: 'Mark this picture as sold',
-    },
-    {
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -62,19 +64,19 @@ export default {
         maxLength: 150,
       },
       validation: Rule => Rule.required(),
-    },
-    {
+    }),
+    defineField({
       name: 'dimensions',
       title: 'Image dimensions',
       type: 'dimensions',
       description: 'Image dimensions',
-    },
-    {
+    }),
+    defineField({
       name: 'order',
       title: 'Order',
       type: 'number',
       hidden: true,
-    },
+    }),
   ],
   orderings: [
     {
@@ -107,4 +109,4 @@ export default {
       };
     },
   },
-};
+});

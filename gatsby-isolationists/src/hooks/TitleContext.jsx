@@ -13,7 +13,7 @@ const TitleContextProvider = ({ children }) => {
       setPageTitle: setTitle,
       setSubtitle,
     }),
-    [title, subTitle]
+    [title, subTitle],
   );
 
   return <TitleContext.Provider value={value}>{children}</TitleContext.Provider>;

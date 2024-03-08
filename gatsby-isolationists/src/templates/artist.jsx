@@ -32,10 +32,8 @@ const ArtistPage = ({ data, pageContext }) => {
   mobile ? (span2 = 1) : (span2 = 2);
 
   const imgProps = data.pics.edges.map(({ node }, idx) => {
-    const { image, artist, subject, dimensions, id, sold } = node;
-    const imgTitle = dimensions
-      ? `${artist.name} - ${dimensions.width}x${dimensions.height}cm`
-      : `${artist.name}`;
+    const { image, artist, subject, title, dimensions, id, sold } = node;
+    const imgTitle = title ? `${artist.name} - ${title}` : `${artist.name}`;
     return {
       image,
       alt: subject.name,
@@ -75,7 +73,7 @@ const ArtistPage = ({ data, pageContext }) => {
         setOpen(true);
       }
     },
-    [setOpen, setIndex]
+    [setOpen, setIndex],
   );
 
   useEffect(() => {
@@ -94,10 +92,10 @@ const ArtistPage = ({ data, pageContext }) => {
   return (
     <GalleryLayout width={imgWidth} span2={span2} modal={openModal}>
       {trail.map((props, idx) => {
-        const { image, key, ratio, sold, alt, title, imgStyle, imgTitle, ...others } =
+        const { image, id, ratio, sold, alt, title, imgStyle, imgTitle, ...others } =
           imgProps[idx];
         return (
-          <PictureBox className={addClass(ratio)} style={{ ...props }} key={key}>
+          <PictureBox className={addClass(ratio)} style={{ ...props }} key={id}>
             <SEO title={pageTitle} imageSrc={image.asset.url} />
             <GatsbyImage
               image={image.asset.gatsbyImageData}
@@ -155,6 +153,7 @@ export const ARTIST_QUERY = graphql`
             width
             height
           }
+          title
         }
       }
     }

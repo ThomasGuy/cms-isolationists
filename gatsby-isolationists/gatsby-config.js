@@ -44,7 +44,8 @@ module.exports = {
       options: {
         ...sanity,
         watchMode: !isProd,
-        overlayDrafts: !isProd || previewEnabled, // drafts in dev & Gatsby Cloud Preview
+        // drafts in dev & Gatsby Cloud Preview
+        overlayDrafts: !isProd || previewEnabled,
       },
     },
     {
