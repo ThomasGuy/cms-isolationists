@@ -123,7 +123,10 @@ const ArtistPage = ({ data, pageContext }) => {
 
 export default ArtistPage;
 
-export const Head = () => <SEO />;
+export const Head = () => {
+  const title = ({ pageContext }) => pageContext.pageTitle;
+  return <SEO title={title} />;
+};
 
 export const ARTIST_QUERY = graphql`
   query ($slug: String!) {

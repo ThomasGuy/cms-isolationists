@@ -1,5 +1,3 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable no-param-reassign */
 function addClass(ratio) {
   switch (true) {
     case ratio < 0.58: // ratio 29/50

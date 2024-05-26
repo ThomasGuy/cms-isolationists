@@ -5,6 +5,8 @@
   "version": "0.1.0",
   "author": "Thomas Guy <twguy.webdev@gmail.com>",
   "dependencies": {
+    "@babel/eslint-parser": "^7.24.6",
+    "@babel/plugin-transform-async-generator-functions": "^7.24.6",
     "dotenv": "^10.0.0",
     "framer-motion": "^4.1.17",
     "gatsby": "^4.25.8",

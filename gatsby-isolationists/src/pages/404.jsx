@@ -27,13 +27,15 @@ const Spaced = styled.div`
 
 const NotFoundPage = () => {
   const { setPageTitle } = useTitleContext();
+  const pageTitle = '404 - page not found';
 
   useEffect(() => {
-    setPageTitle('404 - page not found');
+    setPageTitle(pageTitle);
   }, [setPageTitle]);
 
   return (
     <Spaced>
+      <SEO title={pageTitle} />
       <h1>NOT FOUND</h1>
       <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
       <br />
@@ -46,4 +48,4 @@ const NotFoundPage = () => {
 
 export default NotFoundPage;
 
-export const Head = () => <SEO />;
+// export const Head = () => <SEO />;

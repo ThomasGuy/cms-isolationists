@@ -104,6 +104,7 @@ const bioPages = async ({ graphql, actions, reporter }) => {
             slug {
               current
             }
+            name
           }
         }
       }
@@ -127,6 +128,7 @@ const bioPages = async ({ graphql, actions, reporter }) => {
       ownerNodeId,
       context: {
         slug,
+        pageTitle: node.name,
       },
     });
   });

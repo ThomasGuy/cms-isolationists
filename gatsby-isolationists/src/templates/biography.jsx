@@ -6,15 +6,16 @@ import SEO from '../components/Seo';
 import { Image, Grid, Row, Col, Title, Bio, OutsideLink, Comment } from '../styles';
 import { useTitleContext } from '../hooks/TitleContext';
 
-const BioPage = ({ data }) => {
-  const { id, biography, education, email, name, links, social, mainImage, mug } =
+const BioPage = ({ data, pageContext }) => {
+  const { id, biography, education, email, links, social, mainImage, mug } =
     data.bio.edges[0].node;
+  const { pageTitle } = pageContext;
   const { setPageTitle, setSubtitle } = useTitleContext();
 
   useEffect(() => {
-    setPageTitle(name);
+    setPageTitle(pageTitle);
     setSubtitle(false);
-  }, [name]);
+  }, [pageTitle]);
 
   function makeId(slug, idx) {
     return `${slug}-${idx}`;
@@ -23,16 +24,16 @@ const BioPage = ({ data }) => {
   return (
     <Grid>
       <Row>
-        <SanityImageBox name="" key={id} image={mainImage} alt={name} />
+        <SanityImageBox name="" key={id} image={mainImage} alt={pageTitle} />
       </Row>
 
       <Row>
         <Image width="200px">
-          <SanityImageBox name="" image={mug} alt={name} />
+          <SanityImageBox name="" image={mug} alt={pageTitle} />
         </Image>
         <Col>
           <Title>
-            {name}
+            {pageTitle}
             {'  '}
             <div id="cert">{education}</div>
           </Title>
@@ -69,7 +70,7 @@ const BioPage = ({ data }) => {
             <>
               {links.map((link, idx) => (
                 <OutsideLink key={makeId('link', idx)} href={`${link.href}`}>
-                  {link.name}
+                  {link.pageTitle}
                 </OutsideLink>
               ))}
             </>
@@ -115,7 +116,10 @@ const BioPage = ({ data }) => {
 
 export default BioPage;
 
-export const Head = () => <SEO />;
+export const Head = () => {
+  const title = ({ pageContext }) => pageContext.pageTitle;
+  return <SEO title={title} />;
+};
 
 export const query = graphql`
   query ($slug: String!) {

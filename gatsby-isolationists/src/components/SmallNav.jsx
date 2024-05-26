@@ -123,39 +123,37 @@ export default function SmallNav({ title, subTitle, artists, subjects }) {
   }
 
   return (
-    <>
-      <Navbar id="navigation" aria-labelledby="site-navigation">
-        <TitleArea>
-          <div className="heading">{title}</div>
-          {subTitle && (
-            <p>
-              All pictures for sale from £50 <span>email artist</span>
-            </p>
-          )}
-        </TitleArea>
-        <NavButton>
-          <button
-            id="burger-menu-button"
-            className="icon-button"
-            type="button"
-            onClick={handleMenu}
-            aria-label="menu button"
-            aria-haspopup="true"
-            aria-expanded="false"
-            aria-controls="menu-list">
-            <Icon symbol="list" aria-hidden="true" />
-          </button>
-          {open && (
-            <MultiDropdown
-              id="menu-list"
-              roll="menu"
-              dropref={dropdownRef}
-              artists={artists}
-              subjects={subjects}
-            />
-          )}
-        </NavButton>
-      </Navbar>
-    </>
+    <Navbar id="navigation" aria-labelledby="site-navigation">
+      <TitleArea>
+        <div className="heading">{title}</div>
+        {subTitle && (
+          <p>
+            All pictures for sale from £50 <span>email artist</span>
+          </p>
+        )}
+      </TitleArea>
+      <NavButton>
+        <button
+          id="burger-menu-button"
+          className="icon-button"
+          type="button"
+          onClick={handleMenu}
+          aria-label="menu button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="menu-list">
+          <Icon symbol="list" aria-hidden="true" />
+        </button>
+        {open && (
+          <MultiDropdown
+            id="menu-list"
+            roll="menu"
+            dropref={dropdownRef}
+            artists={artists}
+            subjects={subjects}
+          />
+        )}
+      </NavButton>
+    </Navbar>
   );
 }

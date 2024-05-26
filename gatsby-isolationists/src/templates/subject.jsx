@@ -132,7 +132,10 @@ const SubjectPage = ({ data, pageContext }) => {
 
 export default SubjectPage;
 
-export const Head = () => <SEO />;
+export const Head = () => {
+  const title = ({ pageContext }) => pageContext.pageTitle;
+  return <SEO title={title} />;
+};
 
 export const query = graphql`
   query ($slug: String!) {

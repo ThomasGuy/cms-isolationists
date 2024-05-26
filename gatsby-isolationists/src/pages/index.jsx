@@ -90,9 +90,8 @@ export default function Homepage() {
         {mugs.edges.map(({ node }) => {
           const { id, name, slug, mug } = node;
           return (
-            <li>
-              <Link key={id} className="artistLink" to={`/biography/${slug.current}`}>
-                <SEO title={name} imageSrc={mug.asset.url} />
+            <li key={id}>
+              <Link className="artistLink" to={`/biography/${slug.current}`}>
                 <GatsbyImage image={mug.asset.gatsbyImageData} alt={name} />
                 <h2>{name}</h2>
               </Link>
@@ -104,4 +103,5 @@ export default function Homepage() {
   );
 }
 
-export const Head = () => <SEO />;
+// eslint-disable-next-line no-unused-vars
+// export const Head = () => <SEO />;

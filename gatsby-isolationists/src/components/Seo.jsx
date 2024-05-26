@@ -1,16 +1,11 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import useSiteMetadata from '../hooks/use-site-metadata';
 
 function SEO({ children, location, pathname, description, title, imageSrc }) {
-  const {
-    title: siteTitle,
-    description: siteDescription,
-    siteUrl,
-    image,
-    author,
-  } = useSiteMetadata();
+  const { siteTitle, siteDescription, siteUrl, image, author } = useSiteMetadata();
 
   const seo = {
     title: title || siteTitle,
@@ -23,7 +18,6 @@ function SEO({ children, location, pathname, description, title, imageSrc }) {
   return (
     <>
       <title>{seo.title}</title>
-      <html lang="en" />
       <link rel="icon" type="image/png" href="/favicon.ico" />
       <link rel="alternate icon" href="/favicon.ico" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -46,18 +40,14 @@ function SEO({ children, location, pathname, description, title, imageSrc }) {
   );
 }
 
-SEO.defaultProps = {
-  lang: `en`,
-  // eslint-disable-next-line react/default-props-match-prop-types
-  meta: [],
-  description: ``,
+SEO.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string,
 };
 
-SEO.propTypes = {
-  description: PropTypes.string,
-  lang: PropTypes.string,
-  // meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired,
-};
+// SEO.defaultProps = {
+//   description: ``,
+//   title: ``.isRequired,
+// };
 
 export default SEO;
